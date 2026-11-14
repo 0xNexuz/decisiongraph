@@ -11,7 +11,7 @@ DecisionGraph keeps decisions in [HydraDB](https://github.com/hydra-db/hydradb) 
 Built for the HydraDB Hackathon (Nov 14–16, 2026). It covers **Track 1, a graph that improves itself**, and **Track 2, a context layer for agents** (it has an MCP server).
 
 - **Live app:** https://decisiongraph-latest.onrender.com/ (free host: the first visit after a quiet spell can take about a minute to wake up)
-- **Walkthrough video:** _add the YouTube link here_
+- **Walkthrough video:** https://youtu.be/ChWL-frv5v8
 - **Use it from an agent:** an MCP server in [`agent/`](agent/decisiongraph_mcp.py)
 
 ### One question, two answers
@@ -19,6 +19,16 @@ Built for the HydraDB Hackathon (Nov 14–16, 2026). It covers **Track 1, a grap
 Asked *"Does each business unit get its own Cloud Platform cluster now?"*, vector search returns the closest text: a 2019 decision to run one cluster, replaced three times since. DecisionGraph lands on the same record, then walks the "replaced by" links in HydraDB to the decision that stands today, and hands the agent that decision and its history in 97 tokens instead of 307.
 
 ![Vector search returns a replaced 2019 decision; DecisionGraph walks three replaced-by links to the current one](docs/images/answer.png)
+
+## The three things the judges asked for
+
+All numbers come from the same 50-question test, answered before each correction (test-then-train), averaged over five question orders. Brackets are 95% intervals from resampling the 50 questions (`ci` in `data/results.json`). Differences between systems are paired: the same questions resampled for both.
+
+| Judging question | Answer | Evidence |
+|---|---|---|
+| **Right metrics:** did you measure what matters? | We measure whether the agent gets the decision that **still stands**, how often it gets an **outdated** one, and how many **tokens** it hands the agent. | 80% right [70%–90%] vs 52% [38%–66%] for vector search. Outdated answers 10% vs 28%. 24 held-out questions from an independent reviewer: 96% vs 42%. Says "no decision on record" for 92% of 12 out-of-scope questions. |
+| **Continual learning over a baseline:** real improvement, not a one-off? | The baseline is the **same graph with learning switched off**, run on the same question orders. | +14 points in rounds 4–5 [+1 to +28]. +23 points when a topic comes back in new words [+7 to +40]. It costs 4 points on brand-new topics [−9 to 0], and over all 50 questions the gain (+6, [−1 to +15]) is too close to call. |
+| **Impact of HydraDB and the graph:** would it fall apart on a plain store? | We built the **strongest plain store we could**: vector search, drop records whose status says superseded, prefer the newest close match, and remember past corrections, with its settings tuned to give it its best score. | Plain store 56% right [43%–69%]; DecisionGraph is +25 points better [+10 to +40]. The plain store rarely returns a replaced record (4%), but often the wrong one: a status line can hide an old record, it can't say which record replaced it. Removing the walk along HydraDB links drops DecisionGraph from 74% to 62%. |
 
 ## Results
 
@@ -32,6 +42,7 @@ The test set is 50 hand-written questions about 128 real architecture decision r
 |---|---|---|---|---|---|
 | Vector search (MiniLM, top 3 passages) | 52% | 28% | 40% → 52% | 33% | 64% |
 | Vector search + memory of past corrections | 57% | 22% | 40% → 62% | 47% | 63% |
+| Best plain store: vector + status filter + newest + memory | 56% | 4% | 48% → 62% | 62% | 52% |
 | DecisionGraph seeding only, no walk (ablation) | 62% | 32% | 46% → 58% | 45% | 72% |
 | DecisionGraph, learning off | 74% | 18% | 60% → 72% | 61% | **82%** |
 | **DecisionGraph, learning on** | **80%** | **10%** | 60% → **88%** | **84%** | 78% |
@@ -79,6 +90,7 @@ The file also has 12 out-of-scope questions with no answer in the records, such 
 |---|---|---|---|---|
 | Vector search | 21% | 70% | 42% | 100% |
 | Vector search + memory | 86% | 70% | 79% | 100% |
+| Best plain store | 86% | 50% | 71% | 100% |
 | DecisionGraph, learning off | 57% | 100% | 75% | 100% |
 | **DecisionGraph, after learning** | **93%** | **100%** | **96%** | 92% |
 
@@ -178,11 +190,6 @@ The same thing is available over HTTP: `POST /api/ask {"q": "..."}` returns `gra
 ## Who it's for
 
 Platform and engineering teams with dozens of decision records (ADRs, RFCs, design docs) who let coding agents work in their repos. Every outdated decision an agent acts on becomes a review comment, a revert or an incident.
-
-How it would be sold:
-- Open source and self-hosted: free.
-- Hosted Team, up to 1,000 decisions: $49 a month.
-- Organisation, with every repo, SSO and an audit trail of corrections: $199 a month.
 
 ## Run it locally
 

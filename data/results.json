@@ -144,6 +144,73 @@
       "ms": 0.2
      }
     },
+    "plain-store": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.1,
+       "tokens": 147.7,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 169.8,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.625
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.333,
+       "accuracy": 0.4,
+       "stale_rate": 0.1,
+       "tokens": 81.9,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.429
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 5,
+       "repeat_acc": 0.8,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 95.8,
+       "first_seen_n": 5,
+       "first_seen_acc": 0.6
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.429,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 86.9,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.667
+      }
+     ],
+     "overall": {
+      "accuracy": 0.58,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.548,
+      "stale_rate": 0.04,
+      "tokens": 116.4,
+      "ms": 0.2
+     }
+    },
     "decisiongraph": {
      "rounds": [
       {
@@ -208,7 +275,7 @@
       "first_seen_acc": 0.742,
       "stale_rate": 0.12,
       "tokens": 127.1,
-      "ms": 82.9
+      "ms": 43.8
      }
     },
     "decisiongraph-frozen": {
@@ -275,7 +342,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 33.5
+      "ms": 27.3
      }
     },
     "seeds-only": {
@@ -342,7 +409,7 @@
       "first_seen_acc": 0.71,
       "stale_rate": 0.32,
       "tokens": 129.7,
-      "ms": 5.8
+      "ms": 4.9
      }
     }
    }
@@ -484,6 +551,73 @@
       "ms": 0.2
      }
     },
+    "plain-store": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.3,
+       "stale_rate": 0.1,
+       "tokens": 96.3,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.25
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.1,
+       "tokens": 148.0,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.5,
+       "accuracy": 0.4,
+       "stale_rate": 0.0,
+       "tokens": 151.4,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.25
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.8,
+       "stale_rate": 0.0,
+       "tokens": 73.7,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 105.0,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      }
+     ],
+     "overall": {
+      "accuracy": 0.56,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.516,
+      "stale_rate": 0.04,
+      "tokens": 114.9,
+      "ms": 0.1
+     }
+    },
     "decisiongraph": {
      "rounds": [
       {
@@ -548,7 +682,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.08,
       "tokens": 129.8,
-      "ms": 55.7
+      "ms": 55.3
      }
     },
     "decisiongraph-frozen": {
@@ -615,7 +749,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 33.2
+      "ms": 36.3
      }
     },
     "seeds-only": {
@@ -682,7 +816,7 @@
       "first_seen_acc": 0.677,
       "stale_rate": 0.32,
       "tokens": 129.7,
-      "ms": 5.7
+      "ms": 5.8
      }
     }
    }
@@ -824,6 +958,73 @@
       "ms": 0.2
      }
     },
+    "plain-store": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.2,
+       "tokens": 95.5,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 129.4,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 154.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.429
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.714,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 99.5,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.714,
+       "accuracy": 0.6,
+       "stale_rate": 0.0,
+       "tokens": 91.6,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.333
+      }
+     ],
+     "overall": {
+      "accuracy": 0.56,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.516,
+      "stale_rate": 0.04,
+      "tokens": 114.2,
+      "ms": 0.2
+     }
+    },
     "decisiongraph": {
      "rounds": [
       {
@@ -888,7 +1089,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.1,
       "tokens": 129.7,
-      "ms": 67.0
+      "ms": 56.2
      }
     },
     "decisiongraph-frozen": {
@@ -955,7 +1156,7 @@
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 52.1
+      "ms": 23.0
      }
     },
     "seeds-only": {
@@ -1022,7 +1223,7 @@
       "first_seen_acc": 0.742,
       "stale_rate": 0.32,
       "tokens": 129.7,
-      "ms": 8.1
+      "ms": 4.7
      }
     }
    }
@@ -1161,7 +1362,74 @@
       "first_seen_acc": 0.645,
       "stale_rate": 0.2,
       "tokens": 598.4,
-      "ms": 0.3
+      "ms": 0.2
+     }
+    },
+    "plain-store": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 0,
+       "repeat_acc": null,
+       "accuracy": 0.5,
+       "stale_rate": 0.1,
+       "tokens": 97.7,
+       "first_seen_n": 10,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.5,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 159.3,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.833
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.75,
+       "accuracy": 0.4,
+       "stale_rate": 0.0,
+       "tokens": 148.9,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.167
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 100.1,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.286
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 8,
+       "repeat_acc": 0.5,
+       "accuracy": 0.6,
+       "stale_rate": 0.0,
+       "tokens": 70.2,
+       "first_seen_n": 2,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.54,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.484,
+      "stale_rate": 0.02,
+      "tokens": 115.2,
+      "ms": 0.2
      }
     },
     "decisiongraph": {
@@ -1228,7 +1496,7 @@
       "first_seen_acc": 0.774,
       "stale_rate": 0.1,
       "tokens": 126.7,
-      "ms": 43.9
+      "ms": 47.7
      }
     },
     "decisiongraph-frozen": {
@@ -1295,7 +1563,7 @@
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 28.0
+      "ms": 32.4
      }
     },
     "seeds-only": {
@@ -1362,7 +1630,7 @@
       "first_seen_acc": 0.774,
       "stale_rate": 0.32,
       "tokens": 129.7,
-      "ms": 5.4
+      "ms": 5.8
      }
     }
    }
@@ -1504,6 +1772,73 @@
       "ms": 0.2
      }
     },
+    "plain-store": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.1,
+       "tokens": 76.5,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 136.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.429
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.5,
+       "accuracy": 0.5,
+       "stale_rate": 0.1,
+       "tokens": 130.7,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.5,
+       "stale_rate": 0.0,
+       "tokens": 106.4,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.714,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 132.3,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.667
+      }
+     ],
+     "overall": {
+      "accuracy": 0.54,
+      "repeat_acc": 0.579,
+      "first_seen_acc": 0.516,
+      "stale_rate": 0.04,
+      "tokens": 116.5,
+      "ms": 0.2
+     }
+    },
     "decisiongraph": {
      "rounds": [
       {
@@ -1568,7 +1903,7 @@
       "first_seen_acc": 0.774,
       "stale_rate": 0.1,
       "tokens": 131.3,
-      "ms": 57.0
+      "ms": 58.0
      }
     },
     "decisiongraph-frozen": {
@@ -1635,7 +1970,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 33.3
+      "ms": 33.6
      }
     },
     "seeds-only": {
@@ -1702,7 +2037,7 @@
       "first_seen_acc": 0.71,
       "stale_rate": 0.32,
       "tokens": 129.7,
-      "ms": 6.4
+      "ms": 5.5
      }
     }
    }
@@ -3539,6 +3874,260 @@
      "want": null
     }
    ],
+   "plain-store": [
+    {
+     "id": "h01",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:40",
+     "want": "cloud-platform:40"
+    },
+    {
+     "id": "h02",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:22",
+     "want": "cloud-platform:22"
+    },
+    {
+     "id": "h03",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:23",
+     "want": "cloud-platform:23"
+    },
+    {
+     "id": "h04",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:19",
+     "want": "cloud-platform:19"
+    },
+    {
+     "id": "h05",
+     "kind": "rep",
+     "ok": true,
+     "got": "modernisation-platform:19",
+     "want": "modernisation-platform:19"
+    },
+    {
+     "id": "h06",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:15",
+     "want": "govuk-aws:15"
+    },
+    {
+     "id": "h07",
+     "kind": "rep",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "govuk-aws:33"
+    },
+    {
+     "id": "h08",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:38",
+     "want": "govuk-aws:38"
+    },
+    {
+     "id": "h09",
+     "kind": "rep",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:3"
+    },
+    {
+     "id": "h10",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h11",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h12",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:49",
+     "want": "cloud-platform:49"
+    },
+    {
+     "id": "h13",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:46",
+     "want": "cloud-platform:46"
+    },
+    {
+     "id": "h14",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:17",
+     "want": "govuk-aws:17"
+    },
+    {
+     "id": "h15",
+     "kind": "new",
+     "ok": false,
+     "got": null,
+     "want": "modernisation-platform:5"
+    },
+    {
+     "id": "h16",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:22",
+     "want": "modernisation-platform:15"
+    },
+    {
+     "id": "h17",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:35",
+     "want": "cloud-platform:35"
+    },
+    {
+     "id": "h18",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:14"
+    },
+    {
+     "id": "h19",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:25",
+     "want": "govuk-aws:18"
+    },
+    {
+     "id": "h20",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "modernisation-platform:24"
+    },
+    {
+     "id": "h21",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:39",
+     "want": "govuk-aws:39"
+    },
+    {
+     "id": "h22",
+     "kind": "new",
+     "ok": true,
+     "got": "modernisation-platform:26",
+     "want": "modernisation-platform:26"
+    },
+    {
+     "id": "h23",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:19",
+     "want": "govuk-aws:19"
+    },
+    {
+     "id": "h24",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:5",
+     "want": "cloud-platform:5"
+    },
+    {
+     "id": "o01",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o02",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o03",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o04",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o05",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o06",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o07",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o08",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o09",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o10",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o11",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o12",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    }
+   ],
    "decisiongraph": [
     {
      "id": "h01",
@@ -4811,6 +5400,260 @@
      "want": null
     }
    ],
+   "plain-store": [
+    {
+     "id": "h01",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:40",
+     "want": "cloud-platform:40"
+    },
+    {
+     "id": "h02",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:22",
+     "want": "cloud-platform:22"
+    },
+    {
+     "id": "h03",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:23",
+     "want": "cloud-platform:23"
+    },
+    {
+     "id": "h04",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:19",
+     "want": "cloud-platform:19"
+    },
+    {
+     "id": "h05",
+     "kind": "rep",
+     "ok": true,
+     "got": "modernisation-platform:19",
+     "want": "modernisation-platform:19"
+    },
+    {
+     "id": "h06",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:15",
+     "want": "govuk-aws:15"
+    },
+    {
+     "id": "h07",
+     "kind": "rep",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "govuk-aws:33"
+    },
+    {
+     "id": "h08",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:38",
+     "want": "govuk-aws:38"
+    },
+    {
+     "id": "h09",
+     "kind": "rep",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:3"
+    },
+    {
+     "id": "h10",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h11",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h12",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:49",
+     "want": "cloud-platform:49"
+    },
+    {
+     "id": "h13",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:46",
+     "want": "cloud-platform:46"
+    },
+    {
+     "id": "h14",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:17",
+     "want": "govuk-aws:17"
+    },
+    {
+     "id": "h15",
+     "kind": "new",
+     "ok": false,
+     "got": null,
+     "want": "modernisation-platform:5"
+    },
+    {
+     "id": "h16",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:22",
+     "want": "modernisation-platform:15"
+    },
+    {
+     "id": "h17",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:35",
+     "want": "cloud-platform:35"
+    },
+    {
+     "id": "h18",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:14"
+    },
+    {
+     "id": "h19",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:25",
+     "want": "govuk-aws:18"
+    },
+    {
+     "id": "h20",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "modernisation-platform:24"
+    },
+    {
+     "id": "h21",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:39",
+     "want": "govuk-aws:39"
+    },
+    {
+     "id": "h22",
+     "kind": "new",
+     "ok": true,
+     "got": "modernisation-platform:26",
+     "want": "modernisation-platform:26"
+    },
+    {
+     "id": "h23",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:19",
+     "want": "govuk-aws:19"
+    },
+    {
+     "id": "h24",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:5",
+     "want": "cloud-platform:5"
+    },
+    {
+     "id": "o01",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o02",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o03",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o04",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o05",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o06",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o07",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o08",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o09",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o10",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o11",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o12",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    }
+   ],
    "decisiongraph": [
     {
      "id": "h01",
@@ -6083,6 +6926,260 @@
      "want": null
     }
    ],
+   "plain-store": [
+    {
+     "id": "h01",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:40",
+     "want": "cloud-platform:40"
+    },
+    {
+     "id": "h02",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:22",
+     "want": "cloud-platform:22"
+    },
+    {
+     "id": "h03",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:23",
+     "want": "cloud-platform:23"
+    },
+    {
+     "id": "h04",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:19",
+     "want": "cloud-platform:19"
+    },
+    {
+     "id": "h05",
+     "kind": "rep",
+     "ok": true,
+     "got": "modernisation-platform:19",
+     "want": "modernisation-platform:19"
+    },
+    {
+     "id": "h06",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:15",
+     "want": "govuk-aws:15"
+    },
+    {
+     "id": "h07",
+     "kind": "rep",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "govuk-aws:33"
+    },
+    {
+     "id": "h08",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:38",
+     "want": "govuk-aws:38"
+    },
+    {
+     "id": "h09",
+     "kind": "rep",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:3"
+    },
+    {
+     "id": "h10",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h11",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h12",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:49",
+     "want": "cloud-platform:49"
+    },
+    {
+     "id": "h13",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:46",
+     "want": "cloud-platform:46"
+    },
+    {
+     "id": "h14",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:17",
+     "want": "govuk-aws:17"
+    },
+    {
+     "id": "h15",
+     "kind": "new",
+     "ok": false,
+     "got": null,
+     "want": "modernisation-platform:5"
+    },
+    {
+     "id": "h16",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:22",
+     "want": "modernisation-platform:15"
+    },
+    {
+     "id": "h17",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:35",
+     "want": "cloud-platform:35"
+    },
+    {
+     "id": "h18",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:14"
+    },
+    {
+     "id": "h19",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:25",
+     "want": "govuk-aws:18"
+    },
+    {
+     "id": "h20",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "modernisation-platform:24"
+    },
+    {
+     "id": "h21",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:39",
+     "want": "govuk-aws:39"
+    },
+    {
+     "id": "h22",
+     "kind": "new",
+     "ok": true,
+     "got": "modernisation-platform:26",
+     "want": "modernisation-platform:26"
+    },
+    {
+     "id": "h23",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:19",
+     "want": "govuk-aws:19"
+    },
+    {
+     "id": "h24",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:5",
+     "want": "cloud-platform:5"
+    },
+    {
+     "id": "o01",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o02",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o03",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o04",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o05",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o06",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o07",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o08",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o09",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o10",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o11",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o12",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    }
+   ],
    "decisiongraph": [
     {
      "id": "h01",
@@ -7240,6 +8337,260 @@
      "kind": "new",
      "ok": false,
      "got": "modernisation-platform:11",
+     "want": "modernisation-platform:24"
+    },
+    {
+     "id": "h21",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:39",
+     "want": "govuk-aws:39"
+    },
+    {
+     "id": "h22",
+     "kind": "new",
+     "ok": true,
+     "got": "modernisation-platform:26",
+     "want": "modernisation-platform:26"
+    },
+    {
+     "id": "h23",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:19",
+     "want": "govuk-aws:19"
+    },
+    {
+     "id": "h24",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:5",
+     "want": "cloud-platform:5"
+    },
+    {
+     "id": "o01",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o02",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o03",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o04",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o05",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o06",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o07",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o08",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o09",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o10",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o11",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o12",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    }
+   ],
+   "plain-store": [
+    {
+     "id": "h01",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:40",
+     "want": "cloud-platform:40"
+    },
+    {
+     "id": "h02",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:22",
+     "want": "cloud-platform:22"
+    },
+    {
+     "id": "h03",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:23",
+     "want": "cloud-platform:23"
+    },
+    {
+     "id": "h04",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:19",
+     "want": "cloud-platform:19"
+    },
+    {
+     "id": "h05",
+     "kind": "rep",
+     "ok": true,
+     "got": "modernisation-platform:19",
+     "want": "modernisation-platform:19"
+    },
+    {
+     "id": "h06",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:15",
+     "want": "govuk-aws:15"
+    },
+    {
+     "id": "h07",
+     "kind": "rep",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "govuk-aws:33"
+    },
+    {
+     "id": "h08",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:38",
+     "want": "govuk-aws:38"
+    },
+    {
+     "id": "h09",
+     "kind": "rep",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:3"
+    },
+    {
+     "id": "h10",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h11",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h12",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:49",
+     "want": "cloud-platform:49"
+    },
+    {
+     "id": "h13",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:46",
+     "want": "cloud-platform:46"
+    },
+    {
+     "id": "h14",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:17",
+     "want": "govuk-aws:17"
+    },
+    {
+     "id": "h15",
+     "kind": "new",
+     "ok": false,
+     "got": null,
+     "want": "modernisation-platform:5"
+    },
+    {
+     "id": "h16",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:22",
+     "want": "modernisation-platform:15"
+    },
+    {
+     "id": "h17",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:35",
+     "want": "cloud-platform:35"
+    },
+    {
+     "id": "h18",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:14"
+    },
+    {
+     "id": "h19",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:25",
+     "want": "govuk-aws:18"
+    },
+    {
+     "id": "h20",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:36",
      "want": "modernisation-platform:24"
     },
     {
@@ -8512,6 +9863,260 @@
      "kind": "new",
      "ok": false,
      "got": "modernisation-platform:11",
+     "want": "modernisation-platform:24"
+    },
+    {
+     "id": "h21",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:39",
+     "want": "govuk-aws:39"
+    },
+    {
+     "id": "h22",
+     "kind": "new",
+     "ok": true,
+     "got": "modernisation-platform:26",
+     "want": "modernisation-platform:26"
+    },
+    {
+     "id": "h23",
+     "kind": "new",
+     "ok": true,
+     "got": "govuk-aws:19",
+     "want": "govuk-aws:19"
+    },
+    {
+     "id": "h24",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:5",
+     "want": "cloud-platform:5"
+    },
+    {
+     "id": "o01",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o02",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o03",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o04",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o05",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o06",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o07",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o08",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o09",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o10",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o11",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    },
+    {
+     "id": "o12",
+     "kind": "oos",
+     "ok": true,
+     "got": null,
+     "want": null
+    }
+   ],
+   "plain-store": [
+    {
+     "id": "h01",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:40",
+     "want": "cloud-platform:40"
+    },
+    {
+     "id": "h02",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:22",
+     "want": "cloud-platform:22"
+    },
+    {
+     "id": "h03",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:23",
+     "want": "cloud-platform:23"
+    },
+    {
+     "id": "h04",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:19",
+     "want": "cloud-platform:19"
+    },
+    {
+     "id": "h05",
+     "kind": "rep",
+     "ok": true,
+     "got": "modernisation-platform:19",
+     "want": "modernisation-platform:19"
+    },
+    {
+     "id": "h06",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:15",
+     "want": "govuk-aws:15"
+    },
+    {
+     "id": "h07",
+     "kind": "rep",
+     "ok": false,
+     "got": "govuk-aws:36",
+     "want": "govuk-aws:33"
+    },
+    {
+     "id": "h08",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:38",
+     "want": "govuk-aws:38"
+    },
+    {
+     "id": "h09",
+     "kind": "rep",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:3"
+    },
+    {
+     "id": "h10",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h11",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:48",
+     "want": "cloud-platform:48"
+    },
+    {
+     "id": "h12",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:49",
+     "want": "cloud-platform:49"
+    },
+    {
+     "id": "h13",
+     "kind": "rep",
+     "ok": true,
+     "got": "cloud-platform:46",
+     "want": "cloud-platform:46"
+    },
+    {
+     "id": "h14",
+     "kind": "rep",
+     "ok": true,
+     "got": "govuk-aws:17",
+     "want": "govuk-aws:17"
+    },
+    {
+     "id": "h15",
+     "kind": "new",
+     "ok": false,
+     "got": null,
+     "want": "modernisation-platform:5"
+    },
+    {
+     "id": "h16",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:22",
+     "want": "modernisation-platform:15"
+    },
+    {
+     "id": "h17",
+     "kind": "new",
+     "ok": true,
+     "got": "cloud-platform:35",
+     "want": "cloud-platform:35"
+    },
+    {
+     "id": "h18",
+     "kind": "new",
+     "ok": false,
+     "got": "modernisation-platform:28",
+     "want": "modernisation-platform:14"
+    },
+    {
+     "id": "h19",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:25",
+     "want": "govuk-aws:18"
+    },
+    {
+     "id": "h20",
+     "kind": "new",
+     "ok": false,
+     "got": "govuk-aws:36",
      "want": "modernisation-platform:24"
     },
     {
@@ -9516,6 +11121,68 @@
     "ms": 0.2
    }
   },
+  "plain-store": {
+   "rounds": [
+    {
+     "round": 1,
+     "accuracy": 0.48,
+     "accuracy_min": 0.3,
+     "accuracy_max": 0.6,
+     "stale_rate": 0.12,
+     "tokens": 102.7,
+     "first_seen_acc": 0.472,
+     "repeat_acc": 0.375
+    },
+    {
+     "round": 2,
+     "accuracy": 0.6,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.7,
+     "stale_rate": 0.02,
+     "tokens": 148.7,
+     "first_seen_acc": 0.639,
+     "repeat_acc": 0.433
+    },
+    {
+     "round": 3,
+     "accuracy": 0.44,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.5,
+     "stale_rate": 0.04,
+     "tokens": 133.5,
+     "first_seen_acc": 0.355,
+     "repeat_acc": 0.55
+    },
+    {
+     "round": 4,
+     "accuracy": 0.64,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.0,
+     "tokens": 95.1,
+     "first_seen_acc": 0.561,
+     "repeat_acc": 0.769
+    },
+    {
+     "round": 5,
+     "accuracy": 0.62,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.7,
+     "stale_rate": 0.0,
+     "tokens": 97.2,
+     "first_seen_acc": 0.648,
+     "repeat_acc": 0.671
+    }
+   ],
+   "overall": {
+    "accuracy": 0.556,
+    "repeat_acc": 0.621,
+    "first_seen_acc": 0.516,
+    "stale_rate": 0.036,
+    "tokens": 115.4,
+    "ms": 0.2
+   }
+  },
   "seeds-only": {
    "rounds": [
     {
@@ -9575,7 +11242,7 @@
     "first_seen_acc": 0.723,
     "stale_rate": 0.32,
     "tokens": 129.7,
-    "ms": 6.3
+    "ms": 5.3
    }
   },
   "decisiongraph-frozen": {
@@ -9637,7 +11304,7 @@
     "first_seen_acc": 0.819,
     "stale_rate": 0.18,
     "tokens": 135.3,
-    "ms": 36.0
+    "ms": 30.5
    }
   },
   "decisiongraph": {
@@ -9699,7 +11366,7 @@
     "first_seen_acc": 0.78,
     "stale_rate": 0.1,
     "tokens": 128.9,
-    "ms": 61.3
+    "ms": 52.2
    }
   }
  },
@@ -9715,6 +11382,12 @@
    "new": 0.7,
    "out_of_scope": 1.0,
    "all_heldout": 0.792
+  },
+  "plain-store": {
+   "rep": 0.857,
+   "new": 0.5,
+   "out_of_scope": 1.0,
+   "all_heldout": 0.708
   },
   "seeds-only": {
    "rep": 0.357,
@@ -9733,6 +11406,153 @@
    "new": 1.0,
    "out_of_scope": 0.917,
    "all_heldout": 0.958
+  }
+ },
+ "ci": {
+  "systems": {
+   "vector": {
+    "accuracy": 0.52,
+    "accuracy_ci": [
+     0.38,
+     0.66
+    ],
+    "stale_rate": 0.28,
+    "stale_ci": [
+     0.16,
+     0.42
+    ]
+   },
+   "vector+memory": {
+    "accuracy": 0.568,
+    "accuracy_ci": [
+     0.444,
+     0.692
+    ],
+    "stale_rate": 0.224,
+    "stale_ci": [
+     0.124,
+     0.336
+    ]
+   },
+   "plain-store": {
+    "accuracy": 0.556,
+    "accuracy_ci": [
+     0.428,
+     0.688
+    ],
+    "stale_rate": 0.036,
+    "stale_ci": [
+     0.0,
+     0.08
+    ]
+   },
+   "decisiongraph": {
+    "accuracy": 0.804,
+    "accuracy_ci": [
+     0.704,
+     0.9
+    ],
+    "stale_rate": 0.1,
+    "stale_ci": [
+     0.036,
+     0.176
+    ]
+   },
+   "decisiongraph-frozen": {
+    "accuracy": 0.74,
+    "accuracy_ci": [
+     0.62,
+     0.86
+    ],
+    "stale_rate": 0.18,
+    "stale_ci": [
+     0.08,
+     0.28
+    ]
+   },
+   "seeds-only": {
+    "accuracy": 0.62,
+    "accuracy_ci": [
+     0.48,
+     0.76
+    ],
+    "stale_rate": 0.32,
+    "stale_ci": [
+     0.2,
+     0.46
+    ]
+   }
+  },
+  "diff_vs_decisiongraph": {
+   "vector": {
+    "points": 0.284,
+    "ci": [
+     0.16,
+     0.416
+    ]
+   },
+   "vector+memory": {
+    "points": 0.236,
+    "ci": [
+     0.128,
+     0.36
+    ]
+   },
+   "plain-store": {
+    "points": 0.248,
+    "ci": [
+     0.104,
+     0.396
+    ]
+   },
+   "decisiongraph-frozen": {
+    "points": 0.064,
+    "ci": [
+     -0.008,
+     0.148
+    ]
+   },
+   "seeds-only": {
+    "points": 0.184,
+    "ci": [
+     0.076,
+     0.304
+    ]
+   }
+  },
+  "learning_vs_frozen": {
+   "all": {
+    "points": 0.064,
+    "ci": [
+     -0.008,
+     0.148
+    ],
+    "n": 250
+   },
+   "rounds_4_5": {
+    "points": 0.14,
+    "ci": [
+     0.011,
+     0.281
+    ],
+    "n": 100
+   },
+   "repeat_topic": {
+    "points": 0.232,
+    "ci": [
+     0.074,
+     0.404
+    ],
+    "n": 95
+   },
+   "first_seen": {
+    "points": -0.039,
+    "ci": [
+     -0.092,
+     0.0
+    ],
+    "n": 155
+   }
   }
  }
 }

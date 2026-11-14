@@ -24,9 +24,42 @@ import numpy as np
 
 from .corpus import DATA, build, chunks as make_chunks
 from .embed import embed, embed_cached, _load
-from .vector import VectorRAG, VectorRAGMemory
+from .vector import PlainStore, VectorRAG, VectorRAGMemory
 
 ROUNDS = 5
+NAMES = ["vector", "vector+memory", "plain-store", "seeds-only", "decisiongraph-frozen", "decisiongraph"]
+
+
+def confidence(per_q, n_boot=4000, seed=0):
+    """95% intervals by resampling the 50 questions (each question's score is its mean over the
+    five question orders). Differences are paired: the same resampled questions for both systems."""
+    rng = np.random.default_rng(seed)
+    qids = sorted(per_q["decisiongraph"])
+    acc = {k: np.array([np.mean([o[0] for o in v[q]]) for q in qids]) for k, v in per_q.items()}
+    stale = {k: np.array([np.mean([o[1] for o in v[q]]) for q in qids]) for k, v in per_q.items()}
+    idx = rng.integers(0, len(qids), size=(n_boot, len(qids)))
+    ci = lambda x: [round(float(np.percentile(x, 2.5)), 3), round(float(np.percentile(x, 97.5)), 3)]
+    out = {"systems": {}, "diff_vs_decisiongraph": {}}
+    for k in acc:
+        out["systems"][k] = dict(accuracy=round(float(acc[k].mean()), 3), accuracy_ci=ci(acc[k][idx].mean(1)),
+                                 stale_rate=round(float(stale[k].mean()), 3), stale_ci=ci(stale[k][idx].mean(1)))
+        if k != "decisiongraph":
+            d = acc["decisiongraph"] - acc[k]
+            out["diff_vs_decisiongraph"][k] = dict(points=round(float(d.mean()), 3), ci=ci(d[idx].mean(1)))
+    # learning on vs off on subsets of the stream, paired by (order, question), resampling whole questions
+    L, F = per_q["decisiongraph"], per_q["decisiongraph-frozen"]
+
+    def subset(keep):
+        num = np.zeros(len(qids)); cnt = np.zeros(len(qids))
+        for i, q in enumerate(qids):
+            for a, b in zip(L[q], F[q]):
+                if keep(a):
+                    num[i] += a[0] - b[0]; cnt[i] += 1
+        boot = num[idx].sum(1) / np.maximum(cnt[idx].sum(1), 1)
+        return dict(points=round(float(num.sum() / cnt.sum()), 3), ci=ci(boot), n=int(cnt.sum()))
+    out["learning_vs_frozen"] = dict(all=subset(lambda a: True), rounds_4_5=subset(lambda a: a[2] >= 3),
+                                     repeat_topic=subset(lambda a: not a[3]), first_seen=subset(lambda a: a[3]))
+    return out
 
 
 def count_tokens(text):
@@ -150,6 +183,7 @@ def main(seeds=(7, 11, 23, 42, 99)):
     qvecs = {q["id"]: qv[i] for i, q in enumerate(questions)}
     vec = VectorRAG(recs, ch, cvecs)
     mem = VectorRAGMemory(recs, ch, cvecs)
+    plain = PlainStore(recs, ch, cvecs)
     graph = DecisionGraph(recs, per, idf, links, vec)
     H = json.load(open(os.path.join(DATA, "heldout.json")))
     heldout, oos = H["heldout"], H["out_of_scope"]
@@ -157,27 +191,32 @@ def main(seeds=(7, 11, 23, 42, 99)):
     hvecs = {x["id"]: hv[i] for i, x in enumerate(heldout + oos)}
     report = dict(seeds=list(seeds), runs=[], questions=len(questions), decisions=len(recs),
                   candidate_links=len(links))
+    per_q = {}
     for sd in seeds:
         mem.reset()
+        plain.reset()
         graph.load()
-        res, log = run([vec, mem, graph], questions, qvecs, sd, verbose=(sd == seeds[0]))
+        res, log = run([vec, mem, plain, graph], questions, qvecs, sd, verbose=(sd == seeds[0]))
         if sd == seeds[0]:
             report["trace"] = log
             report["rules_after"] = graph.rules()
             report["graph_after"] = graph.stats()
         # held-out and out-of-scope questions, answered in the state the learning run left each system in
-        trained = score_fixed([vec, mem, graph], heldout + oos, hvecs)
+        trained = score_fixed([vec, mem, plain, graph], heldout + oos, hvecs)
         graph.load()
         fresh = score_fixed([Frozen(graph), NoWalk(graph)], heldout + oos, hvecs)
         report.setdefault("heldout_runs", []).append({**trained, **fresh})
         frozen, _ = run([Frozen(graph), NoWalk(graph)], questions, qvecs, sd)
         res.update(frozen)
+        for name, rows in res.items():
+            for x in rows:
+                per_q.setdefault(name, {}).setdefault(x["qid"], []).append((x["ok"], x["stale"], x["round"], x["first"]))
         report["runs"].append(dict(seed=sd, systems={k: summarise(v) for k, v in res.items()}))
         print(f"seed {sd}: " + "  ".join(
             f"{k}: " + " ".join(str(r['accuracy']) for r in summarise(v)['rounds']) for k, v in res.items()), flush=True)
     # mean over seeds
     agg = {}
-    for name in ["vector", "vector+memory", "seeds-only", "decisiongraph-frozen", "decisiongraph"]:
+    for name in NAMES:
         rounds = []
         for r in range(ROUNDS):
             vals = [run_["systems"][name]["rounds"][r] for run_ in report["runs"]]
@@ -202,7 +241,7 @@ def main(seeds=(7, 11, 23, 42, 99)):
     report["mean"] = agg
     # held-out summary (mean over the five runs)
     ho = {}
-    for name in ["vector", "vector+memory", "seeds-only", "decisiongraph-frozen", "decisiongraph"]:
+    for name in NAMES:
         runs = [r[name] for r in report["heldout_runs"] if name in r]
         def acc(kind):
             vals = [np.mean([x["ok"] for x in rr if x["kind"] == kind]) for rr in runs]
@@ -210,6 +249,8 @@ def main(seeds=(7, 11, 23, 42, 99)):
         ho[name] = dict(rep=acc("rep"), new=acc("new"), out_of_scope=acc("oos"),
                         all_heldout=round(float(np.mean([np.mean([x["ok"] for x in rr if x["kind"] != "oos"]) for rr in runs])), 3))
     report["heldout"] = ho
+    report["ci"] = confidence(per_q)
+    print("95% CI:", json.dumps(report["ci"]))
     print("held-out:", json.dumps(ho))
     out = os.path.join(DATA, "results.json")
     json.dump(report, open(out, "w"), indent=1, default=str)

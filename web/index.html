@@ -15,6 +15,7 @@
     <a href="#learning">Does it learn?</a>
     <a href="#graph">Inside the graph</a>
     <a href="#changed">What changed</a>
+    <a href="#checks">The evidence</a>
     <a href="#how">How it works</a>
     <a href="https://github.com/0xNexuz/decisiongraph">Code</a>
   </nav>
@@ -25,14 +26,14 @@
     <div class="hero-copy">
       <h1>Ask what your team decided. Get the decision that still stands.</h1>
       <p class="lede">Teams write a decision down, then change their minds and write another. Search finds the old one as easily as the new one, so agents and new joiners act on decisions that were replaced years ago. DecisionGraph links every decision to the ones that replaced it, walks those links to the current answer, and learns from every correction.</p>
+      <form id="ask" class="ask" autocomplete="off">
+        <label for="q" class="sr">Your question</label>
+        <input id="q" name="q" type="text" maxlength="300" minlength="3" placeholder="Is Concourse still our CI tool?" required>
+        <button type="submit">Ask</button>
+      </form>
     </div>
     <div class="hero-art" id="hero-art" aria-hidden="false"></div>
     <div class="hero-ask">
-      <form id="ask" class="ask" autocomplete="off">
-        <label for="q" class="sr">Your question</label>
-        <input id="q" name="q" type="text" maxlength="300" placeholder="Is Concourse still the CI tool for Cloud Platform?" required>
-        <button type="submit">Ask</button>
-      </form>
       <div class="samples" id="samples" aria-label="Example questions"></div>
       <p class="corpus">Answers come from 128 real architecture decision records published by the UK Ministry of Justice Cloud Platform, its Modernisation Platform, and GOV.UK. This live graph has already learned from the 50 corrections in the test below. The example questions are worded differently from that test. Ask something new, correct it, then ask again in other words.</p>
     </div>
@@ -99,6 +100,12 @@
     <button type="button" class="quiet" id="ledger-more" hidden>Show every changed link</button>
   </div></section>
 
+  <section id="checks" class="checks">
+    <h2>The evidence, in three questions</h2>
+    <p class="lede narrow">Each answer is measured on the same 50-question test, before the system is told the right answer. Brackets are 95% intervals from resampling the questions.</p>
+    <div class="check-grid reveal" id="check-grid"></div>
+  </section>
+
   <section id="how" class="how">
     <h2>How it works</h2>
     <ol class="steps reveal">
@@ -106,7 +113,6 @@
       <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><rect x="4" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-28 4 40)"/><rect x="16" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-14 16 40)"/><rect x="31" y="10" width="10" height="30" fill="#2f8f99" stroke="#1c2638" stroke-width="1.6"/></svg><h3>Walk to what replaced it</h3><p>One <code>algo.MSpaths</code> call in HydraDB follows trusted <em>replaced by</em> links, with trust stored as path cost, until it reaches a decision nothing has replaced. The agent gets that decision and its history, about 130 tokens instead of 590. If nothing is close enough, it says there is no decision on record.</p></li>
       <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M5 9h12a5 5 0 1 1 10 0h12v12a5 5 0 1 0 0 10v10H5V31a5 5 0 1 1 0-10z" fill="#4a6496" stroke="#1c2638" stroke-width="1.6"/><path d="M14 25l6 6 12-13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Learn from the correction</h3><p>Each correction is stored as a question in the graph. It confirms or rejects the links it walked, proposes a missing link, adjusts rule trust, and points the question's words at the topic. When the topic comes back in new words, the graph is right 84% of the time, against 47% for vector search with memory.</p></li>
     </ol>
-    <p class="why reveal">Why not a vector store? It can't say that one document replaced another, so it has no way to walk from an old decision to the current one. Remembering past answers helps with questions that come back, but it still can't tell old from current on anything new. In our test, adding that memory raised vector search from 52% to 57%. The graph reached 80%, and 88% by the last round.</p>
   </section>
 </main>
 
