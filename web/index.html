@@ -14,8 +14,8 @@
   <nav>
     <a href="#learning">Does it learn?</a>
     <a href="#graph">Inside the graph</a>
+    <a href="#changed">What changed</a>
     <a href="#how">How it works</a>
-    <a href="#teams">For teams</a>
     <a href="https://github.com/0xNexuz/decisiongraph">Code</a>
   </nav>
 </header>
@@ -91,36 +91,13 @@
     <p class="counts" id="counts"></p>
   </div></section>
 
-  <section id="teams" class="teams">
-    <h2>For teams</h2>
-    <div class="teams-grid">
-      <div>
-        <h3>Who it's for</h3>
-        <p>Platform and engineering teams with dozens of decision records (ADRs, RFCs, design docs) who now let coding agents work in their repos. Every outdated decision an agent acts on is a review comment, a revert or an incident.</p>
-        <h3>What you get</h3>
-        <p>Point it at your ADR folder. Your agents ask the MCP server or the API and get the decision that still stands with its history. Your team's corrections make it sharper for everyone. It runs on HydraDB, self-hosted.</p>
-      </div>
-      <div>
-        <h3>Planned pricing</h3>
-        <ul class="plans">
-          <li><b>Open source</b>, self-hosted: free</li>
-          <li><b>Team</b>, hosted, up to 1,000 decisions: $49 a month</li>
-          <li><b>Organisation</b>, every repo, SSO, audit trail of corrections: $199 a month</li>
-        </ul>
-        <form id="interest" class="interest" autocomplete="on">
-          <label for="email">Work email</label>
-          <input id="email" name="email" type="email" required maxlength="120" placeholder="you@company.com">
-          <label for="team">Team or company</label>
-          <input id="team" name="team" type="text" maxlength="80" placeholder="Platform team, Acme">
-          <label for="records">Roughly how many decision records do you have?</label>
-          <select id="records" name="records"><option>Under 50</option><option>50 to 200</option><option>200 to 1,000</option><option>Over 1,000</option></select>
-          <button type="submit">Request access</button>
-          <p id="interest-msg" class="hint" aria-live="polite"></p>
-          <p id="interest-count" class="hint"></p>
-        </form>
-      </div>
-    </div>
-  </section>
+  <section id="changed" class="changed"><div class="ledger-wrap reveal">
+    <h2>What the corrections changed</h2>
+    <p class="lede narrow">Each row is a “replaced by” link that a correction changed, read live from HydraDB. The thin line is what the rules guessed before any correction. The thick line is what the graph does now. A link that is not followed is never walked, however close the text.</p>
+    <div class="tally" id="tally"></div>
+    <ol class="ledger" id="ledger"></ol>
+    <button type="button" class="quiet" id="ledger-more" hidden>Show every changed link</button>
+  </div></section>
 
   <section id="how" class="how">
     <h2>How it works</h2>

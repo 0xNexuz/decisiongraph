@@ -200,15 +200,60 @@ async function loadGraph() {
     const order = ["status-link", "body-ref-replace", "replace-term", "body-ref", "learned"];
     $("#trust").innerHTML = order.filter((k) => r.rules[k]).map((k) => {
       const t = r.rules[k].trust, [label, help] = RULES[k];
-      return `<div class="tr${t >= 0.5 ? " trusted" : ""}" style="--w:${(t * 100).toFixed(1)}%;--d:${order.indexOf(k) * 120}ms"><div class="name">${esc(label)}<small>${esc(help)}</small></div>
+      return `<div class="tr${t >= 0.5 ? " trusted" : ""}" data-rule="${k}" style="--w:${(t * 100).toFixed(1)}%;--d:${order.indexOf(k) * 120}ms"><div class="name">${esc(label)}<small>${esc(help)}</small></div>
         <div class="track" title="Links are followed at 50% trust or more"><div class="fill"></div><div class="line"></div></div>
         <div class="pct">${pct(t)}</div></div>`;
     }).join("");
+    document.querySelectorAll(".tr[data-rule]").forEach(markStart);
     onVisible($("#trust"), () => $("#trust").classList.add("on"));
     const s = r.stats;
-    $("#counts").textContent = `${r.trained ? `This graph has learned from ${r.trained} corrections. ` : ""}HydraDB holds ${s.Decision} decisions, ${s.Term} terms, ${s.CORE_OF} term-to-decision links, ${s.REPLACED_BY} “replaced by” links (${s.trusted_links} trusted), ${s.HINTS} learned hints and ${s.Question} corrected questions. Right now it knows that ${r.replaced_known} decisions were replaced, found with one all-pairs path search per project. The line marks 50%: below it, links from that rule are not followed unless a correction has confirmed them. ${r.feedback_count ? `Visitors have corrected it ${r.feedback_count} times since it last started.` : ""}`;
+    $("#counts").textContent = `${r.trained ? `This graph has learned from ${r.trained} corrections. ` : ""}HydraDB holds ${s.Decision} decisions, ${s.Term} terms, ${s.CORE_OF} term-to-decision links, ${s.REPLACED_BY} “replaced by” links (${s.trusted_links} trusted), ${s.HINTS} learned hints and ${s.Question} corrected questions. Right now it knows that ${r.replaced_known} decisions were replaced, found with one all-pairs path search per project. The solid line marks 50%: below it, links from that rule are not followed unless a correction has confirmed them. The dashed tick marks where each rule started, before any correction. ${r.feedback_count ? `Visitors have corrected it ${r.feedback_count} times since it last started.` : ""}`;
   } catch (e) { $("#counts").textContent = "Couldn't reach the graph."; }
 }
+
+/* ---------- what the corrections changed ---------- */
+const STATE = {
+  confirmed: ["Confirmed", "now followed"],
+  pending: ["Proposed", "waiting for a second correction"],
+  rejected: ["Rejected", "never followed"],
+};
+let ledgerAll = false;
+async function loadLearned() {
+  try {
+    const r = await api("/api/learned");
+    const s = r.summary;
+    $("#tally").innerHTML = [
+      [s.confirmed, s.confirmed === 1 ? "link confirmed" : "links confirmed", "confirmed"],
+      [s.rejected, s.rejected === 1 ? "link rejected" : "links rejected", "rejected"],
+      [s.pending, s.pending === 1 ? "missing link proposed" : "missing links proposed", "pending"],
+      [s.questions, s.questions === 1 ? "question remembered" : "questions remembered", "q"],
+    ].map(([n, l, k]) => `<div class="t ${k}"><b>${n}</b><span>${esc(l)}</span></div>`).join("");
+    const rows = r.links.map((l) => {
+      const [label] = RULES[l.rule] || [l.rule];
+      const before = l.before == null ? "No link at all" : `${label}: ${pct(l.before)} trust, ${l.before >= 0.5 ? "followed" : "not followed"}`;
+      const [st, what] = STATE[l.state];
+      const q = l.question ? `<p class="by">Changed by the question “${esc(l.question)}”</p>` : "";
+      return `<li class="lrow ${l.state}">
+        <div class="slip from"><small>ADR ${l.frm_num}</small>${esc(l.frm_title)}</div>
+        <div class="link"><div class="was"><span>Before</span><i></i><em>${esc(before)}</em></div><div class="now"><span>Now</span><i></i><em><b>${st}</b>, ${what}</em></div></div>
+        <div class="slip to"><small>ADR ${l.to_num}</small>${esc(l.to_title)}</div>${q}</li>`;
+    });
+    const cut = 6;
+    $("#ledger").innerHTML = (ledgerAll ? rows : rows.slice(0, cut)).join("") || `<li class="empty">No corrections yet. Ask a question above and correct it.</li>`;
+    const more = $("#ledger-more");
+    more.hidden = rows.length <= cut || ledgerAll;
+    more.textContent = `Show all ${rows.length} changed links`;
+    window.__ruleStart = r.rules;
+    document.querySelectorAll(".tr[data-rule]").forEach(markStart);
+  } catch (e) { $("#ledger").innerHTML = `<li class="empty error">Couldn't read the changes from the graph.</li>`; }
+}
+function markStart(el) {
+  const st = window.__ruleStart && window.__ruleStart[el.dataset.rule];
+  if (!st || el.dataset.rule === "learned" || el.querySelector(".start")) return;
+  el.querySelector(".track").insertAdjacentHTML("beforeend", `<div class="start" style="left:${(st.start * 100).toFixed(1)}%" title="Started at ${pct(st.start)}"></div>`);
+  el.querySelector(".pct").insertAdjacentHTML("beforeend", `<small>from ${pct(st.start)}</small>`);
+}
+$("#ledger-more").addEventListener("click", () => { ledgerAll = true; loadLearned(); });
 
 /* ---------- replay ---------- */
 function replay() {
@@ -225,7 +270,7 @@ function replay() {
     if (d.done) {
       es.close(); btn.disabled = false; btn.textContent = "Replay again";
       $("#replay-now").innerHTML += " Done.";
-      loadGraph(); return;
+      loadGraph(); loadLearned(); return;
     }
     for (const [k] of show) {
       tally[k][0] += d[k].ok ? 1 : 0; tally[k][1] += 1;
@@ -257,23 +302,8 @@ fetch("/static/hero.svg").then((r) => r.text()).then((t) => { $("#hero-art").inn
     const ds = await api("/api/decisions");
     $("#correct").innerHTML = `<option value="">Choose a decision</option>` + ds.map((d) => `<option value="${esc(d.id)}">${esc(d.label)}</option>`).join("");
   } catch (e) { /* page still works without samples */ }
-  loadResults(); loadGraph();
+  loadResults(); loadGraph(); loadLearned();
   const pre = new URLSearchParams(location.search).get("q");
   if (pre) { $("#q").value = pre; ask(pre); }
 })();
 
-/* ---------- request access ---------- */
-async function loadInterest() {
-  try { const r = await api("/api/interest"); $("#interest-count").textContent = r.count ? `${r.count} ${r.count === 1 ? "team has" : "teams have"} asked for access so far.` : ""; } catch (e) {}
-}
-$("#interest").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const f = e.target, btn = f.querySelector("button");
-  btn.disabled = true;
-  try {
-    await api("/api/interest", { email: f.email.value, team: f.team.value, records: f.records.value });
-    f.reset(); $("#interest-msg").textContent = "Thanks. We'll be in touch."; loadInterest();
-  } catch (err) { $("#interest-msg").textContent = "Couldn't save that. Check the email address and try again."; }
-  btn.disabled = false;
-});
-loadInterest();

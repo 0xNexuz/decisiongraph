@@ -241,6 +241,26 @@ class DecisionGraph:
                 out.append(hops)
         return out
 
+    def learned(self):
+        """Every 'replaced by' link a correction has changed, read straight from HydraDB: what the
+        rules first guessed, what it is now, and the question that changed it."""
+        rows = self.db.q("MATCH (a:Decision)-[r:REPLACED_BY]->(b:Decision) "
+                         "WHERE r.state = 'confirmed' OR r.state = 'rejected' OR r.state = 'pending' "
+                         "RETURN a.id AS frm, b.id AS to, r.rule AS rule, r.state AS state, r.by AS by")
+        texts = self.question_texts([r["by"] for r in rows])
+        out = []
+        for r in rows:
+            a, b = self.by_vid.get(r["frm"]), self.by_vid.get(r["to"])
+            if not a or not b:
+                continue
+            out.append(dict(frm=a["id"], frm_num=a["num"], frm_title=a["title"], to=b["id"], to_num=b["num"],
+                            to_title=b["title"], project=a["project"], rule=r["rule"], state=r["state"],
+                            before=RULE_PRIOR[r["rule"]] if r["rule"] != "learned" else None,
+                            question=texts.get(r["by"])))
+        order = {"confirmed": 0, "pending": 1, "rejected": 2}
+        out.sort(key=lambda x: (x["rule"] == "status-link", order[x["state"]], x["frm"]))
+        return out
+
     def question_texts(self, ids):
         ids = [i for i in set(ids) if isinstance(i, int) and i >= QUESTION_BASE]
         if not ids:

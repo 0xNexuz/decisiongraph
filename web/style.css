@@ -228,35 +228,46 @@ figcaption span.dash::before { background: repeating-linear-gradient(90deg, var(
 .tr .pct { font-variant-numeric: tabular-nums; text-align: right; font-weight: 750; }
 .counts { color: var(--ink-2); font-size: 14.5px; margin: 22px 0 0; max-width: 80ch; }
 
-/* ---------- for teams ---------- */
-.teams-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; margin-top: 18px; }
-.teams h3 { margin-top: 18px; }
-.teams p { max-width: 58ch; color: var(--ink-2); }
-.plans { list-style: none; padding: 0; margin: 10px 0 24px; display: grid; gap: 10px; }
-.plans li { background: var(--domino); border: 1.6px solid var(--ink); border-radius: 4px; padding: 12px 16px; box-shadow: 6px 6px 0 var(--domino-side); }
-.interest { display: grid; gap: 8px; background: var(--beige); border: 1.6px solid var(--ink); border-radius: 6px; padding: 22px; }
-.interest label { font-weight: 650; font-size: 15px; }
-.interest input, .interest select { font: inherit; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 4px; background: var(--domino); }
-.interest button { justify-self: start; margin-top: 8px; }
-.slip.none { border-style: dashed; }
-.slip.none::before { background: var(--ink-2); }
-
-/* ---------- how it works: flat print columns with gold rules ---------- */
-.steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); counter-reset: s; border-top: 1.5px solid var(--mustard); position: relative; }
-.steps::after { content: ""; position: absolute; right: 0; top: -6px; width: 34px; height: 10px; background: radial-gradient(circle at 5px 5px, var(--mustard) 3px, transparent 3.5px) 0 0 / 12px 10px repeat-x; }
-.steps li { counter-increment: s; padding: 18px 26px 0 0; margin-right: 26px; border-right: 1.5px solid var(--mustard); transition: transform .3s var(--ease); }
-.steps li:last-child { border-right: 0; margin-right: 0; }
-.steps li:hover { transform: translateY(-4px); }
-.steps .glyph { width: 46px; height: 46px; margin-bottom: 12px; }
-.steps h3 { font-size: 22px; font-stretch: 72%; letter-spacing: .02em; }
-.steps h3::before { content: counter(s) ". "; color: var(--rust); }
-.steps p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
-.why { max-width: 72ch; margin-top: 40px; font-size: 17px; padding-left: 18px; border-left: 4px solid var(--rust); }
-
-footer { background: var(--navy); color: #dbe3f4; margin-top: 40px; }
-footer .in { max-width: var(--w); margin: 0 auto; padding: 32px 24px 48px; font-size: 14px; }
-footer p { max-width: 90ch; margin: 0; }
-footer a { color: #fff; }
+/* ---------- what the corrections changed: dominoes on navy ---------- */
+.tr .start { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 2px dashed var(--ink); opacity: .55; }
+.tr .pct small { display: block; font-weight: 450; font-size: 12.5px; color: var(--ink-2); }
+.ledger-wrap { margin: 0 -24px; padding: 64px 48px; border-radius: 10px; background: var(--navy); color: #eef2fb; }
+.ledger-wrap h2 { color: #fff; }
+.ledger-wrap .lede { color: #d6deee; }
+.tally { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0 0 30px; max-width: 900px; }
+.tally .t { border-top: 4px solid var(--glow); padding-top: 10px; }
+.tally .t.rejected { border-color: var(--rust); }
+.tally .t.pending { border-color: var(--mustard); }
+.tally .t.q { border-color: var(--beige); }
+.tally b { display: block; font-size: 44px; line-height: 1; font-weight: 850; font-stretch: 75%; font-variant-numeric: tabular-nums; color: #fff; }
+.tally span { font-size: 15px; color: #d6deee; }
+.ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.lrow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 1.05fr) minmax(0, 1fr); gap: 0; align-items: center; }
+.lrow .slip { background: var(--domino); color: var(--ink); border: 1.6px solid var(--ink); border-radius: 5px; padding: 12px 14px; font-weight: 650; font-size: 15px; line-height: 1.3; box-shadow: 6px 6px 0 var(--domino-side); transition: transform .25s var(--ease); }
+.lrow:hover .slip { transform: translateY(-2px); }
+.lrow .slip small { display: block; font-weight: 500; font-size: 12.5px; color: var(--ink-2); margin-bottom: 2px; }
+.lrow.rejected .slip.to { background: #ece4df; color: #5b4e47; text-decoration: line-through; text-decoration-color: var(--rust); text-decoration-thickness: 2px; }
+.lrow .link { display: grid; gap: 8px; padding: 0 12px; font-size: 12.5px; }
+.lrow .link > div { display: grid; grid-template-columns: 42px 1fr; align-items: center; column-gap: 8px; }
+.lrow .link span { color: #b9c5de; font-weight: 600; }
+.lrow .link i { height: 0; border-top: 2px dashed #8fa1c4; position: relative; }
+.lrow .link em { font-style: normal; grid-column: 2; color: #b9c5de; line-height: 1.3; }
+.lrow .now i { border-top: 5px solid var(--glow); }
+.lrow .now i::after { content: ""; position: absolute; right: -2px; top: -9px; border: 6px solid transparent; border-left: 9px solid var(--glow); }
+.lrow.pending .now i { border-top-color: var(--mustard); border-top-style: dashed; }
+.lrow.pending .now i::after { border-left-color: var(--mustard); }
+.lrow.rejected .now i { border-top-color: var(--rust); }
+.lrow.rejected .now i::after { content: "\2715"; border: 0; color: var(--rust); font-style: normal; font-weight: 900; font-size: 15px; top: -11px; right: 40%; background: var(--navy); padding: 0 4px; }
+.lrow .now em { color: #fff; }
+.lrow .by { grid-column: 1 / -1; margin: 8px 0 0; font-size: 13.5px; color: #b9c5de; }
+.ledger .empty { color: #d6deee; }
+#ledger-more { margin-top: 22px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ledger-wrap.in .lrow { animation: rise .5s var(--ease) both; }
+  .ledger-wrap.in .lrow:nth-child(2) { animation-delay: 80ms; } .ledger-wrap.in .lrow:nth-child(3) { animation-delay: 160ms; }
+  .ledger-wrap.in .lrow:nth-child(4) { animation-delay: 240ms; } .ledger-wrap.in .lrow:nth-child(5) { animation-delay: 320ms; }
+  .ledger-wrap.in .lrow:nth-child(6) { animation-delay: 400ms; }
+}
 
 .error { color: #8f3415; font-weight: 700; }
 
@@ -276,7 +287,10 @@ footer a { color: #fff; }
   .hero-ask { order: 1; }
   .hero-art { order: 2; }
   .result .col.graph { order: -1; }
-  .teams-grid { grid-template-columns: 1fr; }
+  .tally { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lrow { grid-template-columns: 1fr; gap: 10px; }
+  .lrow .link { padding: 4px 0; }
+  .ledger-wrap { padding: 56px 24px; border-radius: 0; }
   .facts, .steps { grid-template-columns: 1fr; }
   .fact, .steps li { border-right: 0; margin-right: 0; border-bottom: 1.5px solid var(--mustard); padding-bottom: 16px; }
   .tr, .rbar { grid-template-columns: 1fr 56px; }

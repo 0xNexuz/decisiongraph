@@ -2,14 +2,23 @@
 
 **Ask what your team decided. Get the decision that still stands.**
 
+![DecisionGraph home page](docs/images/hero.png)
+
 Teams write decisions down, then change their minds and write new ones. Most never mark the old record as replaced. Search finds the old record as easily as the new one, so AI agents and new joiners act on decisions that were replaced years ago.
 
 DecisionGraph keeps decisions in [HydraDB](https://github.com/hydra-db/hydradb) as a graph, linking each decision to the decisions that replaced it. A question lands on the decision it is about. A single `algo.MSpaths` call inside HydraDB then follows trusted "replaced by" links to the decision that still stands. Every correction is stored in the graph as a question node, and it changes the graph: links are confirmed or rejected, new links are proposed, and the question's words are pointed at the right topic.
 
 Built for the HydraDB Hackathon (Nov 14–16, 2026). It covers **Track 1, a graph that improves itself**, and **Track 2, a context layer for agents** (it has an MCP server).
 
-- Live app: https://decisiongraph-latest.onrender.com/
-- Walkthrough video: _add the YouTube link here_
+- **Live app:** https://decisiongraph-latest.onrender.com/ (free host: the first visit after a quiet spell can take about a minute to wake up)
+- **Walkthrough video:** _add the YouTube link here_
+- **Use it from an agent:** an MCP server in [`agent/`](agent/decisiongraph_mcp.py)
+
+### One question, two answers
+
+Asked *"Does each business unit get its own Cloud Platform cluster now?"*, vector search returns the closest text: a 2019 decision to run one cluster, replaced three times since. DecisionGraph lands on the same record, then walks the "replaced by" links in HydraDB to the decision that stands today, and hands the agent that decision and its history in 97 tokens instead of 307.
+
+![Vector search returns a replaced 2019 decision; DecisionGraph walks three replaced-by links to the current one](docs/images/answer.png)
 
 ## Results
 
@@ -26,6 +35,8 @@ The test set is 50 hand-written questions about 128 real architecture decision r
 | DecisionGraph seeding only, no walk (ablation) | 62% | 32% | 46% → 58% | 45% | 72% |
 | DecisionGraph, learning off | 74% | 18% | 60% → 72% | 61% | **82%** |
 | **DecisionGraph, learning on** | **80%** | **10%** | 60% → **88%** | **84%** | 78% |
+
+![Learning curve: DecisionGraph with learning rises from 60% to 88% over five rounds; vector search stays near 52%](docs/images/learning.png)
 
 ### What the numbers do and don't show
 
@@ -45,6 +56,16 @@ The test set is 50 hand-written questions about 128 real architecture decision r
 - The "status line" rule ends at 0.95.
 
 **Tokens:** the agent gets about 130 tokens instead of about 590. That is because DecisionGraph returns one decision and its history instead of three passages. It is a consequence of knowing which decision is current, not a separate trick.
+
+### What the corrections changed
+
+The page reads this straight from HydraDB (`GET /api/learned`). After the 50 test corrections: 9 "replaced by" links confirmed, 1 rejected, 4 missing links proposed and waiting for a second correction, and 50 questions kept as nodes. Each row shows what the rules guessed before any correction, what the graph does now, and the question that changed it.
+
+![Ledger of links the corrections changed, with before and after](docs/images/changed.png)
+
+Rule trust moves too. The dashed tick is where each rule started; the solid line is the 50% follow line.
+
+![Trust in each link rule, before and after learning](docs/images/trust.png)
 
 ### Held-out questions (not used for tuning)
 
@@ -118,11 +139,38 @@ feedback ─► a (:Question) node + (:Question)-[:RESOLVED_TO]->(:Decision)
 
 ## Use it from an agent
 
-`agent/decisiongraph_mcp.py` is an MCP server with two tools: `current_decision(question)` and `correct_decision(question, decision_id)`.
+`agent/decisiongraph_mcp.py` is an MCP server with three tools:
+
+| Tool | What it does |
+|---|---|
+| `current_decision(question)` | The decision that still stands, the decisions it replaced, the source link and its id. Says "no decision on record" instead of guessing. |
+| `find_decisions(search)` | Decision titles matching the words, with the ids `correct_decision` needs. |
+| `correct_decision(question, correct_decision_id)` | Teaches the graph; returns what changed and what it answers now. |
 
 ```bash
 pip install -r agent/requirements.txt
-claude mcp add decisiongraph -e DECISIONGRAPH_URL=https://your-app.onrender.com -- python agent/decisiongraph_mcp.py
+claude mcp add decisiongraph -e DECISIONGRAPH_URL=https://decisiongraph-latest.onrender.com -- python agent/decisiongraph_mcp.py
+```
+
+A session from a real MCP client (`mcp` 2.x, stdio):
+
+```text
+> current_decision("Is Concourse still the CI tool for Cloud Platform?")
+CURRENT DECISION: Use GitHub Actions (MoJ Cloud Platform, ADR 40, 2026-01-02, status: accepted)
+Decision: We will switch to using GitHub Actions for our deployment pipelines.
+Source: https://github.com/ministryofjustice/cloud-platform/blob/main/architecture-decision-record/040-use-github-actions.md
+Decision id: cloud-platform:40
+
+> current_decision("What's the best pizza topping?")
+No decision on record answers this question. Don't assume one exists; ask the team.
+
+> find_decisions("eks")
+cloud-platform:22  MoJ Cloud Platform · ADR 22 · EKS
+cloud-platform:34  MoJ Cloud Platform · ADR 34 · EKS Fargate
+cloud-platform:45  MoJ Cloud Platform · ADR 45 · Use a Private EKS Endpoint
+
+> correct_decision("x", "cloud-platform:999")
+Error: That decision id doesn't exist. Use find_decisions to get the right id.
 ```
 
 The same thing is available over HTTP: `POST /api/ask {"q": "..."}` returns `graph.context`, and `POST /api/feedback {"q": "...", "correct": "cloud-platform:48"}` teaches the graph.
@@ -131,12 +179,10 @@ The same thing is available over HTTP: `POST /api/ask {"q": "..."}` returns `gra
 
 Platform and engineering teams with dozens of decision records (ADRs, RFCs, design docs) who let coding agents work in their repos. Every outdated decision an agent acts on becomes a review comment, a revert or an incident.
 
-Planned pricing:
+How it would be sold:
 - Open source and self-hosted: free.
 - Hosted Team, up to 1,000 decisions: $49 a month.
 - Organisation, with every repo, SSO and an audit trail of corrections: $199 a month.
-
-The live page has a request-access form.
 
 ## Run it locally
 

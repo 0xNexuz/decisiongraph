@@ -9,7 +9,7 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from .corpus import DATA, PROJECT_LABEL, build, chunks as make_chunks
+from .corpus import DATA, PROJECT_LABEL, RULE_PRIOR, build, chunks as make_chunks
 from .embed import embed, embed_cached
 from .evaluate import ROUNDS, count_tokens, load_questions, order
 from .graph import DecisionGraph
@@ -87,39 +87,6 @@ def describe(changes):
                 c[k + "_title"] = f"ADR {r['num']} {r['title']}"
         out.append(c)
     return out
-
-
-class Interest(BaseModel):
-    email: str
-    team: str = ""
-    records: str = ""
-
-
-INTEREST_BASE = 900000
-
-
-@app.get("/api/interest")
-def interest_count():
-    rows = S["graph"].db.q("MATCH (n:Interest) RETURN count(*) AS n")
-    return dict(count=rows[0]["n"] if rows else 0)
-
-
-@app.post("/api/interest")
-def interest(body: Interest):
-    import re as _re
-    email = body.email.strip()[:120]
-    if not _re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
-        raise HTTPException(400, "invalid email")
-    with lock:
-        n = interest_count()["count"]
-        if n >= 2000:
-            raise HTTPException(429, "full")
-        row = dict(id=INTEREST_BASE + n, email=email, team=body.team.strip()[:80], records=body.records.strip()[:40],
-                   at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
-        S["graph"].db.q("UNWIND $rows AS row MERGE (n {id: row.id}) SET n:Interest, n.email = row.email, n.team = row.team, "
-                        "n.records = row.records, n.at = row.at", rows=[row])
-    print("INTEREST " + json.dumps(row), flush=True)  # also kept in the host's logs, since the demo store resets on deploy
-    return dict(ok=True)
 
 
 class Ask(BaseModel):
@@ -226,6 +193,22 @@ def graph_info():
         return dict(stats=S["graph"].stats(), rules=S["graph"].rules(), loaded=S["loaded"], trained=S.get("trained", 0),
                     replaced_known=S["graph"].replaced_count(),
                     feedback_count=S["feedback_count"])
+
+
+@app.get("/api/learned")
+def learned():
+    """What the corrections changed in the live graph: each link they touched, before and after,
+    and each rule's trust at the start against now."""
+    with lock:
+        g = S["graph"]
+        links = g.learned()
+        now = g.rules()
+        stats = g.stats()
+    rules = {k: dict(start=RULE_PRIOR[k], now=v["trust"]) for k, v in now.items()}
+    count = lambda s: sum(1 for l in links if l["state"] == s)
+    return dict(links=links, rules=rules, trained=S.get("trained", 0), feedback_count=S["feedback_count"],
+                summary=dict(confirmed=count("confirmed"), rejected=count("rejected"), pending=count("pending"),
+                             questions=stats["Question"], hints=stats["HINTS"]))
 
 
 @app.get("/api/replay")
