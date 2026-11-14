@@ -1,0 +1,67 @@
+{
+  "_about": "Hand-written evaluation questions over the public ADRs. 'answer' is the ADR that is the current, authoritative decision for the question. 'topic' groups paraphrases of the same need. 'stale' lists ADRs that look relevant but are outdated, rejected or partial for this question.",
+  "questions": [
+    {"id": "q01", "topic": "cp-ci", "q": "What does the Cloud Platform team use for its deployment pipelines?", "answer": "cloud-platform:40", "stale": ["cloud-platform:3", "cloud-platform:33"]},
+    {"id": "q02", "topic": "cp-ci", "q": "Is Concourse still the CI tool for Cloud Platform?", "answer": "cloud-platform:40", "stale": ["cloud-platform:3", "cloud-platform:33"]},
+    {"id": "q03", "topic": "cp-ci", "q": "Which CI/CD system should run Cloud Platform infrastructure pipelines now?", "answer": "cloud-platform:40", "stale": ["cloud-platform:3"]},
+    {"id": "q04", "topic": "cp-ci", "q": "We still have Jenkins jobs on Cloud Platform. What should they move to?", "answer": "cloud-platform:40", "stale": ["cloud-platform:3"]},
+
+    {"id": "q05", "topic": "cp-clusters", "q": "How are Cloud Platform Kubernetes clusters split up?", "answer": "cloud-platform:48", "stale": ["cloud-platform:12", "cloud-platform:21", "cloud-platform:36"]},
+    {"id": "q06", "topic": "cp-clusters", "q": "Does Cloud Platform still run one cluster for dev, staging and prod?", "answer": "cloud-platform:48", "stale": ["cloud-platform:12", "cloud-platform:21"]},
+    {"id": "q07", "topic": "cp-clusters", "q": "Will each business unit get its own cluster on Cloud Platform?", "answer": "cloud-platform:48", "stale": ["cloud-platform:36"]},
+    {"id": "q08", "topic": "cp-clusters", "q": "Is the Cloud Platform multi-cluster plan still just production versus non-production?", "answer": "cloud-platform:48", "stale": ["cloud-platform:36", "cloud-platform:21"]},
+
+    {"id": "q09", "topic": "cp-k8s", "q": "Does Cloud Platform still build its own Kubernetes cluster with kOps?", "answer": "cloud-platform:22", "stale": ["cloud-platform:14"]},
+    {"id": "q10", "topic": "cp-k8s", "q": "What runs the control plane of the Cloud Platform main cluster?", "answer": "cloud-platform:22", "stale": ["cloud-platform:14", "cloud-platform:4"]},
+    {"id": "q11", "topic": "cp-k8s", "q": "Is the Cloud Platform Kubernetes cluster self-managed or a managed AWS service?", "answer": "cloud-platform:22", "stale": ["cloud-platform:14"]},
+
+    {"id": "q12", "topic": "cp-logging", "q": "Where do Cloud Platform application logs go?", "answer": "cloud-platform:23", "stale": ["cloud-platform:1", "cloud-platform:16"]},
+    {"id": "q13", "topic": "cp-logging", "q": "Is AWS hosted Elasticsearch still the logging backend for Cloud Platform?", "answer": "cloud-platform:23", "stale": ["cloud-platform:1"]},
+    {"id": "q14", "topic": "cp-logging", "q": "What should service teams use to search their logs on Cloud Platform?", "answer": "cloud-platform:23", "stale": ["cloud-platform:1", "cloud-platform:16"]},
+    {"id": "q15", "topic": "cp-logging", "q": "Can we keep sending Cloud Platform logs to the old ELK stack?", "answer": "cloud-platform:23", "stale": ["cloud-platform:1"]},
+
+    {"id": "q16", "topic": "cp-ingress", "q": "Does every namespace get a dedicated ingress controller on Cloud Platform?", "answer": "cloud-platform:19", "stale": ["cloud-platform:18"]},
+    {"id": "q17", "topic": "cp-ingress", "q": "How are ingress controllers organised for teams on Cloud Platform?", "answer": "cloud-platform:19", "stale": ["cloud-platform:18"]},
+
+    {"id": "q18", "topic": "mp-languages", "q": "What are the core programming languages for the Modernisation Platform?", "answer": "modernisation-platform:19", "stale": ["modernisation-platform:4"]},
+    {"id": "q19", "topic": "mp-languages", "q": "Can I write new Modernisation Platform lambdas in Python or Node?", "answer": "modernisation-platform:19", "stale": ["modernisation-platform:4"]},
+    {"id": "q20", "topic": "mp-languages", "q": "Which language should new Modernisation Platform scripts and tests be written in?", "answer": "modernisation-platform:19", "stale": ["modernisation-platform:4"]},
+
+    {"id": "q21", "topic": "gov-dns", "q": "How are DNS zones and records set up for GOV.UK AWS stacks?", "answer": "govuk-aws:15", "stale": ["govuk-aws:4", "govuk-aws:16"]},
+    {"id": "q22", "topic": "gov-dns", "q": "Do GOV.UK internal services still use the servicename.stackname.internal hostname format?", "answer": "govuk-aws:15", "stale": ["govuk-aws:4"]},
+
+    {"id": "q23", "topic": "gov-ip", "q": "What IP range does the GOV.UK production VPC use?", "answer": "govuk-aws:33", "stale": ["govuk-aws:3"]},
+    {"id": "q24", "topic": "gov-ip", "q": "Is GOV.UK staging still on 10.2.0.0/16 in AWS?", "answer": "govuk-aws:33", "stale": ["govuk-aws:3"]},
+
+    {"id": "q25", "topic": "gov-tfdata", "q": "How is the GOV.UK Terraform data directory structured per environment and stack?", "answer": "govuk-aws:17", "stale": ["govuk-aws:10"]},
+    {"id": "q26", "topic": "gov-tfdata", "q": "Where should GOV.UK Terraform tfvars and encrypted secrets be kept?", "answer": "govuk-aws:23", "stale": ["govuk-aws:10", "govuk-aws:17"]},
+
+    {"id": "q27", "topic": "gov-mongo", "q": "What should GOV.UK apps migrating to AWS use instead of MongoDB?", "answer": "govuk-aws:38", "stale": ["govuk-aws:28"]},
+    {"id": "q28", "topic": "gov-mongo", "q": "Is GOV.UK moving MongoDB workloads to DocumentDB?", "answer": "govuk-aws:38", "stale": ["govuk-aws:28"]},
+
+    {"id": "q29", "topic": "mp-access", "q": "Do people get into Modernisation Platform AWS accounts through IAM federated access?", "answer": "modernisation-platform:3", "stale": ["modernisation-platform:2"]},
+    {"id": "q30", "topic": "mp-access", "q": "How is access to Modernisation Platform AWS accounts managed for joiners, movers and leavers?", "answer": "modernisation-platform:3", "stale": ["modernisation-platform:2"]},
+
+    {"id": "q31", "topic": "cp-registry", "q": "Where should user container images be hosted on the new Container Platform?", "answer": "cloud-platform:46", "stale": ["cloud-platform:7"]},
+    {"id": "q32", "topic": "cp-accounts", "q": "Which AWS account should a Cloud Platform team's AWS resources go in after the move to multiple clusters?", "answer": "cloud-platform:49", "stale": ["cloud-platform:42"]},
+
+    {"id": "q33", "topic": "c-serverless", "q": "Can teams run AWS Lambda functions on Cloud Platform?", "answer": "cloud-platform:37", "stale": []},
+    {"id": "q34", "topic": "c-cloudmap", "q": "Should the Modernisation Platform use AWS Cloud Map for service discovery?", "answer": "modernisation-platform:34", "stale": []},
+    {"id": "q35", "topic": "c-karpenter", "q": "What does the Container Platform use for node autoscaling?", "answer": "cloud-platform:47", "stale": []},
+    {"id": "q36", "topic": "c-eks-endpoint", "q": "Is the Cloud Platform EKS API endpoint public or private?", "answer": "cloud-platform:45", "stale": []},
+    {"id": "q37", "topic": "c-name", "q": "What is the new name of the Cloud Platform?", "answer": "cloud-platform:44", "stale": []},
+    {"id": "q38", "topic": "c-cli", "q": "Is the Cloud Platform CLI tool still supported?", "answer": "cloud-platform:41", "stale": []},
+    {"id": "q39", "topic": "c-mfa", "q": "Do Modernisation Platform security log buckets use S3 MFA Delete?", "answer": "modernisation-platform:44", "stale": []},
+    {"id": "q40", "topic": "c-hosting", "q": "Should a new MoJ service be hosted on the Modernisation Platform or the Cloud Platform?", "answer": "modernisation-platform:28", "stale": []},
+    {"id": "q41", "topic": "c-llm", "q": "Where should the MoJ host large language models?", "answer": "modernisation-platform:31", "stale": []},
+    {"id": "q42", "topic": "c-redis", "q": "Does GOV.UK on AWS run its own Redis instances?", "answer": "govuk-aws:25", "stale": []},
+    {"id": "q43", "topic": "c-ssl", "q": "How are SSL certificates managed for GOV.UK on AWS?", "answer": "govuk-aws:21", "stale": []},
+    {"id": "q44", "topic": "c-secrets", "q": "Where do Modernisation Platform teams store secrets?", "answer": "modernisation-platform:9", "stale": []},
+    {"id": "q45", "topic": "c-rspec", "q": "Which framework does Cloud Platform use for its cluster tests?", "answer": "cloud-platform:13", "stale": []},
+    {"id": "q46", "topic": "c-terratest", "q": "What tools does the Modernisation Platform use for infrastructure testing?", "answer": "modernisation-platform:7", "stale": []},
+    {"id": "q47", "topic": "c-firewall", "q": "Does Cloud Platform inspect outbound traffic with AWS Network Firewall?", "answer": "cloud-platform:39", "stale": []},
+    {"id": "q48", "topic": "c-backup", "q": "How are Modernisation Platform production instances backed up?", "answer": "modernisation-platform:23", "stale": []},
+    {"id": "q49", "topic": "c-opa", "q": "What does Cloud Platform use to enforce Kubernetes policies?", "answer": "cloud-platform:11", "stale": []},
+    {"id": "q50", "topic": "c-shield", "q": "Does the Modernisation Platform use AWS Shield Advanced?", "answer": "modernisation-platform:18", "stale": []}
+  ]
+}

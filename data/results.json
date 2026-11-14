@@ -1,0 +1,2426 @@
+{
+ "seeds": [
+  7,
+  11,
+  23,
+  42,
+  99
+ ],
+ "runs": [
+  {
+   "seed": 7,
+   "systems": {
+    "vector": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.4,
+       "stale_rate": 0.5,
+       "tokens": 591.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.375
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 636.4,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.0,
+       "accuracy": 0.4,
+       "stale_rate": 0.4,
+       "tokens": 571.2,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 5,
+       "repeat_acc": 0.4,
+       "accuracy": 0.6,
+       "stale_rate": 0.2,
+       "tokens": 607.0,
+       "first_seen_n": 5,
+       "first_seen_acc": 0.8
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.143,
+       "accuracy": 0.4,
+       "stale_rate": 0.2,
+       "tokens": 531.5,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.316,
+      "first_seen_acc": 0.645,
+      "stale_rate": 0.28,
+      "tokens": 587.5,
+      "ms": 0.2
+     }
+    },
+    "vector+memory": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.5,
+       "tokens": 626.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.375
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 651.6,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.333,
+       "accuracy": 0.5,
+       "stale_rate": 0.3,
+       "tokens": 577.5,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 5,
+       "repeat_acc": 0.8,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 611.2,
+       "first_seen_n": 5,
+       "first_seen_acc": 0.8
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.286,
+       "accuracy": 0.5,
+       "stale_rate": 0.1,
+       "tokens": 538.1,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.62,
+      "repeat_acc": 0.579,
+      "first_seen_acc": 0.645,
+      "stale_rate": 0.22,
+      "tokens": 600.9,
+      "ms": 0.2
+     }
+    },
+    "decisiongraph": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 160.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.625
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 121.6,
+       "first_seen_n": 8,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.6,
+       "stale_rate": 0.2,
+       "tokens": 110.2,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 5,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 134.6,
+       "first_seen_n": 5,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.714,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 94.0,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.667
+      }
+     ],
+     "overall": {
+      "accuracy": 0.8,
+      "repeat_acc": 0.842,
+      "first_seen_acc": 0.774,
+      "stale_rate": 0.1,
+      "tokens": 124.1,
+      "ms": 11.7
+     }
+    },
+    "decisiongraph-frozen": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 160.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.625
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 135.4,
+       "first_seen_n": 8,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 118.4,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 5,
+       "repeat_acc": 0.6,
+       "accuracy": 0.8,
+       "stale_rate": 0.0,
+       "tokens": 150.0,
+       "first_seen_n": 5,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.7,
+       "stale_rate": 0.2,
+       "tokens": 104.7,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.74,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.806,
+      "stale_rate": 0.18,
+      "tokens": 133.7,
+      "ms": 12.0
+     }
+    }
+   }
+  },
+  {
+   "seed": 11,
+   "systems": {
+    "vector": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.2,
+       "stale_rate": 0.6,
+       "tokens": 618.6,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.125
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.0,
+       "accuracy": 0.4,
+       "stale_rate": 0.4,
+       "tokens": 583.7,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.167,
+       "accuracy": 0.5,
+       "stale_rate": 0.3,
+       "tokens": 572.8,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.333,
+       "accuracy": 0.6,
+       "stale_rate": 0.1,
+       "tokens": 559.7,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 602.5,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.857
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.368,
+      "first_seen_acc": 0.613,
+      "stale_rate": 0.28,
+      "tokens": 587.5,
+      "ms": 0.2
+     }
+    },
+    "vector+memory": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.0,
+       "accuracy": 0.1,
+       "stale_rate": 0.5,
+       "tokens": 622.8,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.125
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.0,
+       "accuracy": 0.4,
+       "stale_rate": 0.4,
+       "tokens": 583.7,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.167,
+       "accuracy": 0.5,
+       "stale_rate": 0.3,
+       "tokens": 572.8,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 573.9,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 649.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.857
+      }
+     ],
+     "overall": {
+      "accuracy": 0.56,
+      "repeat_acc": 0.474,
+      "first_seen_acc": 0.613,
+      "stale_rate": 0.24,
+      "tokens": 600.6,
+      "ms": 0.3
+     }
+    },
+    "decisiongraph": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.4,
+       "tokens": 140.1,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.375
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 144.6,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.875
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 117.6,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.8,
+       "stale_rate": 0.0,
+       "tokens": 96.0,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 122.9,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.82,
+      "repeat_acc": 0.895,
+      "first_seen_acc": 0.774,
+      "stale_rate": 0.1,
+      "tokens": 124.2,
+      "ms": 13.0
+     }
+    },
+    "decisiongraph-frozen": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.4,
+       "stale_rate": 0.5,
+       "tokens": 153.9,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.375
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 154.0,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.875
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 117.0,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.5,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 120.9,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 122.9,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.74,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.806,
+      "stale_rate": 0.18,
+      "tokens": 133.7,
+      "ms": 13.3
+     }
+    }
+   }
+  },
+  {
+   "seed": 23,
+   "systems": {
+    "vector": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 601.1,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.2,
+       "tokens": 558.7,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.333,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 579.5,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.714
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.429,
+       "accuracy": 0.4,
+       "stale_rate": 0.2,
+       "tokens": 599.0,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.333
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.286,
+       "accuracy": 0.5,
+       "stale_rate": 0.4,
+       "tokens": 599.0,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.316,
+      "first_seen_acc": 0.645,
+      "stale_rate": 0.28,
+      "tokens": 587.5,
+      "ms": 0.2
+     }
+    },
+    "vector+memory": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.2,
+       "tokens": 604.0,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.2,
+       "tokens": 560.3,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.333,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 579.5,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.714
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.5,
+       "stale_rate": 0.1,
+       "tokens": 650.5,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.333
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.429,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 607.4,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.56,
+      "repeat_acc": 0.421,
+      "first_seen_acc": 0.645,
+      "stale_rate": 0.22,
+      "tokens": 600.3,
+      "ms": 0.2
+     }
+    },
+    "decisiongraph": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 108.8,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 140.5,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.778
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 147.1,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.857,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 122.1,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.857,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 123.9,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.84,
+      "repeat_acc": 0.842,
+      "first_seen_acc": 0.839,
+      "stale_rate": 0.1,
+      "tokens": 128.5,
+      "ms": 13.6
+     }
+    },
+    "decisiongraph-frozen": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.4,
+       "tokens": 120.4,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 140.5,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.778
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 148.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.7,
+       "stale_rate": 0.2,
+       "tokens": 125.7,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.7,
+       "stale_rate": 0.2,
+       "tokens": 133.3,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.74,
+      "repeat_acc": 0.579,
+      "first_seen_acc": 0.839,
+      "stale_rate": 0.18,
+      "tokens": 133.7,
+      "ms": 11.3
+     }
+    }
+   }
+  },
+  {
+   "seed": 42,
+   "systems": {
+    "vector": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 0,
+       "repeat_acc": null,
+       "accuracy": 0.5,
+       "stale_rate": 0.2,
+       "tokens": 598.1,
+       "first_seen_n": 10,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.25,
+       "accuracy": 0.4,
+       "stale_rate": 0.4,
+       "tokens": 582.7,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.25,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 600.1,
+       "first_seen_n": 6,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 587.0,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.714
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 8,
+       "repeat_acc": 0.125,
+       "accuracy": 0.3,
+       "stale_rate": 0.5,
+       "tokens": 569.4,
+       "first_seen_n": 2,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.263,
+      "first_seen_acc": 0.677,
+      "stale_rate": 0.28,
+      "tokens": 587.5,
+      "ms": 0.2
+     }
+    },
+    "vector+memory": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 0,
+       "repeat_acc": null,
+       "accuracy": 0.5,
+       "stale_rate": 0.2,
+       "tokens": 598.1,
+       "first_seen_n": 10,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.25,
+       "accuracy": 0.4,
+       "stale_rate": 0.3,
+       "tokens": 584.8,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.25,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 622.8,
+       "first_seen_n": 6,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.0,
+       "tokens": 592.0,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.571
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 8,
+       "repeat_acc": 0.5,
+       "accuracy": 0.6,
+       "stale_rate": 0.2,
+       "tokens": 594.3,
+       "first_seen_n": 2,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.58,
+      "repeat_acc": 0.474,
+      "first_seen_acc": 0.645,
+      "stale_rate": 0.2,
+      "tokens": 598.4,
+      "ms": 0.2
+     }
+    },
+    "decisiongraph": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 0,
+       "repeat_acc": null,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 154.4,
+       "first_seen_n": 10,
+       "first_seen_acc": 0.8
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.75,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 136.7,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.75,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 134.9,
+       "first_seen_n": 6,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 0.8,
+       "stale_rate": 0.0,
+       "tokens": 111.5,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.714
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 8,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 91.6,
+       "first_seen_n": 2,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.84,
+      "repeat_acc": 0.895,
+      "first_seen_acc": 0.806,
+      "stale_rate": 0.1,
+      "tokens": 125.8,
+      "ms": 13.4
+     }
+    },
+    "decisiongraph-frozen": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 0,
+       "repeat_acc": null,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 154.4,
+       "first_seen_n": 10,
+       "first_seen_acc": 0.8
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.75,
+       "accuracy": 0.7,
+       "stale_rate": 0.3,
+       "tokens": 136.7,
+       "first_seen_n": 6,
+       "first_seen_acc": 0.667
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 4,
+       "repeat_acc": 0.75,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 134.9,
+       "first_seen_n": 6,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.8,
+       "stale_rate": 0.0,
+       "tokens": 124.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.857
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 8,
+       "repeat_acc": 0.375,
+       "accuracy": 0.5,
+       "stale_rate": 0.4,
+       "tokens": 117.9,
+       "first_seen_n": 2,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.74,
+      "repeat_acc": 0.579,
+      "first_seen_acc": 0.839,
+      "stale_rate": 0.18,
+      "tokens": 133.7,
+      "ms": 12.4
+     }
+    }
+   }
+  },
+  {
+   "seed": 99,
+   "systems": {
+    "vector": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.3,
+       "stale_rate": 0.3,
+       "tokens": 556.7,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.333
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.333,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 589.9,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.857
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.167,
+       "accuracy": 0.4,
+       "stale_rate": 0.4,
+       "tokens": 579.9,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 561.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.5,
+       "stale_rate": 0.5,
+       "tokens": 649.6,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.333
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.368,
+      "first_seen_acc": 0.613,
+      "stale_rate": 0.28,
+      "tokens": 587.5,
+      "ms": 0.2
+     }
+    },
+    "vector+memory": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.3,
+       "stale_rate": 0.3,
+       "tokens": 556.7,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.333
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 598.3,
+       "first_seen_n": 7,
+       "first_seen_acc": 0.857
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.167,
+       "accuracy": 0.3,
+       "stale_rate": 0.3,
+       "tokens": 608.4,
+       "first_seen_n": 4,
+       "first_seen_acc": 0.5
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 0.5,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 561.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.5,
+       "stale_rate": 0.4,
+       "tokens": 678.4,
+       "first_seen_n": 3,
+       "first_seen_acc": 0.333
+      }
+     ],
+     "overall": {
+      "accuracy": 0.52,
+      "repeat_acc": 0.421,
+      "first_seen_acc": 0.581,
+      "stale_rate": 0.24,
+      "tokens": 600.6,
+      "ms": 0.2
+     }
+    },
+    "decisiongraph": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 1.0,
+       "accuracy": 0.6,
+       "stale_rate": 0.3,
+       "tokens": 128.9,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 1.0,
+       "accuracy": 1.0,
+       "stale_rate": 0.0,
+       "tokens": 101.8,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.833,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 130.2,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.7,
+       "stale_rate": 0.1,
+       "tokens": 120.0,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.625
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.857,
+       "accuracy": 0.9,
+       "stale_rate": 0.1,
+       "tokens": 138.0,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.82,
+      "repeat_acc": 0.895,
+      "first_seen_acc": 0.774,
+      "stale_rate": 0.12,
+      "tokens": 123.8,
+      "ms": 13.3
+     }
+    },
+    "decisiongraph-frozen": {
+     "rounds": [
+      {
+       "round": 1,
+       "n": 10,
+       "repeat_n": 1,
+       "repeat_acc": 0.0,
+       "accuracy": 0.5,
+       "stale_rate": 0.4,
+       "tokens": 126.7,
+       "first_seen_n": 9,
+       "first_seen_acc": 0.556
+      },
+      {
+       "round": 2,
+       "n": 10,
+       "repeat_n": 3,
+       "repeat_acc": 0.667,
+       "accuracy": 0.9,
+       "stale_rate": 0.0,
+       "tokens": 103.9,
+       "first_seen_n": 7,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 3,
+       "n": 10,
+       "repeat_n": 6,
+       "repeat_acc": 0.667,
+       "accuracy": 0.8,
+       "stale_rate": 0.2,
+       "tokens": 141.8,
+       "first_seen_n": 4,
+       "first_seen_acc": 1.0
+      },
+      {
+       "round": 4,
+       "n": 10,
+       "repeat_n": 2,
+       "repeat_acc": 1.0,
+       "accuracy": 0.8,
+       "stale_rate": 0.1,
+       "tokens": 131.2,
+       "first_seen_n": 8,
+       "first_seen_acc": 0.75
+      },
+      {
+       "round": 5,
+       "n": 10,
+       "repeat_n": 7,
+       "repeat_acc": 0.571,
+       "accuracy": 0.7,
+       "stale_rate": 0.2,
+       "tokens": 165.1,
+       "first_seen_n": 3,
+       "first_seen_acc": 1.0
+      }
+     ],
+     "overall": {
+      "accuracy": 0.74,
+      "repeat_acc": 0.632,
+      "first_seen_acc": 0.806,
+      "stale_rate": 0.18,
+      "tokens": 133.7,
+      "ms": 14.1
+     }
+    }
+   }
+  }
+ ],
+ "questions": 50,
+ "decisions": 128,
+ "candidate_links": 49,
+ "trace": [
+  {
+   "qid": "q25",
+   "q": "How is the GOV.UK Terraform data directory structured per environment and stack?",
+   "round": 1,
+   "ok": true,
+   "got": "govuk-aws:17",
+   "want": "govuk-aws:17",
+   "start": "govuk-aws:10",
+   "path": [
+    {
+     "frm": "govuk-aws:10",
+     "to": "govuk-aws:17",
+     "trust": 0.9,
+     "rule": "status-link",
+     "state": "candidate"
+    }
+   ],
+   "learned": [
+    "confirmed link govuk-aws:10 -> govuk-aws:17 (status-link)",
+    "hinted directory, stack, data, environment, terraform -> govuk-aws:17"
+   ]
+  },
+  {
+   "qid": "q36",
+   "q": "Is the Cloud Platform EKS API endpoint public or private?",
+   "round": 1,
+   "ok": true,
+   "got": "cloud-platform:45",
+   "want": "cloud-platform:45",
+   "start": "cloud-platform:45",
+   "path": [],
+   "learned": [
+    "hinted endpoint, eks, private, public, api -> cloud-platform:45"
+   ]
+  },
+  {
+   "qid": "q15",
+   "q": "Can we keep sending Cloud Platform logs to the old ELK stack?",
+   "round": 1,
+   "ok": false,
+   "got": "cloud-platform:1",
+   "want": "cloud-platform:23",
+   "start": "cloud-platform:1",
+   "path": [],
+   "learned": [
+    "confirmed link cloud-platform:1 -> cloud-platform:23 (replace-term)",
+    "hinted elk, old, logs, stack, keep -> cloud-platform:23"
+   ]
+  },
+  {
+   "qid": "q32",
+   "q": "Which AWS account should a Cloud Platform team's AWS resources go in after the move to multiple clusters?",
+   "round": 1,
+   "ok": false,
+   "got": "cloud-platform:42",
+   "want": "cloud-platform:49",
+   "start": "cloud-platform:42",
+   "path": [],
+   "learned": [
+    "learned new link cloud-platform:42 -> cloud-platform:49",
+    "hinted go, move, clusters, multiple, resources -> cloud-platform:49"
+   ]
+  },
+  {
+   "qid": "q11",
+   "q": "Is the Cloud Platform Kubernetes cluster self-managed or a managed AWS service?",
+   "round": 1,
+   "ok": false,
+   "got": "cloud-platform:14",
+   "want": "cloud-platform:22",
+   "start": "cloud-platform:14",
+   "path": [],
+   "learned": [
+    "learned new link cloud-platform:14 -> cloud-platform:22",
+    "hinted self-managed, kubernetes, managed, cluster -> cloud-platform:22"
+   ]
+  },
+  {
+   "qid": "q49",
+   "q": "What does Cloud Platform use to enforce Kubernetes policies?",
+   "round": 1,
+   "ok": true,
+   "got": "cloud-platform:11",
+   "want": "cloud-platform:11",
+   "start": "cloud-platform:11",
+   "path": [],
+   "learned": [
+    "hinted enforce, policies, kubernetes -> cloud-platform:11"
+   ]
+  },
+  {
+   "qid": "q12",
+   "q": "Where do Cloud Platform application logs go?",
+   "round": 1,
+   "ok": true,
+   "got": "cloud-platform:23",
+   "want": "cloud-platform:23",
+   "start": "cloud-platform:23",
+   "path": [],
+   "learned": [
+    "hinted go, logs, application -> cloud-platform:23"
+   ]
+  },
+  {
+   "qid": "q17",
+   "q": "How are ingress controllers organised for teams on Cloud Platform?",
+   "round": 1,
+   "ok": true,
+   "got": "cloud-platform:19",
+   "want": "cloud-platform:19",
+   "start": "cloud-platform:18",
+   "path": [
+    {
+     "frm": "cloud-platform:18",
+     "to": "cloud-platform:19",
+     "trust": 0.91,
+     "rule": "status-link",
+     "state": "candidate"
+    }
+   ],
+   "learned": [
+    "confirmed link cloud-platform:18 -> cloud-platform:19 (status-link)",
+    "hinted organised, controllers, ingress -> cloud-platform:19"
+   ]
+  },
+  {
+   "qid": "q29",
+   "q": "Do people get into Modernisation Platform AWS accounts through IAM federated access?",
+   "round": 1,
+   "ok": true,
+   "got": "modernisation-platform:3",
+   "want": "modernisation-platform:3",
+   "start": "modernisation-platform:3",
+   "path": [],
+   "learned": [
+    "hinted federated, people, iam, through, accounts -> modernisation-platform:3"
+   ]
+  },
+  {
+   "qid": "q30",
+   "q": "How is access to Modernisation Platform AWS accounts managed for joiners, movers and leavers?",
+   "round": 1,
+   "ok": true,
+   "got": "modernisation-platform:3",
+   "want": "modernisation-platform:3",
+   "start": "modernisation-platform:3",
+   "path": [],
+   "learned": [
+    "hinted joiners, movers, leavers, managed, accounts -> modernisation-platform:3"
+   ]
+  },
+  {
+   "qid": "q43",
+   "q": "How are SSL certificates managed for GOV.UK on AWS?",
+   "round": 2,
+   "ok": true,
+   "got": "govuk-aws:21",
+   "want": "govuk-aws:21",
+   "start": "govuk-aws:21",
+   "path": [],
+   "learned": [
+    "hinted ssl, certificates, managed -> govuk-aws:21"
+   ]
+  },
+  {
+   "qid": "q39",
+   "q": "Do Modernisation Platform security log buckets use S3 MFA Delete?",
+   "round": 2,
+   "ok": true,
+   "got": "modernisation-platform:44",
+   "want": "modernisation-platform:44",
+   "start": "modernisation-platform:44",
+   "path": [],
+   "learned": [
+    "hinted mfa, buckets, delete, log, s3 -> modernisation-platform:44"
+   ]
+  },
+  {
+   "qid": "q31",
+   "q": "Where should user container images be hosted on the new Container Platform?",
+   "round": 2,
+   "ok": true,
+   "got": "cloud-platform:46",
+   "want": "cloud-platform:46",
+   "start": "cloud-platform:46",
+   "path": [],
+   "learned": [
+    "hinted images, hosted, user -> cloud-platform:46"
+   ]
+  },
+  {
+   "qid": "q09",
+   "q": "Does Cloud Platform still build its own Kubernetes cluster with kOps?",
+   "round": 2,
+   "ok": true,
+   "got": "cloud-platform:22",
+   "want": "cloud-platform:22",
+   "start": "cloud-platform:22",
+   "path": [],
+   "learned": [
+    "hinted kops, own, kubernetes, build, cluster -> cloud-platform:22"
+   ]
+  },
+  {
+   "qid": "q01",
+   "q": "What does the Cloud Platform team use for its deployment pipelines?",
+   "round": 2,
+   "ok": true,
+   "got": "cloud-platform:40",
+   "want": "cloud-platform:40",
+   "start": "cloud-platform:40",
+   "path": [],
+   "learned": [
+    "hinted pipelines, deployment -> cloud-platform:40"
+   ]
+  },
+  {
+   "qid": "q47",
+   "q": "Does Cloud Platform inspect outbound traffic with AWS Network Firewall?",
+   "round": 2,
+   "ok": true,
+   "got": "cloud-platform:39",
+   "want": "cloud-platform:39",
+   "start": "cloud-platform:39",
+   "path": [],
+   "learned": [
+    "hinted outbound, firewall, network, traffic -> cloud-platform:39"
+   ]
+  },
+  {
+   "qid": "q20",
+   "q": "Which language should new Modernisation Platform scripts and tests be written in?",
+   "round": 2,
+   "ok": true,
+   "got": "modernisation-platform:19",
+   "want": "modernisation-platform:19",
+   "start": "modernisation-platform:19",
+   "path": [],
+   "learned": [
+    "hinted tests, scripts, language, written -> modernisation-platform:19"
+   ]
+  },
+  {
+   "qid": "q13",
+   "q": "Is AWS hosted Elasticsearch still the logging backend for Cloud Platform?",
+   "round": 2,
+   "ok": true,
+   "got": "cloud-platform:23",
+   "want": "cloud-platform:23",
+   "start": "cloud-platform:23",
+   "path": [],
+   "learned": [
+    "hinted backend, elasticsearch, logging, hosted -> cloud-platform:23"
+   ]
+  },
+  {
+   "qid": "q22",
+   "q": "Do GOV.UK internal services still use the servicename.stackname.internal hostname format?",
+   "round": 2,
+   "ok": true,
+   "got": "govuk-aws:15",
+   "want": "govuk-aws:15",
+   "start": "govuk-aws:4",
+   "path": [
+    {
+     "frm": "govuk-aws:4",
+     "to": "govuk-aws:15",
+     "trust": 0.93,
+     "rule": "status-link",
+     "state": "candidate"
+    }
+   ],
+   "learned": [
+    "confirmed link govuk-aws:4 -> govuk-aws:15 (status-link)",
+    "hinted format, internal -> govuk-aws:15"
+   ]
+  },
+  {
+   "qid": "q44",
+   "q": "Where do Modernisation Platform teams store secrets?",
+   "round": 2,
+   "ok": true,
+   "got": "modernisation-platform:9",
+   "want": "modernisation-platform:9",
+   "start": "modernisation-platform:9",
+   "path": [],
+   "learned": [
+    "hinted secrets, store -> modernisation-platform:9"
+   ]
+  },
+  {
+   "qid": "q48",
+   "q": "How are Modernisation Platform production instances backed up?",
+   "round": 3,
+   "ok": false,
+   "got": "modernisation-platform:29",
+   "want": "modernisation-platform:23",
+   "start": "modernisation-platform:29",
+   "path": [],
+   "learned": [
+    "hinted instances, production -> modernisation-platform:23"
+   ]
+  },
+  {
+   "qid": "q23",
+   "q": "What IP range does the GOV.UK production VPC use?",
+   "round": 3,
+   "ok": false,
+   "got": "govuk-aws:3",
+   "want": "govuk-aws:33",
+   "start": "govuk-aws:3",
+   "path": [],
+   "learned": [
+    "confirmed link govuk-aws:3 -> govuk-aws:33 (body-ref-replace)",
+    "hinted ip, range, vpc, production -> govuk-aws:33"
+   ]
+  },
+  {
+   "qid": "q50",
+   "q": "Does the Modernisation Platform use AWS Shield Advanced?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:18",
+   "want": "modernisation-platform:18",
+   "start": "modernisation-platform:18",
+   "path": [],
+   "learned": [
+    "hinted shield, advanced -> modernisation-platform:18"
+   ]
+  },
+  {
+   "qid": "q08",
+   "q": "Is the Cloud Platform multi-cluster plan still just production versus non-production?",
+   "round": 3,
+   "ok": false,
+   "got": "cloud-platform:49",
+   "want": "cloud-platform:48",
+   "start": "cloud-platform:36",
+   "path": [
+    {
+     "frm": "cloud-platform:36",
+     "to": "cloud-platform:42",
+     "trust": 0.53,
+     "rule": "body-ref-replace",
+     "state": "candidate"
+    },
+    {
+     "frm": "cloud-platform:42",
+     "to": "cloud-platform:49",
+     "trust": 1.0,
+     "rule": "learned",
+     "state": "confirmed"
+    }
+   ],
+   "learned": [
+    "rejected link cloud-platform:36 -> cloud-platform:42 (body-ref-replace)",
+    "confirmed link cloud-platform:36 -> cloud-platform:48 (body-ref)",
+    "hinted multi-cluster, non-production, plan, production -> cloud-platform:48"
+   ]
+  },
+  {
+   "qid": "q40",
+   "q": "Should a new MoJ service be hosted on the Modernisation Platform or the Cloud Platform?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:28",
+   "want": "modernisation-platform:28",
+   "start": "modernisation-platform:28",
+   "path": [],
+   "learned": [
+    "hinted hosted -> modernisation-platform:28"
+   ]
+  },
+  {
+   "qid": "q19",
+   "q": "Can I write new Modernisation Platform lambdas in Python or Node?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:19",
+   "want": "modernisation-platform:19",
+   "start": "modernisation-platform:4",
+   "path": [
+    {
+     "frm": "modernisation-platform:4",
+     "to": "modernisation-platform:19",
+     "trust": 0.93,
+     "rule": "status-link",
+     "state": "candidate"
+    }
+   ],
+   "learned": [
+    "confirmed link modernisation-platform:4 -> modernisation-platform:19 (status-link)",
+    "hinted lambdas, python, write, node -> modernisation-platform:19"
+   ]
+  },
+  {
+   "qid": "q34",
+   "q": "Should the Modernisation Platform use AWS Cloud Map for service discovery?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:34",
+   "want": "modernisation-platform:34",
+   "start": "modernisation-platform:34",
+   "path": [],
+   "learned": [
+    "hinted discovery, map -> modernisation-platform:34"
+   ]
+  },
+  {
+   "qid": "q02",
+   "q": "Is Concourse still the CI tool for Cloud Platform?",
+   "round": 3,
+   "ok": false,
+   "got": "cloud-platform:3",
+   "want": "cloud-platform:40",
+   "start": "cloud-platform:3",
+   "path": [],
+   "learned": [
+    "confirmed link cloud-platform:3 -> cloud-platform:40 (replace-term)",
+    "hinted concourse, ci, tool -> cloud-platform:40"
+   ]
+  },
+  {
+   "qid": "q41",
+   "q": "Where should the MoJ host large language models?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:31",
+   "want": "modernisation-platform:31",
+   "start": "modernisation-platform:31",
+   "path": [],
+   "learned": [
+    "hinted language, host, large -> modernisation-platform:31"
+   ]
+  },
+  {
+   "qid": "q18",
+   "q": "What are the core programming languages for the Modernisation Platform?",
+   "round": 3,
+   "ok": true,
+   "got": "modernisation-platform:19",
+   "want": "modernisation-platform:19",
+   "start": "modernisation-platform:4",
+   "path": [
+    {
+     "frm": "modernisation-platform:4",
+     "to": "modernisation-platform:19",
+     "trust": 1.0,
+     "rule": "status-link",
+     "state": "confirmed"
+    }
+   ],
+   "learned": [
+    "hinted languages, core -> modernisation-platform:19"
+   ]
+  },
+  {
+   "qid": "q37",
+   "q": "What is the new name of the Cloud Platform?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:44",
+   "want": "cloud-platform:44",
+   "start": "cloud-platform:44",
+   "path": [],
+   "learned": [
+    "hinted name -> cloud-platform:44"
+   ]
+  },
+  {
+   "qid": "q16",
+   "q": "Does every namespace get a dedicated ingress controller on Cloud Platform?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:19",
+   "want": "cloud-platform:19",
+   "start": "cloud-platform:19",
+   "path": [],
+   "learned": [
+    "hinted controller, namespace, ingress, every, dedicated -> cloud-platform:19"
+   ]
+  },
+  {
+   "qid": "q45",
+   "q": "Which framework does Cloud Platform use for its cluster tests?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:13",
+   "want": "cloud-platform:13",
+   "start": "cloud-platform:13",
+   "path": [],
+   "learned": [
+    "hinted framework, tests, cluster -> cloud-platform:13"
+   ]
+  },
+  {
+   "qid": "q27",
+   "q": "What should GOV.UK apps migrating to AWS use instead of MongoDB?",
+   "round": 4,
+   "ok": true,
+   "got": "govuk-aws:38",
+   "want": "govuk-aws:38",
+   "start": "govuk-aws:38",
+   "path": [],
+   "learned": [
+    "hinted mongodb, migrating, instead, apps -> govuk-aws:38"
+   ]
+  },
+  {
+   "qid": "q28",
+   "q": "Is GOV.UK moving MongoDB workloads to DocumentDB?",
+   "round": 4,
+   "ok": true,
+   "got": "govuk-aws:38",
+   "want": "govuk-aws:38",
+   "start": "govuk-aws:38",
+   "path": [],
+   "learned": [
+    "hinted mongodb, documentdb, workloads, moving -> govuk-aws:38"
+   ]
+  },
+  {
+   "qid": "q06",
+   "q": "Does Cloud Platform still run one cluster for dev, staging and prod?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:48",
+   "want": "cloud-platform:48",
+   "start": "cloud-platform:12",
+   "path": [
+    {
+     "frm": "cloud-platform:12",
+     "to": "cloud-platform:21",
+     "trust": 0.94,
+     "rule": "status-link",
+     "state": "candidate"
+    },
+    {
+     "frm": "cloud-platform:21",
+     "to": "cloud-platform:36",
+     "trust": 0.94,
+     "rule": "status-link",
+     "state": "candidate"
+    },
+    {
+     "frm": "cloud-platform:36",
+     "to": "cloud-platform:48",
+     "trust": 1.0,
+     "rule": "body-ref",
+     "state": "confirmed"
+    }
+   ],
+   "learned": [
+    "confirmed link cloud-platform:12 -> cloud-platform:21 (status-link)",
+    "confirmed link cloud-platform:21 -> cloud-platform:36 (status-link)",
+    "hinted prod, dev, staging, run, cluster -> cloud-platform:48"
+   ]
+  },
+  {
+   "qid": "q03",
+   "q": "Which CI/CD system should run Cloud Platform infrastructure pipelines now?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:40",
+   "want": "cloud-platform:40",
+   "start": "cloud-platform:40",
+   "path": [],
+   "learned": [
+    "hinted system, cd, ci, pipelines, run -> cloud-platform:40"
+   ]
+  },
+  {
+   "qid": "q14",
+   "q": "What should service teams use to search their logs on Cloud Platform?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:23",
+   "want": "cloud-platform:23",
+   "start": "cloud-platform:23",
+   "path": [],
+   "learned": [
+    "hinted search, logs -> cloud-platform:23"
+   ]
+  },
+  {
+   "qid": "q33",
+   "q": "Can teams run AWS Lambda functions on Cloud Platform?",
+   "round": 4,
+   "ok": true,
+   "got": "cloud-platform:37",
+   "want": "cloud-platform:37",
+   "start": "cloud-platform:37",
+   "path": [],
+   "learned": [
+    "hinted lambda, run -> cloud-platform:37"
+   ]
+  },
+  {
+   "qid": "q46",
+   "q": "What tools does the Modernisation Platform use for infrastructure testing?",
+   "round": 4,
+   "ok": true,
+   "got": "modernisation-platform:7",
+   "want": "modernisation-platform:7",
+   "start": "modernisation-platform:7",
+   "path": [],
+   "learned": [
+    "hinted tools, testing, infrastructure -> modernisation-platform:7"
+   ]
+  },
+  {
+   "qid": "q38",
+   "q": "Is the Cloud Platform CLI tool still supported?",
+   "round": 5,
+   "ok": true,
+   "got": "cloud-platform:41",
+   "want": "cloud-platform:41",
+   "start": "cloud-platform:41",
+   "path": [],
+   "learned": [
+    "hinted cli, tool -> cloud-platform:41"
+   ]
+  },
+  {
+   "qid": "q24",
+   "q": "Is GOV.UK staging still on 10.2.0.0/16 in AWS?",
+   "round": 5,
+   "ok": true,
+   "got": "govuk-aws:33",
+   "want": "govuk-aws:33",
+   "start": "govuk-aws:33",
+   "path": [],
+   "learned": [
+    "hinted 10.2.0.0, staging -> govuk-aws:33"
+   ]
+  },
+  {
+   "qid": "q07",
+   "q": "Will each business unit get its own cluster on Cloud Platform?",
+   "round": 5,
+   "ok": true,
+   "got": "cloud-platform:48",
+   "want": "cloud-platform:48",
+   "start": "cloud-platform:48",
+   "path": [],
+   "learned": [
+    "hinted unit, business, own, cluster -> cloud-platform:48"
+   ]
+  },
+  {
+   "qid": "q35",
+   "q": "What does the Container Platform use for node autoscaling?",
+   "round": 5,
+   "ok": true,
+   "got": "cloud-platform:47",
+   "want": "cloud-platform:47",
+   "start": "cloud-platform:47",
+   "path": [],
+   "learned": [
+    "hinted autoscaling, node -> cloud-platform:47"
+   ]
+  },
+  {
+   "qid": "q05",
+   "q": "How are Cloud Platform Kubernetes clusters split up?",
+   "round": 5,
+   "ok": false,
+   "got": "cloud-platform:22",
+   "want": "cloud-platform:48",
+   "start": "cloud-platform:22",
+   "path": [],
+   "learned": [
+    "confirmed link cloud-platform:22 -> cloud-platform:36 (body-ref-replace)",
+    "hinted split, clusters, kubernetes -> cloud-platform:48"
+   ]
+  },
+  {
+   "qid": "q04",
+   "q": "We still have Jenkins jobs on Cloud Platform. What should they move to?",
+   "round": 5,
+   "ok": true,
+   "got": "cloud-platform:40",
+   "want": "cloud-platform:40",
+   "start": "cloud-platform:3",
+   "path": [
+    {
+     "frm": "cloud-platform:3",
+     "to": "cloud-platform:40",
+     "trust": 1.0,
+     "rule": "replace-term",
+     "state": "confirmed"
+    }
+   ],
+   "learned": [
+    "hinted jenkins, jobs, move -> cloud-platform:40"
+   ]
+  },
+  {
+   "qid": "q42",
+   "q": "Does GOV.UK on AWS run its own Redis instances?",
+   "round": 5,
+   "ok": false,
+   "got": "govuk-aws:29",
+   "want": "govuk-aws:25",
+   "start": "govuk-aws:25",
+   "path": [
+    {
+     "frm": "govuk-aws:25",
+     "to": "govuk-aws:29",
+     "trust": 0.51,
+     "rule": "replace-term",
+     "state": "candidate"
+    }
+   ],
+   "learned": [
+    "rejected link govuk-aws:25 -> govuk-aws:29 (replace-term)",
+    "hinted redis, own, instances, run -> govuk-aws:25"
+   ]
+  },
+  {
+   "qid": "q26",
+   "q": "Where should GOV.UK Terraform tfvars and encrypted secrets be kept?",
+   "round": 5,
+   "ok": true,
+   "got": "govuk-aws:23",
+   "want": "govuk-aws:23",
+   "start": "govuk-aws:23",
+   "path": [],
+   "learned": [
+    "hinted tfvars, kept, encrypted, secrets, terraform -> govuk-aws:23"
+   ]
+  },
+  {
+   "qid": "q10",
+   "q": "What runs the control plane of the Cloud Platform main cluster?",
+   "round": 5,
+   "ok": false,
+   "got": "cloud-platform:33",
+   "want": "cloud-platform:22",
+   "start": "cloud-platform:33",
+   "path": [],
+   "learned": [
+    "learned new link cloud-platform:33 -> cloud-platform:22",
+    "hinted main, runs, control, cluster -> cloud-platform:22"
+   ]
+  },
+  {
+   "qid": "q21",
+   "q": "How are DNS zones and records set up for GOV.UK AWS stacks?",
+   "round": 5,
+   "ok": true,
+   "got": "govuk-aws:15",
+   "want": "govuk-aws:15",
+   "start": "govuk-aws:15",
+   "path": [],
+   "learned": [
+    "hinted records, stacks, zones, dns, set -> govuk-aws:15"
+   ]
+  }
+ ],
+ "rules_after": {
+  "status-link": {
+   "a": 5.4,
+   "b": 0.5999999999999999,
+   "trust": 0.9
+  },
+  "body-ref-replace": {
+   "a": 2.7,
+   "b": 3.3000000000000003,
+   "trust": 0.45
+  },
+  "replace-term": {
+   "a": 2.0999999999999996,
+   "b": 3.9,
+   "trust": 0.3499999999999999
+  },
+  "body-ref": {
+   "a": 1.2000000000000002,
+   "b": 4.800000000000001,
+   "trust": 0.2
+  },
+  "learned": {
+   "a": 6.0,
+   "b": 0.0,
+   "trust": 1.0
+  }
+ },
+ "graph_after": {
+  "Decision": 128,
+  "Term": 1854,
+  "Rule": 5,
+  "Project": 3,
+  "CORE_OF": 4008,
+  "REPLACED_BY": 49,
+  "HINTS": 0
+ },
+ "mean": {
+  "vector": {
+   "rounds": [
+    {
+     "round": 1,
+     "accuracy": 0.4,
+     "accuracy_min": 0.2,
+     "accuracy_max": 0.6,
+     "stale_rate": 0.38,
+     "tokens": 593.1,
+     "first_seen_acc": 0.4,
+     "repeat_acc": 0.25
+    },
+    {
+     "round": 2,
+     "accuracy": 0.56,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.24,
+     "tokens": 590.3,
+     "first_seen_acc": 0.633,
+     "repeat_acc": 0.317
+    },
+    {
+     "round": 3,
+     "accuracy": 0.52,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.7,
+     "stale_rate": 0.34,
+     "tokens": 580.7,
+     "first_seen_acc": 0.807,
+     "repeat_acc": 0.183
+    },
+    {
+     "round": 4,
+     "accuracy": 0.6,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.7,
+     "stale_rate": 0.12,
+     "tokens": 582.8,
+     "first_seen_acc": 0.719,
+     "repeat_acc": 0.466
+    },
+    {
+     "round": 5,
+     "accuracy": 0.52,
+     "accuracy_min": 0.3,
+     "accuracy_max": 0.9,
+     "stale_rate": 0.32,
+     "tokens": 590.4,
+     "first_seen_acc": 0.838,
+     "repeat_acc": 0.425
+    }
+   ],
+   "overall": {
+    "accuracy": 0.52,
+    "repeat_acc": 0.326,
+    "first_seen_acc": 0.639,
+    "stale_rate": 0.28,
+    "tokens": 587.5,
+    "ms": 0.2
+   }
+  },
+  "vector+memory": {
+   "rounds": [
+    {
+     "round": 1,
+     "accuracy": 0.4,
+     "accuracy_min": 0.1,
+     "accuracy_max": 0.6,
+     "stale_rate": 0.34,
+     "tokens": 601.6,
+     "first_seen_acc": 0.4,
+     "repeat_acc": 0.25
+    },
+    {
+     "round": 2,
+     "accuracy": 0.58,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.22,
+     "tokens": 595.7,
+     "first_seen_acc": 0.633,
+     "repeat_acc": 0.383
+    },
+    {
+     "round": 3,
+     "accuracy": 0.52,
+     "accuracy_min": 0.3,
+     "accuracy_max": 0.7,
+     "stale_rate": 0.3,
+     "tokens": 592.2,
+     "first_seen_acc": 0.757,
+     "repeat_acc": 0.25
+    },
+    {
+     "round": 4,
+     "accuracy": 0.72,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.9,
+     "stale_rate": 0.06,
+     "tokens": 597.8,
+     "first_seen_acc": 0.691,
+     "repeat_acc": 0.741
+    },
+    {
+     "round": 5,
+     "accuracy": 0.62,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.9,
+     "stale_rate": 0.2,
+     "tokens": 613.6,
+     "first_seen_acc": 0.838,
+     "repeat_acc": 0.557
+    }
+   ],
+   "overall": {
+    "accuracy": 0.568,
+    "repeat_acc": 0.474,
+    "first_seen_acc": 0.626,
+    "stale_rate": 0.224,
+    "tokens": 600.2,
+    "ms": 0.2
+   }
+  },
+  "decisiongraph-frozen": {
+   "rounds": [
+    {
+     "round": 1,
+     "accuracy": 0.6,
+     "accuracy_min": 0.4,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.34,
+     "tokens": 143.1,
+     "first_seen_acc": 0.605,
+     "repeat_acc": 0.375
+    },
+    {
+     "round": 2,
+     "accuracy": 0.78,
+     "accuracy_min": 0.7,
+     "accuracy_max": 0.9,
+     "stale_rate": 0.16,
+     "tokens": 134.1,
+     "first_seen_acc": 0.864,
+     "repeat_acc": 0.383
+    },
+    {
+     "round": 3,
+     "accuracy": 0.84,
+     "accuracy_min": 0.6,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.14,
+     "tokens": 132.2,
+     "first_seen_acc": 0.914,
+     "repeat_acc": 0.783
+    },
+    {
+     "round": 4,
+     "accuracy": 0.76,
+     "accuracy_min": 0.7,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.06,
+     "tokens": 130.5,
+     "first_seen_acc": 0.921,
+     "repeat_acc": 0.668
+    },
+    {
+     "round": 5,
+     "accuracy": 0.72,
+     "accuracy_min": 0.5,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.2,
+     "tokens": 128.8,
+     "first_seen_acc": 1.0,
+     "repeat_acc": 0.618
+    }
+   ],
+   "overall": {
+    "accuracy": 0.74,
+    "repeat_acc": 0.611,
+    "first_seen_acc": 0.819,
+    "stale_rate": 0.18,
+    "tokens": 133.7,
+    "ms": 12.6
+   }
+  },
+  "decisiongraph": {
+   "rounds": [
+    {
+     "round": 1,
+     "accuracy": 0.66,
+     "accuracy_min": 0.5,
+     "accuracy_max": 0.8,
+     "stale_rate": 0.28,
+     "tokens": 138.5,
+     "first_seen_acc": 0.605,
+     "repeat_acc": 1.0
+    },
+    {
+     "round": 2,
+     "accuracy": 0.86,
+     "accuracy_min": 0.7,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.1,
+     "tokens": 129.0,
+     "first_seen_acc": 0.864,
+     "repeat_acc": 0.75
+    },
+    {
+     "round": 3,
+     "accuracy": 0.86,
+     "accuracy_min": 0.6,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.08,
+     "tokens": 128.0,
+     "first_seen_acc": 0.914,
+     "repeat_acc": 0.817
+    },
+    {
+     "round": 4,
+     "accuracy": 0.84,
+     "accuracy_min": 0.7,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.02,
+     "tokens": 116.8,
+     "first_seen_acc": 0.818,
+     "repeat_acc": 0.938
+    },
+    {
+     "round": 5,
+     "accuracy": 0.9,
+     "accuracy_min": 0.7,
+     "accuracy_max": 1.0,
+     "stale_rate": 0.04,
+     "tokens": 114.1,
+     "first_seen_acc": 0.933,
+     "repeat_acc": 0.886
+    }
+   ],
+   "overall": {
+    "accuracy": 0.824,
+    "repeat_acc": 0.874,
+    "first_seen_acc": 0.793,
+    "stale_rate": 0.104,
+    "tokens": 125.3,
+    "ms": 13.0
+   }
+  }
+ }
+}
