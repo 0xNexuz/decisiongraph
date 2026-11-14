@@ -30,6 +30,7 @@ TERM_BASE = 100000
 FOLLOW = 0.5          # follow a link when its trust is at least this
 PRIOR_STRENGTH = 6.0  # how many observations a rule prior is worth
 MAX_HOPS = 5
+ABSTAIN_BELOW = 0.42  # top seed score under which DecisionGraph says it has no decision on record
 BLOCKED = 100.0       # path cost of a link the walker must not follow (trust below FOLLOW)
 QUESTION_BASE = 500000
 
@@ -169,7 +170,7 @@ class DecisionGraph:
             rid = self.vector.chunks[i]["adr"]
             vec[rid] = max(vec.get(rid, 0.0), float(sims[i]))
         terms = self.q_terms(q)
-        term_score, hint_score = defaultdict(float), defaultdict(float)
+        term_score, hint_score, memory = defaultdict(float), defaultdict(float), {}
         if terms:
             rows = self.db.q("UNWIND $rows AS row MATCH (a {id: row.id})-[:CORE_OF]->(b) RETURN row.id AS src, b.id AS dst",
                              rows=[{"id": self.term_vid[t]} for t in terms])
@@ -183,15 +184,33 @@ class DecisionGraph:
                 rec = self.by_vid.get(r["id"])
                 if rec:
                     hint_score[rec["id"]] += r["w"]
+            # question memory, two hops in HydraDB: words -> past corrected questions -> their topic
+            rows = self.db.q(f"MATCH (t:Term)-[:IN_QUESTION]->(q:Question)-[:ABOUT]->(d) WHERE {where} "
+                             "RETURN q.id AS q, q.nterms AS n, d.id AS d, count(*) AS hits")
+            for r in rows:
+                rec = self.by_vid.get(r["d"])
+                if not rec or not r["n"]:
+                    continue
+                sim = r["hits"] / (len(terms) + r["n"] - r["hits"])
+                if sim >= 0.5 and (sim, r["q"]) > memory.get(rec["id"], (0, 0)):
+                    memory[rec["id"]] = (sim, r["q"])
         proj = detect_project(q)
         members = self.project_members(proj) if proj else None
         scores = {}
-        for rid in set(vec) | set(term_score) | set(hint_score):
-            s = vec.get(rid, 0.0) + 0.04 * min(term_score.get(rid, 0.0), 8.0) + 0.15 * min(hint_score.get(rid, 0.0), 4.0)
+        # hints are shared out between the decisions they point at, so a new correction can always shift the balance
+        hint_total = sum(hint_score.values()) or 1.0
+        best_mem = max(memory.values(), default=None)
+        for rid in set(vec) | set(term_score) | set(hint_score) | set(memory):
+            s = vec.get(rid, 0.0) + 0.04 * min(term_score.get(rid, 0.0), 8.0) + 0.45 * hint_score.get(rid, 0.0) / hint_total
+            if rid in memory:
+                sim, qid = memory[rid]
+                s += (0.9 if memory[rid] == best_mem else 0.4) * sim  # the latest, closest correction wins
             if members is not None and self.recs[rid]["vid"] not in members:
                 s -= 1.0
             scores[rid] = s
         ranked = sorted(scores.items(), key=lambda kv: -kv[1])
+        self._last_vec_top = max(vec.values(), default=0.0)
+        self._last_support = bool(term_score) or bool(memory) or bool(hint_score)
         return ranked, terms
 
     # ---------- traversal inside HydraDB ----------
@@ -229,6 +248,12 @@ class DecisionGraph:
         where = " OR ".join(f"n.id = {i}" for i in ids)
         return {r["id"]: r["text"] for r in self.db.q(f"MATCH (n:Question) WHERE {where} RETURN n.id AS id, n.text AS text")}
 
+    def is_replaced(self, rid):
+        """Does a trusted 'replaced by' link leave this decision?"""
+        rows = self.db.q("MATCH (a:Decision {id: $id})-[r:REPLACED_BY]->(b) WHERE r.cost < 2.0 RETURN count(*) AS n",
+                         id=self.recs[rid]["vid"])
+        return bool(rows and rows[0]["n"])
+
     def same_project(self, rid):
         p = self.recs[rid]["project"]
         return [r["id"] for r in self.recs.values() if r["project"] == p and r["id"] != rid]
@@ -256,9 +281,12 @@ class DecisionGraph:
         return list(reversed(hops))
 
     def answer(self, q, qvec):
-        rules = self.rules()
         ranked, terms = self.seeds(q, qvec)
         start = ranked[0][0]
+        if ranked[0][1] < ABSTAIN_BELOW:
+            return dict(answer=None, start=start, path=[], lineage=[], terms=terms, abstained=True,
+                        seeds=[(rid, round(s, 3)) for rid, s in ranked[:5]],
+                        context="No decision on record answers this question.")
         final, path = self.walk(start)
         lineage = self.history(final)
         return dict(answer=final, start=start, path=path, lineage=lineage, terms=terms,
@@ -305,10 +333,13 @@ class DecisionGraph:
         The question itself is stored as a (:Question)-[:RESOLVED_TO]->(:Decision) node, and every
         link this correction confirms or adds records it in r.by, so each lesson is traceable."""
         changes = []
+        if correct is None:
+            return changes
         self._qid = self.q_next
         self.q_next += 1
-        self.db.q("UNWIND $rows AS row MERGE (n {id: row.id}) SET n:Question, n.text = row.text, n.was_right = row.ok",
-                  rows=[dict(id=self._qid, text=q[:300], ok=result["answer"] == correct)])
+        terms = result["terms"]
+        self.db.q("UNWIND $rows AS row MERGE (n {id: row.id}) SET n:Question, n.text = row.text, n.was_right = row.ok, n.nterms = row.n",
+                  rows=[dict(id=self._qid, text=q[:300], ok=result["answer"] == correct, n=len(terms))])
         self.db.q("MERGE (a {id: $q})-[:RESOLVED_TO]->(b {id: $d})", q=self._qid, d=self.recs[correct]["vid"])
         rules = self.rules()
         got, start, path = result["answer"], result["start"], result["path"]
@@ -341,7 +372,7 @@ class DecisionGraph:
                     hops = self._reachable(node, correct, rules)
                     if hops:
                         break
-                if hops and not all(self.related(frm, to) or l["rule"] in ("status-link", "replace-term", "learned") for frm, to, l in hops):
+                if hops and not all(self.related(frm, to) or l["rule"] == "status-link" for frm, to, l in hops):
                     hops = None  # a path through unrelated decisions is not evidence
                 if hops:
                     for frm, to, link in hops:
@@ -353,18 +384,28 @@ class DecisionGraph:
                     s, c = self.recs[start], self.recs[correct]
                     if (s["project"] == c["project"] and s["date"] and c["date"] and s["date"] < c["date"]
                             and self.related(start, correct)):
-                        self.db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: 'learned', state: 'confirmed', w: 1.0, cost: 1.0, reach: 1.0, by: $q}]->(b {id: $n})",
-                                  o=s["vid"], n=c["vid"], q=self._qid)
-                        changes.append(dict(kind="learned", frm=start, to=correct, rule="learned"))
-        # hint edges: the question's terms point at the right decision
-        hint_terms = [t for t in result["terms"] if self.idf.get(t, 0) > 1.5][:5]
+                        # a single correction only proposes the link; a second one that needs it confirms it
+                        self.db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: 'learned', state: 'pending', w: 0.45, cost: $c, reach: 1.0, by: $q}]->(b {id: $n})",
+                                  o=s["vid"], n=c["vid"], q=self._qid, c=BLOCKED)
+                        changes.append(dict(kind="proposed", frm=start, to=correct, rule="learned"))
+        # the correction points the question's words at the topic (the oldest decision in the trusted
+        # chain that leads to the right answer), so the walk still does the work, and a later
+        # decision that replaces this one is picked up without anyone correcting again
+        hist = self.history(correct, limit=MAX_HOPS)
+        topic = hist[0]["frm"] if hist else correct
+        dv = self.recs[topic]["vid"]
+        self.db.q("MERGE (a {id: $q})-[:ABOUT]->(b {id: $d})", q=self._qid, d=dv)
+        if terms:
+            self.db.q("UNWIND $rows AS row CREATE (a {id: row.src})-[:IN_QUESTION]->(b {id: row.dst})",
+                      rows=[dict(src=self.term_vid[t], dst=self._qid) for t in terms])
+        hint_terms = [t for t in terms if self.idf.get(t, 0) > 1.5][:5]
         for t in hint_terms:
-            tv, dv = self.term_vid[t], self.recs[correct]["vid"]
+            tv = self.term_vid[t]
             rows = self.db.q("MATCH (a:Term {id: $t})-[h:HINTS]->(b {id: $d}) RETURN h.w AS w", t=tv, d=dv)
             if rows:
                 self.db.q("MATCH (a:Term {id: $t})-[h:HINTS]->(b {id: $d}) SET h.w = $w", t=tv, d=dv, w=rows[0]["w"] + 1.0)
             else:
                 self.db.q("MERGE (a {id: $t})-[:HINTS {w: 1.0}]->(b {id: $d})", t=tv, d=dv)
         if hint_terms:
-            changes.append(dict(kind="hint", terms=hint_terms, to=correct))
+            changes.append(dict(kind="hint", terms=hint_terms, to=topic))
         return changes

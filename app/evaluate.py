@@ -98,6 +98,34 @@ def summarise(rows):
     return dict(rounds=out, overall=overall)
 
 
+class NoWalk:
+    """DecisionGraph's seeding alone, no walk along 'replaced by' links (ablation)."""
+    name = "seeds-only"
+
+    def __init__(self, g):
+        self.g = g
+
+    def answer(self, q, qv):
+        ranked, terms = self.g.seeds(q, qv)
+        rid = ranked[0][0]
+        return dict(answer=rid, context=self.g.context(rid, []), path=[])
+
+    def feedback(self, *a):
+        return []
+
+
+def score_fixed(systems, items, vecs):
+    """Answer a fixed list with no feedback (for held-out and out-of-scope sets)."""
+    out = {}
+    for s in systems:
+        rows = []
+        for it in items:
+            r = s.answer(it["q"], vecs[it["id"]])
+            rows.append(dict(id=it["id"], kind=it.get("kind", "oos"), ok=r["answer"] == it["answer"], got=r["answer"], want=it["answer"]))
+        out[s.name] = rows
+    return out
+
+
 class Frozen:
     """DecisionGraph with learning switched off (ablation)."""
     name = "decisiongraph-frozen"
@@ -123,25 +151,33 @@ def main(seeds=(7, 11, 23, 42, 99)):
     vec = VectorRAG(recs, ch, cvecs)
     mem = VectorRAGMemory(recs, ch, cvecs)
     graph = DecisionGraph(recs, per, idf, links, vec)
+    H = json.load(open(os.path.join(DATA, "heldout.json")))
+    heldout, oos = H["heldout"], H["out_of_scope"]
+    hv = embed_cached([x["q"] for x in heldout + oos], "heldout")
+    hvecs = {x["id"]: hv[i] for i, x in enumerate(heldout + oos)}
     report = dict(seeds=list(seeds), runs=[], questions=len(questions), decisions=len(recs),
                   candidate_links=len(links))
     for sd in seeds:
         mem.reset()
         graph.load()
         res, log = run([vec, mem, graph], questions, qvecs, sd, verbose=(sd == seeds[0]))
-        graph.load()
-        frozen, _ = run([Frozen(graph)], questions, qvecs, sd)
-        res.update(frozen)
-        report["runs"].append(dict(seed=sd, systems={k: summarise(v) for k, v in res.items()}))
         if sd == seeds[0]:
             report["trace"] = log
             report["rules_after"] = graph.rules()
             report["graph_after"] = graph.stats()
+        # held-out and out-of-scope questions, answered in the state the learning run left each system in
+        trained = score_fixed([vec, mem, graph], heldout + oos, hvecs)
+        graph.load()
+        fresh = score_fixed([Frozen(graph), NoWalk(graph)], heldout + oos, hvecs)
+        report.setdefault("heldout_runs", []).append({**trained, **fresh})
+        frozen, _ = run([Frozen(graph), NoWalk(graph)], questions, qvecs, sd)
+        res.update(frozen)
+        report["runs"].append(dict(seed=sd, systems={k: summarise(v) for k, v in res.items()}))
         print(f"seed {sd}: " + "  ".join(
             f"{k}: " + " ".join(str(r['accuracy']) for r in summarise(v)['rounds']) for k, v in res.items()), flush=True)
     # mean over seeds
     agg = {}
-    for name in ["vector", "vector+memory", "decisiongraph-frozen", "decisiongraph"]:
+    for name in ["vector", "vector+memory", "seeds-only", "decisiongraph-frozen", "decisiongraph"]:
         rounds = []
         for r in range(ROUNDS):
             vals = [run_["systems"][name]["rounds"][r] for run_ in report["runs"]]
@@ -164,6 +200,17 @@ def main(seeds=(7, 11, 23, 42, 99)):
             tokens=round(float(np.mean([o["tokens"] for o in ov])), 1),
             ms=round(float(np.mean([o["ms"] for o in ov])), 1)))
     report["mean"] = agg
+    # held-out summary (mean over the five runs)
+    ho = {}
+    for name in ["vector", "vector+memory", "seeds-only", "decisiongraph-frozen", "decisiongraph"]:
+        runs = [r[name] for r in report["heldout_runs"] if name in r]
+        def acc(kind):
+            vals = [np.mean([x["ok"] for x in rr if x["kind"] == kind]) for rr in runs]
+            return round(float(np.mean(vals)), 3)
+        ho[name] = dict(rep=acc("rep"), new=acc("new"), out_of_scope=acc("oos"),
+                        all_heldout=round(float(np.mean([np.mean([x["ok"] for x in rr if x["kind"] != "oos"]) for rr in runs])), 3))
+    report["heldout"] = ho
+    print("held-out:", json.dumps(ho))
     out = os.path.join(DATA, "results.json")
     json.dump(report, open(out, "w"), indent=1, default=str)
     for name, a in agg.items():

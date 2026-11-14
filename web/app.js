@@ -42,23 +42,49 @@ function slip(c, { stamp, past } = {}) {
   </article>`;
 }
 
+const NONE = (who) => `<article class="slip none"><p class="where">${esc(who)}</p><h3 class="title">No decision on record</h3><p class="text">Nothing in these decision records answers this question, so nothing is handed to the agent.</p></article>`;
+
+function finalStamp(n) {
+  if (n.status === "rejected") return ["replaced", "Rejected"];
+  if (n.status === "superseded" || n.status === "partly-superseded") return ["replaced", "Superseded"];
+  return ["current", "Current"];
+}
+
 function renderResult(res) {
   $("#result").hidden = false;
   const g = res.graph, v = res.vector;
+  lastAnswer = g.answer;
+  $("#pick").hidden = true;
+  $("#learned").innerHTML = "";
+  $("#yes").disabled = $("#no").disabled = false;
+  if (!v.answer) {
+    $("#vector-slip").innerHTML = NONE("Vector search");
+    $("#vector-meter").innerHTML = "";
+  }
+  if (!g.answer) {
+    $("#lineage").innerHTML = `<li>${NONE("DecisionGraph")}</li>`;
+    $("#graph-meter").innerHTML = "The closest record was not close enough, so DecisionGraph says so instead of guessing.";
+    $("#yes").disabled = true;
+    if (!v.answer) return;
+  }
   const chain = g.lineage.length ? g.lineage : g.path;
   const nodes = chain.length ? [chain[0].frm, ...chain.map((p) => p.to)] : [g.answer];
   const pastIds = new Set(nodes.slice(0, -1).map((n) => n.id));
 
-  let vStamp = ["status", STATUS[v.answer.status] || v.answer.status];
-  if (pastIds.has(v.answer.id)) vStamp = ["replaced", "Replaced"];
-  $("#vector-slip").innerHTML = slip(v.answer, { stamp: vStamp }) +
-    (pastIds.has(v.answer.id) ? `<p class="stale-note">This decision was later replaced by ADR ${esc(g.answer.num)}, ${esc(g.answer.title)}.</p>` : "");
-  $("#vector-meter").innerHTML = `Hands the agent <b>${v.tokens}</b> tokens (top 3 passages).`;
+  if (v.answer) {
+    const wasReplaced = pastIds.has(v.answer.id) || v.replaced;
+    let vStamp = ["status", STATUS[v.answer.status] || v.answer.status];
+    if (wasReplaced) vStamp = ["replaced", "Replaced"];
+    $("#vector-slip").innerHTML = slip(v.answer, { stamp: vStamp }) +
+      (wasReplaced && g.answer && g.answer.id !== v.answer.id ? `<p class="stale-note">The graph knows this decision was later replaced. DecisionGraph answers with ADR ${esc(g.answer.num)}, ${esc(g.answer.title)}.</p>` : "");
+    $("#vector-meter").innerHTML = `Hands the agent <b>${v.tokens}</b> tokens (top 3 passages).`;
+  }
+  if (!g.answer) return;
 
   let html = "";
   nodes.forEach((n, i) => {
     const last = i === nodes.length - 1;
-    const stamp = last ? (n.status === "rejected" ? ["replaced", "Rejected"] : ["current", "Current"]) : ["replaced", "Replaced"];
+    const stamp = last ? finalStamp(n) : ["replaced", "Replaced"];
     html += `<li class="enter" style="--i:${i * 2}">${slip(n, { stamp, past: !last }).replace('class="slip', `style="--i:${i}" class="slip${last ? "" : " tipped"}`)}</li>`;
     if (!last) {
       const p = chain[i];
@@ -70,13 +96,9 @@ function renderResult(res) {
   });
   $("#lineage").innerHTML = html;
   const hops = g.path.length;
-  const walked = hops ? `Started at ADR ${g.start.num} and walked ${hops} ${hops === 1 ? "link" : "links"}` : "Went straight to it";
-  $("#graph-meter").innerHTML = `Hands the agent <b>${g.tokens}</b> tokens, the current decision plus its history. ${walked} in HydraDB in ${g.ms} ms.`;
-
-  lastAnswer = g.answer;
-  $("#pick").hidden = true;
-  $("#learned").innerHTML = "";
-  $("#yes").disabled = $("#no").disabled = false;
+  const walked = hops ? `Started at ADR ${g.start.num} and walked ${hops} trusted ${hops === 1 ? "link" : "links"} with one algo.MSpaths call` : "The question landed on this decision directly, so there was nothing to walk";
+  const hist = g.lineage.length ? ` The history comes from walking ${g.lineage.length} trusted ${g.lineage.length === 1 ? "link" : "links"} backwards.` : "";
+  $("#graph-meter").innerHTML = `Hands the agent <b>${g.tokens}</b> tokens. ${walked}.${hist} ${g.ms} ms in HydraDB.${g.replaced ? " Warning: this record is marked replaced, but the graph does not trust any replacement yet." : ""}`;
 }
 
 async function ask(q) {
@@ -99,7 +121,8 @@ function describeChange(c) {
     case "confirmed": return `Confirmed that <b>${esc(c.frm_title)}</b> was replaced by <b>${esc(c.to_title)}</b>.`;
     case "rejected": return `Stopped trusting the link from <b>${esc(c.frm_title)}</b> to <b>${esc(c.to_title)}</b>.`;
     case "learned": return `Added a new link: <b>${esc(c.to_title)}</b> replaces <b>${esc(c.frm_title)}</b>.`;
-    case "hint": return `Pointed the words “${esc(c.terms.join(", "))}” at <b>${esc(c.to_title)}</b>.`;
+    case "proposed": return `Proposed a new link: <b>${esc(c.to_title)}</b> replaces <b>${esc(c.frm_title)}</b>. It is followed once a second correction needs it too.`;
+    case "hint": return `Pointed the words “${esc(c.terms.join(", "))}” at the topic that starts with <b>${esc(c.to_title)}</b>, and stored this question in the graph.`;
     default: return esc(JSON.stringify(c));
   }
 }
@@ -198,9 +221,10 @@ function replay() {
   const es = new EventSource("/api/replay");
   es.onmessage = (ev) => {
     const d = JSON.parse(ev.data);
+    if (d.busy) { es.close(); btn.disabled = false; btn.textContent = "Replay the 50-question run live"; $("#replay-now").textContent = "Someone else is running a replay right now. Try again in a minute."; return; }
     if (d.done) {
       es.close(); btn.disabled = false; btn.textContent = "Replay again";
-      $("#replay-now").innerHTML += " Done. The graph is now in the state this run left it in.";
+      $("#replay-now").innerHTML += " Done.";
       loadGraph(); return;
     }
     for (const [k] of show) {
@@ -237,3 +261,19 @@ fetch("/static/hero.svg").then((r) => r.text()).then((t) => { $("#hero-art").inn
   const pre = new URLSearchParams(location.search).get("q");
   if (pre) { $("#q").value = pre; ask(pre); }
 })();
+
+/* ---------- request access ---------- */
+async function loadInterest() {
+  try { const r = await api("/api/interest"); $("#interest-count").textContent = r.count ? `${r.count} ${r.count === 1 ? "team has" : "teams have"} asked for access so far.` : ""; } catch (e) {}
+}
+$("#interest").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target, btn = f.querySelector("button");
+  btn.disabled = true;
+  try {
+    await api("/api/interest", { email: f.email.value, team: f.team.value, records: f.records.value });
+    f.reset(); $("#interest-msg").textContent = "Thanks. We'll be in touch."; loadInterest();
+  } catch (err) { $("#interest-msg").textContent = "Couldn't save that. Check the email address and try again."; }
+  btn.disabled = false;
+});
+loadInterest();

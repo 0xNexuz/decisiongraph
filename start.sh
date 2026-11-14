@@ -2,13 +2,17 @@
 # Starts HydraDB (local storage, small caches for a 512 MB box), waits for it, then the web app.
 set -euo pipefail
 ROOT=${HYDRA_HOME:-/tmp/hydradb}
+# The graph is rebuilt from the records on every start, so start from an empty store.
+# (HydraDB numbers HTTP queries from 1 in each process, so reusing an old store can clash with
+# idempotency keys an earlier process left behind.)
+rm -rf "$ROOT/store" "$ROOT/cache"
 mkdir -p "$ROOT/store" "$ROOT/cache"
 TOKEN=${HYDRA_TOKEN:-$(head -c 24 /dev/urandom | od -An -tx1 | tr -d ' \n')}
 printf '%s\n' "$TOKEN" > "$ROOT/auth-token"
 export HYDRA_TOKEN="$TOKEN"
 
 export CLOUD_PROVIDER=local LOCAL_PATH="$ROOT/store" GRAPH_NAMESPACE=default GRAPH_ID=default \
-  GRAPH_CELL_ID=cell-0 GRAPH_CELLS=cell-0 GRAPH_NODE_ID=node-0 \
+  GRAPH_CELL_ID=cell-0 GRAPH_CELLS=cell-0,cell-1 GRAPH_NODE_ID=node-0 \
   GRAPH_BOLT_NODE_ADDRESSES=node-0=127.0.0.1:7687 GRAPH_ADVERTISED_BOLT_ADDR=127.0.0.1:7687 \
   GRAPH_DATA_CACHE_DIR="$ROOT/cache" GRAPH_AUTH_TOKEN_FILE="$ROOT/auth-token" GRAPH_ALLOW_PLAINTEXT=true \
   RUST_MIN_STACK=33554432 \

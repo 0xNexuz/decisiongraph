@@ -1,3 +1,7 @@
+"""Rebuild data/adrs_raw.json from the three ADR repositories.
+Clone them into ./sources first (see data/SOURCES.md), e.g.
+  git clone --depth 1 https://github.com/ministryofjustice/cloud-platform sources/ministryofjustice_cloud-platform
+"""
 import re, json, glob, os, sys
 SRC_DIR = os.environ.get("ADR_SRC", "sources")
 SRC = {
@@ -21,6 +25,6 @@ for proj,(d,url) in SRC.items():
         status=st.group(1).strip() if st else ""
         links=re.findall(r"\]\(\.?/?(\d{3,4})[^)]*\.md\)",status)
         out.append(dict(id=f"{proj}:{num}",project=proj,num=num,title=title,date=date.group(1).strip() if date else "",status=status,status_links=[int(x) for x in links],url=url+name,text=txt))
-json.dump(out,open("os.path.join(os.path.dirname(__file__), "..", "data", "adrs_raw.json")","w"),indent=1)
+json.dump(out,open(os.path.join(os.path.dirname(__file__), "..", "data", "adrs_raw.json"),"w"),indent=1)
 print(len(out))
 for a in out: print(a["id"],"|",a["title"],"|",a["status"].split("\n")[0][:70])

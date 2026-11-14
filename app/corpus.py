@@ -191,7 +191,7 @@ def candidate_links(recs, per_terms, idf):
                 if o["project"] != r["project"] or o["id"] == r["id"] or not o["date"] or not r["date"] or o["date"] >= r["date"]:
                     continue
                 core = tokens(o["title"]) + tokens(o["decision"])[:25]
-                title_terms = sorted({t for t in core if idf.get(t, 0) > 2.6}, key=lambda t: -idf[t])[:4]
+                title_terms = sorted({t for t in core if idf.get(t, 0) > 2.6}, key=lambda t: (-idf[t], t))[:4]
                 hit = [t for t in title_terms if t in wt]
                 if hit:
                     add(r, o, "replace-term", f"{' '.join(hit)}: {window}")

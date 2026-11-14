@@ -22,6 +22,7 @@ ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
 
 app = FastAPI(title="DecisionGraph")
 lock = threading.Lock()
+sandbox_lock = threading.Lock()
 S = {}
 
 
@@ -39,6 +40,9 @@ def boot():
     mem = VectorRAGMemory(recs, ch, cvecs)
     graph = DecisionGraph(recs, per, idf, links, vec, db)
     loaded = graph.load()
+    # replays run in a second HydraDB cell, so they never touch the live graph visitors are teaching
+    sandbox = DecisionGraph(recs, per, idf, links, vec, Hydra(cell=os.environ.get("SANDBOX_CELL", "cell-1")))
+    S["sandbox"], S["sandbox_mem"] = sandbox, VectorRAGMemory(recs, ch, cvecs)
     S.update(recs={r["id"]: r for r in recs}, graph=graph, mem=mem, questions=questions,
              qvecs={q["id"]: qv[i] for i, q in enumerate(questions)})
     trained = train()
@@ -66,6 +70,8 @@ def _startup():
 
 
 def card(rid):
+    if rid is None:
+        return None
     r = S["recs"][rid]
     return dict(id=rid, title=r["title"], project=PROJECT_LABEL[r["project"]], num=r["num"], date=r["date"],
                 status=r["status"], decision=r["decision"][:600], url=r["url"])
@@ -81,6 +87,39 @@ def describe(changes):
                 c[k + "_title"] = f"ADR {r['num']} {r['title']}"
         out.append(c)
     return out
+
+
+class Interest(BaseModel):
+    email: str
+    team: str = ""
+    records: str = ""
+
+
+INTEREST_BASE = 900000
+
+
+@app.get("/api/interest")
+def interest_count():
+    rows = S["graph"].db.q("MATCH (n:Interest) RETURN count(*) AS n")
+    return dict(count=rows[0]["n"] if rows else 0)
+
+
+@app.post("/api/interest")
+def interest(body: Interest):
+    import re as _re
+    email = body.email.strip()[:120]
+    if not _re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
+        raise HTTPException(400, "invalid email")
+    with lock:
+        n = interest_count()["count"]
+        if n >= 2000:
+            raise HTTPException(429, "full")
+        row = dict(id=INTEREST_BASE + n, email=email, team=body.team.strip()[:80], records=body.records.strip()[:40],
+                   at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+        S["graph"].db.q("UNWIND $rows AS row MERGE (n {id: row.id}) SET n:Interest, n.email = row.email, n.team = row.team, "
+                        "n.records = row.records, n.at = row.at", rows=[row])
+    print("INTEREST " + json.dumps(row), flush=True)  # also kept in the host's logs, since the demo store resets on deploy
+    return dict(ok=True)
 
 
 class Ask(BaseModel):
@@ -111,14 +150,17 @@ def ask(body: Ask):
         v = S["vec"].answer(q, qv)
         v_ms = (time.time() - t1) * 1000
         texts = S["graph"].question_texts([p.get("by") for p in g["path"] + g["lineage"]])
+        replaced = bool(g["answer"]) and S["graph"].is_replaced(g["answer"])
     hop = lambda p: dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"],
                          learned_from=texts.get(p.get("by")))
     return dict(
-        graph=dict(answer=card(g["answer"]), start=card(g["start"]), terms=g["terms"],
+        graph=dict(answer=card(g["answer"]), start=card(g["start"]), terms=g["terms"], abstained=bool(g.get("abstained")),
+                   replaced=replaced,
                    lineage=[hop(p) for p in g["lineage"]],
                    path=[hop(p) for p in g["path"]],
                    context=g["context"], tokens=count_tokens(g["context"]), ms=round(g_ms, 1)),
         vector=dict(answer=card(v["answer"]), retrieved=[card(x) for x in v["retrieved"]], context=v["context"],
+                    replaced=bool(v["answer"]) and S["graph"].is_replaced(v["answer"]),
                     tokens=count_tokens(v["context"]), ms=round(v_ms, 1)),
     )
 
@@ -146,7 +188,7 @@ def decisions():
 
 SAMPLES = [
     "Are we still on Concourse for Cloud Platform pipelines?",
-    "Is there one Kubernetes cluster for every environment on Cloud Platform?",
+    "Does each business unit get its own Cloud Platform cluster now?",
     "Do we run kOps for the Cloud Platform cluster?",
     "Where do I search my app's logs on Cloud Platform?",
     "Should Modernisation Platform lambdas be written in Python?",
@@ -188,11 +230,15 @@ def graph_info():
 
 @app.get("/api/replay")
 def replay(seed: int = 7):
-    """Reset the graph and stream the test-then-learn run live, question by question."""
+    """Stream the test-then-learn run live, question by question, on a fresh copy of the graph in a
+    separate HydraDB cell. The live graph that visitors teach is not touched."""
 
     def gen():
-        with lock:
-            g, vec, mem = S["graph"], S["vec"], S["mem"]
+        if not sandbox_lock.acquire(blocking=False):
+            yield f"data: {json.dumps({'busy': True})}\n\n"
+            return
+        try:
+            g, vec, mem = S["sandbox"], S["vec"], S["sandbox_mem"]
             g.load()
             mem.reset()
             stream = order(S["questions"], seed)
@@ -210,8 +256,9 @@ def replay(seed: int = 7):
                                          learned=describe(ch) if sys.name == "decisiongraph" else None)
                 seen.add(item["topic"])
                 yield f"data: {json.dumps(row)}\n\n"
-            S["feedback_count"] = 0
             yield f"data: {json.dumps({'done': True, 'rules': g.rules(), 'stats': g.stats()})}\n\n"
+        finally:
+            sandbox_lock.release()
 
     return StreamingResponse(gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 

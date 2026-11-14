@@ -11,6 +11,7 @@ import numpy as np
 from .embed import embed, embed_cached
 
 TOP_K = 3
+ABSTAIN_BELOW = 0.42  # same abstention rule as DecisionGraph: no chunk this close means no answer
 
 
 class VectorRAG:
@@ -35,6 +36,8 @@ class VectorRAG:
 
     def answer(self, q, qvec):
         hits = self.search(qvec)
+        if hits[0][1] < ABSTAIN_BELOW:
+            return dict(answer=None, context="No decision on record answers this question.", retrieved=[], scores=[], path=[], abstained=True)
         top = hits[0][0]["adr"]
         context = "\n\n".join(h[0]["text"] for h in hits)
         return dict(answer=top, context=context, retrieved=[h[0]["adr"] for h in hits],
@@ -60,7 +63,7 @@ class VectorRAGMemory(VectorRAG):
 
     def answer(self, q, qvec):
         res = super().answer(q, qvec)
-        if self.mem_vecs:
+        if self.mem_vecs and not res.get("abstained"):
             sims = np.array(self.mem_vecs) @ qvec
             j = int(np.argmax(sims))
             if sims[j] >= self.THRESHOLD:
@@ -72,6 +75,8 @@ class VectorRAGMemory(VectorRAG):
         return res
 
     def feedback(self, q, qvec, result, correct_id):
+        if correct_id is None:
+            return
         self.mem_vecs.append(qvec)
         self.mem_ans.append(correct_id)
         self.mem_q.append(q)

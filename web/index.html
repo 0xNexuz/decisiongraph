@@ -15,6 +15,7 @@
     <a href="#learning">Does it learn?</a>
     <a href="#graph">Inside the graph</a>
     <a href="#how">How it works</a>
+    <a href="#teams">For teams</a>
     <a href="https://github.com/0xNexuz/decisiongraph">Code</a>
   </nav>
 </header>
@@ -67,7 +68,7 @@
 
   <section id="learning" class="learning"><div class="sheet reveal">
     <h2>Does it learn?</h2>
-    <p class="lede narrow">We ask 50 questions in five rounds of ten. Every system answers each question before it is told the right answer, then gets the correction. So every score below is on a question the system had not been told about. We repeat this with five different question orders.</p>
+    <p class="lede narrow">We ask 50 questions in five rounds of ten. Every system answers each question before it is told the right answer, then gets the correction, so every score is on a question it had not been told about. Mean of five question orders. On 24 held-out questions written by an outside reviewer, the trained graph is right 96% of the time, against 42% for vector search.</p>
     <figure class="chart">
       <svg id="chart" viewBox="0 0 720 340" role="img" aria-label="Share of questions answered with the current decision, per round"></svg>
       <figcaption id="legend"></figcaption>
@@ -75,7 +76,7 @@
     <div class="facts" id="facts"></div>
     <div class="replay">
       <button type="button" id="replay">Replay the 50-question run live</button>
-      <p class="hint">Resets the graph and runs the test against the live HydraDB, question by question. Takes about a minute.</p>
+      <p class="hint">Runs the whole test, question by question, on a fresh copy of the graph in a second HydraDB cell. The live graph above is not touched. Takes a minute or two.</p>
       <div id="replay-out" class="replay-out" hidden>
         <div class="replay-bars" id="replay-bars"></div>
         <p class="replay-now" id="replay-now"></p>
@@ -85,19 +86,50 @@
 
   <section id="graph" class="inside"><div class="board reveal">
     <h2>Inside the graph</h2>
-    <p class="lede narrow">Links between decisions are proposed by four simple rules. Nobody tells the graph which rules to trust. It works that out from corrections, and confirms or rejects individual links as it goes.</p>
+    <p class="lede narrow">Only a few decision records say what replaced them, so four simple rules propose the missing links. Corrections confirm or reject individual links, and adjust how far each rule is trusted. So far, only links with an explicit status line are trusted enough to follow without a correction; the bars show where each rule stands.</p>
     <div class="trust" id="trust"></div>
     <p class="counts" id="counts"></p>
   </div></section>
+
+  <section id="teams" class="teams">
+    <h2>For teams</h2>
+    <div class="teams-grid">
+      <div>
+        <h3>Who it's for</h3>
+        <p>Platform and engineering teams with dozens of decision records (ADRs, RFCs, design docs) who now let coding agents work in their repos. Every outdated decision an agent acts on is a review comment, a revert or an incident.</p>
+        <h3>What you get</h3>
+        <p>Point it at your ADR folder. Your agents ask the MCP server or the API and get the decision that still stands with its history. Your team's corrections make it sharper for everyone. It runs on HydraDB, self-hosted.</p>
+      </div>
+      <div>
+        <h3>Planned pricing</h3>
+        <ul class="plans">
+          <li><b>Open source</b>, self-hosted: free</li>
+          <li><b>Team</b>, hosted, up to 1,000 decisions: $49 a month</li>
+          <li><b>Organisation</b>, every repo, SSO, audit trail of corrections: $199 a month</li>
+        </ul>
+        <form id="interest" class="interest" autocomplete="on">
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" required maxlength="120" placeholder="you@company.com">
+          <label for="team">Team or company</label>
+          <input id="team" name="team" type="text" maxlength="80" placeholder="Platform team, Acme">
+          <label for="records">Roughly how many decision records do you have?</label>
+          <select id="records" name="records"><option>Under 50</option><option>50 to 200</option><option>200 to 1,000</option><option>Over 1,000</option></select>
+          <button type="submit">Request access</button>
+          <p id="interest-msg" class="hint" aria-live="polite"></p>
+          <p id="interest-count" class="hint"></p>
+        </form>
+      </div>
+    </div>
+  </section>
 
   <section id="how" class="how">
     <h2>How it works</h2>
     <ol class="steps reveal">
       <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M3 3h26a6 6 0 1 1 12 0h2v40H3z" fill="#e8cdbe" stroke="#1c2638" stroke-width="1.6"/><circle cx="20" cy="22" r="8" fill="none" stroke="#23395b" stroke-width="2.4"/><path d="M26 28l7 7" stroke="#23395b" stroke-width="2.6" stroke-linecap="round"/></svg><h3>Find the decision</h3><p>Vector similarity, terms that link to decisions in the graph, and hints learned from past corrections each vote for where the question starts.</p></li>
-      <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><rect x="4" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-28 4 40)"/><rect x="16" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-14 16 40)"/><rect x="31" y="10" width="10" height="30" fill="#2f8f99" stroke="#1c2638" stroke-width="1.6"/></svg><h3>Walk to what replaced it</h3><p>From there it follows trusted <em>replaced by</em> links in HydraDB until it reaches a decision nothing has replaced. The agent gets that decision and a one-line history, about 125 tokens instead of 600.</p></li>
-      <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M5 9h12a5 5 0 1 1 10 0h12v12a5 5 0 1 0 0 10v10H5V31a5 5 0 1 1 0-10z" fill="#4a6496" stroke="#1c2638" stroke-width="1.6"/><path d="M14 25l6 6 12-13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Learn from the correction</h3><p>A correction confirms or rejects the links it walked, adjusts how much each rule is trusted, adds a new link when one was missing, and points the question's words at the right decision. The next person asking in other words gets the right answer.</p></li>
+      <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><rect x="4" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-28 4 40)"/><rect x="16" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-14 16 40)"/><rect x="31" y="10" width="10" height="30" fill="#2f8f99" stroke="#1c2638" stroke-width="1.6"/></svg><h3>Walk to what replaced it</h3><p>One <code>algo.MSpaths</code> call in HydraDB follows trusted <em>replaced by</em> links, with trust stored as path cost, until it reaches a decision nothing has replaced. The agent gets that decision and its history, about 130 tokens instead of 590. If nothing is close enough, it says there is no decision on record.</p></li>
+      <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M5 9h12a5 5 0 1 1 10 0h12v12a5 5 0 1 0 0 10v10H5V31a5 5 0 1 1 0-10z" fill="#4a6496" stroke="#1c2638" stroke-width="1.6"/><path d="M14 25l6 6 12-13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Learn from the correction</h3><p>Each correction is stored as a question in the graph. It confirms or rejects the links it walked, proposes a missing link, adjusts rule trust, and points the question's words at the topic. When the topic comes back in new words, the graph is right 84% of the time, against 47% for vector search with memory.</p></li>
     </ol>
-    <p class="why reveal">Why not a vector store? It can't say that one document replaced another, so it has no way to walk from an old decision to the current one. Remembering past answers doesn't fix that either. It only helps when the next question is worded almost the same. In our test, adding that memory raised vector search from 52% to 57%. The graph reached 82%.</p>
+    <p class="why reveal">Why not a vector store? It can't say that one document replaced another, so it has no way to walk from an old decision to the current one. Remembering past answers doesn't fix that either. It only helps when the next question is worded almost the same. In our test, adding that memory raised vector search from 52% to 57%. The graph reached 80%, and 88% by the last round.</p>
   </section>
 </main>
 

@@ -1,0 +1,211 @@
+{
+ "_about": "Held-out evaluation. 'heldout' was written by a separate reviewer during an outside review of this project and was never used to tune DecisionGraph: 'rep' questions revisit topics from the main test set in new words, 'new' questions are about topics the main test set never asks. 'out_of_scope' questions have no answer in the decision records; the right behaviour is to say so.",
+ "heldout": [
+  {
+   "id": "h01",
+   "kind": "rep",
+   "q": "Which tool replaced Concourse for Cloud Platform infrastructure pipelines?",
+   "answer": "cloud-platform:40"
+  },
+  {
+   "id": "h02",
+   "kind": "rep",
+   "q": "Is the Cloud Platform cluster built by the team itself or provided by Amazon?",
+   "answer": "cloud-platform:22"
+  },
+  {
+   "id": "h03",
+   "kind": "rep",
+   "q": "Is OpenSearch or Elasticsearch used for Cloud Platform logs?",
+   "answer": "cloud-platform:23"
+  },
+  {
+   "id": "h04",
+   "kind": "rep",
+   "q": "Is there a shared ingress controller for Cloud Platform tenants?",
+   "answer": "cloud-platform:19"
+  },
+  {
+   "id": "h05",
+   "kind": "rep",
+   "q": "Are nodejs and python still core languages on Modernisation Platform?",
+   "answer": "modernisation-platform:19"
+  },
+  {
+   "id": "h06",
+   "kind": "rep",
+   "q": "What naming scheme does GOV.UK use for internal DNS hostnames on AWS?",
+   "answer": "govuk-aws:15"
+  },
+  {
+   "id": "h07",
+   "kind": "rep",
+   "q": "Which CIDR block does the GOV.UK production network use in AWS?",
+   "answer": "govuk-aws:33"
+  },
+  {
+   "id": "h08",
+   "kind": "rep",
+   "q": "Is MongoDB being replaced on GOV.UK?",
+   "answer": "govuk-aws:38"
+  },
+  {
+   "id": "h09",
+   "kind": "rep",
+   "q": "Should Modernisation Platform use IAM federation for console access?",
+   "answer": "modernisation-platform:3"
+  },
+  {
+   "id": "h10",
+   "kind": "rep",
+   "q": "Does each Cloud Platform business unit get dedicated clusters?",
+   "answer": "cloud-platform:48"
+  },
+  {
+   "id": "h11",
+   "kind": "rep",
+   "q": "How many Kubernetes clusters does Cloud Platform run?",
+   "answer": "cloud-platform:48"
+  },
+  {
+   "id": "h12",
+   "kind": "rep",
+   "q": "Which AWS account do Cloud Platform team resources live in now?",
+   "answer": "cloud-platform:49"
+  },
+  {
+   "id": "h13",
+   "kind": "rep",
+   "q": "Where are Cloud Platform user container images stored?",
+   "answer": "cloud-platform:46"
+  },
+  {
+   "id": "h14",
+   "kind": "rep",
+   "q": "How is the GOV.UK Terraform code laid out in directories?",
+   "answer": "govuk-aws:17"
+  },
+  {
+   "id": "h15",
+   "kind": "new",
+   "q": "Which CI/CD runner does Modernisation Platform use?",
+   "answer": "modernisation-platform:5"
+  },
+  {
+   "id": "h16",
+   "kind": "new",
+   "q": "How are AMIs managed on the Modernisation Platform?",
+   "answer": "modernisation-platform:15"
+  },
+  {
+   "id": "h17",
+   "kind": "new",
+   "q": "Does Cloud Platform still allow TLS 1.0 and 1.1?",
+   "answer": "cloud-platform:35"
+  },
+  {
+   "id": "h18",
+   "kind": "new",
+   "q": "Where do Modernisation Platform applications keep their ECR repositories?",
+   "answer": "modernisation-platform:14"
+  },
+  {
+   "id": "h19",
+   "kind": "new",
+   "q": "Does GOV.UK on AWS use RDS for its databases?",
+   "answer": "govuk-aws:18"
+  },
+  {
+   "id": "h20",
+   "kind": "new",
+   "q": "How does Modernisation Platform inspect egress traffic?",
+   "answer": "modernisation-platform:24"
+  },
+  {
+   "id": "h21",
+   "kind": "new",
+   "q": "Is there a policy on non-GOV.UK domains for GOV.UK?",
+   "answer": "govuk-aws:39"
+  },
+  {
+   "id": "h22",
+   "kind": "new",
+   "q": "Which account holds DNS resources for Modernisation Platform?",
+   "answer": "modernisation-platform:26"
+  },
+  {
+   "id": "h23",
+   "kind": "new",
+   "q": "Are GOV.UK MySQL databases centralised?",
+   "answer": "govuk-aws:19"
+  },
+  {
+   "id": "h24",
+   "kind": "new",
+   "q": "How does Cloud Platform monitor ECR image counts?",
+   "answer": "cloud-platform:5"
+  }
+ ],
+ "out_of_scope": [
+  {
+   "id": "o01",
+   "q": "What is our parental leave policy?",
+   "answer": null
+  },
+  {
+   "id": "o02",
+   "q": "How do I book a meeting room in the London office?",
+   "answer": null
+  },
+  {
+   "id": "o03",
+   "q": "What is the wifi password for the guest network?",
+   "answer": null
+  },
+  {
+   "id": "o04",
+   "q": "When is the company Christmas party?",
+   "answer": null
+  },
+  {
+   "id": "o05",
+   "q": "How much annual leave do new starters get?",
+   "answer": null
+  },
+  {
+   "id": "o06",
+   "q": "Which laptop should a new developer order?",
+   "answer": null
+  },
+  {
+   "id": "o07",
+   "q": "What are the salary bands for senior engineers?",
+   "answer": null
+  },
+  {
+   "id": "o08",
+   "q": "Who approves expense claims for travel?",
+   "answer": null
+  },
+  {
+   "id": "o09",
+   "q": "What colour is the brand logo?",
+   "answer": null
+  },
+  {
+   "id": "o10",
+   "q": "How do I reset my payroll password?",
+   "answer": null
+  },
+  {
+   "id": "o11",
+   "q": "Is there a cycle-to-work scheme?",
+   "answer": null
+  },
+  {
+   "id": "o12",
+   "q": "What time does the canteen close?",
+   "answer": null
+  }
+ ]
+}
