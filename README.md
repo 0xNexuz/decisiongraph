@@ -8,7 +8,7 @@ DecisionGraph keeps decisions in [HydraDB](https://github.com/hydra-db/hydradb) 
 
 Built for the HydraDB Hackathon (Nov 14–16, 2026). It covers **Track 1, a graph that improves itself**, and **Track 2, a context layer for agents** (it has an MCP server).
 
-- Live app: _add the Render URL here_
+- Live app: https://decisiongraph-latest.onrender.com/
 - Walkthrough video: _add the YouTube link here_
 
 ## Results
