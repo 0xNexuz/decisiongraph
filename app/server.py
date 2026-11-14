@@ -110,10 +110,13 @@ def ask(body: Ask):
         t1 = time.time()
         v = S["vec"].answer(q, qv)
         v_ms = (time.time() - t1) * 1000
+        texts = S["graph"].question_texts([p.get("by") for p in g["path"] + g["lineage"]])
+    hop = lambda p: dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"],
+                         learned_from=texts.get(p.get("by")))
     return dict(
         graph=dict(answer=card(g["answer"]), start=card(g["start"]), terms=g["terms"],
-                   lineage=[dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"]) for p in g["lineage"]],
-                   path=[dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"]) for p in g["path"]],
+                   lineage=[hop(p) for p in g["lineage"]],
+                   path=[hop(p) for p in g["path"]],
                    context=g["context"], tokens=count_tokens(g["context"]), ms=round(g_ms, 1)),
         vector=dict(answer=card(v["answer"]), retrieved=[card(x) for x in v["retrieved"]], context=v["context"],
                     tokens=count_tokens(v["context"]), ms=round(v_ms, 1)),
@@ -179,6 +182,7 @@ def trace():
 def graph_info():
     with lock:
         return dict(stats=S["graph"].stats(), rules=S["graph"].rules(), loaded=S["loaded"], trained=S.get("trained", 0),
+                    replaced_known=S["graph"].replaced_count(),
                     feedback_count=S["feedback_count"])
 
 

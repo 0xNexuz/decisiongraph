@@ -63,7 +63,8 @@ function renderResult(res) {
     if (!last) {
       const p = chain[i];
       const [label, help] = RULES[p.rule] || [p.rule, ""];
-      const how = p.state === "confirmed" ? "confirmed by feedback" : `${label.toLowerCase()}`;
+      const how = p.learned_from ? `${p.rule === "learned" ? "learned" : "confirmed"} from the correction “${p.learned_from}”`
+        : p.state === "confirmed" ? "confirmed by a correction" : label.toLowerCase();
       html += `<li class="hop enter" style="--i:${i * 2 + 1}" title="${esc(help)}"><span class="arrow">↓ replaced by</span><span>${esc(how)}</span><span class="trust">trust ${pct(p.trust)}</span></li>`;
     }
   });
@@ -182,7 +183,7 @@ async function loadGraph() {
     }).join("");
     onVisible($("#trust"), () => $("#trust").classList.add("on"));
     const s = r.stats;
-    $("#counts").textContent = `${r.trained ? `This graph has learned from ${r.trained} corrections. ` : ""}HydraDB holds ${s.Decision} decisions, ${s.Term} terms, ${s.CORE_OF} term-to-decision links, ${s.REPLACED_BY} “replaced by” links and ${s.HINTS} learned hints. The line marks 50%: below it, links from that rule are not followed unless a correction has confirmed them. ${r.feedback_count ? `Visitors have corrected it ${r.feedback_count} times since it last started.` : ""}`;
+    $("#counts").textContent = `${r.trained ? `This graph has learned from ${r.trained} corrections. ` : ""}HydraDB holds ${s.Decision} decisions, ${s.Term} terms, ${s.CORE_OF} term-to-decision links, ${s.REPLACED_BY} “replaced by” links (${s.trusted_links} trusted), ${s.HINTS} learned hints and ${s.Question} corrected questions. Right now it knows that ${r.replaced_known} decisions were replaced, found with one all-pairs path search per project. The line marks 50%: below it, links from that rule are not followed unless a correction has confirmed them. ${r.feedback_count ? `Visitors have corrected it ${r.feedback_count} times since it last started.` : ""}`;
   } catch (e) { $("#counts").textContent = "Couldn't reach the graph."; }
 }
 

@@ -30,6 +30,16 @@ TERM_BASE = 100000
 FOLLOW = 0.5          # follow a link when its trust is at least this
 PRIOR_STRENGTH = 6.0  # how many observations a rule prior is worth
 MAX_HOPS = 5
+BLOCKED = 100.0       # path cost of a link the walker must not follow (trust below FOLLOW)
+QUESTION_BASE = 500000
+
+
+def cost_of(w):
+    return 1.0 if w >= FOLLOW else BLOCKED
+
+
+def unwrap(props):
+    return {k: next(iter(v.values())) if isinstance(v, dict) and v else v for k, v in (props or {}).items()}
 
 
 def chunked(xs, n=900):
@@ -58,6 +68,7 @@ class DecisionGraph:
         vocab = sorted({t for core, _ in per_terms.values() for t in core if idf.get(t, 0) > 0.8})
         self.term_vid = {t: TERM_BASE + i for i, t in enumerate(vocab)}
         self._project_members = {}
+        self.q_next, self._qid = QUESTION_BASE, -1
         from .embed import embed_cached
         ids = list(self.recs)
         v = embed_cached([f"{self.recs[i]['title']}. {self.recs[i]['decision'][:600]}" for i in ids], "adrs")
@@ -71,6 +82,10 @@ class DecisionGraph:
 
     # ---------- loading ----------
     def clear(self):
+        qs = [{"id": r["id"]} for r in self.db.q("MATCH (n:Question) RETURN n.id AS id")]
+        for part in chunked(qs):
+            self.db.q("UNWIND $rows AS row MATCH (n {id: row.id}) DETACH DELETE n", rows=part)
+        self.q_next = QUESTION_BASE
         ids = [r["vid"] for r in self.recs.values()] + list(self.term_vid.values()) + \
               list(PROJECT_VID.values()) + list(RULE_VID.values())
         for part in chunked([{"id": i} for i in ids]):
@@ -104,8 +119,9 @@ class DecisionGraph:
             db.q("UNWIND $rows AS row CREATE (a {id: row.src})-[:CORE_OF]->(b {id: row.dst})", rows=part)
         for l in self.links:
             old, new = self.recs[l["old"]], self.recs[l["new"]]
-            db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: $rule, state: 'candidate', w: $w}]->(b {id: $n})",
-                 o=old["vid"], n=new["vid"], rule=l["rule"], w=RULE_PRIOR[l["rule"]])
+            w = RULE_PRIOR[l["rule"]]
+            db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: $rule, state: 'candidate', w: $w, cost: $c, reach: 1.0, by: -1}]->(b {id: $n})",
+                 o=old["vid"], n=new["vid"], rule=l["rule"], w=w, c=cost_of(w))
         self._project_members = {}
         return dict(decisions=len(dec_rows), terms=len(term_rows), core_edges=len(core), links=len(self.links))
 
@@ -116,7 +132,19 @@ class DecisionGraph:
         out["CORE_OF"] = self.db.q("MATCH (a:Term)-[:CORE_OF]->(b) RETURN count(*) AS n")[0]["n"]
         out["REPLACED_BY"] = self.db.q("MATCH (a:Decision)-[:REPLACED_BY]->(b) RETURN count(*) AS n")[0]["n"]
         out["HINTS"] = self.db.q("MATCH (a:Term)-[:HINTS]->(b) RETURN count(*) AS n")[0]["n"]
+        out["Question"] = self.db.q("MATCH (n:Question) RETURN count(*) AS n")[0]["n"]
+        out["trusted_links"] = self.db.q("MATCH (a:Decision)-[r:REPLACED_BY]->(b) WHERE r.cost < 2.0 RETURN count(*) AS n")[0]["n"]
         return out
+
+    def replaced_count(self):
+        """How many decisions the graph currently knows were replaced: one algo.MSpaths call per
+        project, all pairs, over trusted links only (cost filter)."""
+        known = set()
+        for p in PROJECT_VID:
+            keys = [r["id"] for r in self.recs.values() if r["project"] == p]
+            for row in self.ms_paths(keys, keys, "outgoing", 1, limit=4000):
+                known.add(row[0]["frm"])
+        return len(known)
 
     # ---------- reading ----------
     def rules(self):
@@ -128,10 +156,6 @@ class DecisionGraph:
             rows = self.db.q("MATCH (p:Project {id: $id})-[:HAS]->(d) RETURN d.id AS id", id=PROJECT_VID[p])
             self._project_members[p] = {r["id"] for r in rows}
         return self._project_members[p]
-
-    def out_links(self, vid):
-        return self.db.q("MATCH (a:Decision {id: $id})-[r:REPLACED_BY]->(b) "
-                         "RETURN b.id AS id, r.rule AS rule, r.state AS state, r.w AS w", id=vid)
 
     def q_terms(self, q):
         ts = [t for t in dict.fromkeys(tokens(q)) if t in self.term_vid and t not in GENERIC]
@@ -154,12 +178,11 @@ class DecisionGraph:
                 rec = self.by_vid.get(r["dst"])
                 if rec:
                     term_score[rec["id"]] += self.idf.get(name[r["src"]], 0)
-            for t in terms:
-                for r in self.db.q("MATCH (a:Term {id: $id})-[h:HINTS]->(d) RETURN d.id AS id, h.w AS w",
-                                   id=self.term_vid[t]):
-                    rec = self.by_vid.get(r["id"])
-                    if rec:
-                        hint_score[rec["id"]] += r["w"]
+            where = " OR ".join(f"t.id = {self.term_vid[t]}" for t in terms)
+            for r in self.db.q(f"MATCH (t:Term)-[h:HINTS]->(d) WHERE {where} RETURN d.id AS id, h.w AS w"):
+                rec = self.by_vid.get(r["id"])
+                if rec:
+                    hint_score[rec["id"]] += r["w"]
         proj = detect_project(q)
         members = self.project_members(proj) if proj else None
         scores = {}
@@ -171,61 +194,73 @@ class DecisionGraph:
         ranked = sorted(scores.items(), key=lambda kv: -kv[1])
         return ranked, terms
 
-    def walk(self, start, rules):
-        path, cur, seen = [], start, {start}
-        for _ in range(MAX_HOPS):
-            best = None
-            for l in self.out_links(self.recs[cur]["vid"]):
-                nxt = self.by_vid.get(l["id"])
-                if not nxt or nxt["id"] in seen:
-                    continue
-                eff = self.effective(l, rules)
-                if eff >= FOLLOW and (best is None or eff > best[1]):
-                    best = (nxt["id"], eff, l["rule"], l["state"])
-            if not best:
-                break
-            path.append(dict(frm=cur, to=best[0], trust=round(best[1], 2), rule=best[2], state=best[3]))
-            cur = best[0]
-            seen.add(cur)
-        return cur, path
+    # ---------- traversal inside HydraDB ----------
+    def ms_paths(self, sources, targets, direction, max_len, limit=400, cost="cost"):
+        """algo.MSpaths over REPLACED_BY, following only trusted links (cost filter).
+        Returns each path as a list of hops in walking order."""
+        lit = lambda ks: ", ".join("'" + k.replace("'", "") + "'" for k in ks)
+        rows = self.db.q(
+            "CALL algo.MSpaths({sourceLabel: 'Decision', sourceProperty: 'key', "
+            f"sourceValues: [{lit(sources)}], targetValues: [{lit(targets)}], relTypes: ['REPLACED_BY'], "
+            f"relDirection: '{direction}', maxLen: {max_len}, pathCount: 1, pairwise: false, resultLimit: {limit}, "
+            f"weightProp: '{cost}', costProp: '{cost}', maxCost: {max_len}}}) YIELD path RETURN path")
+        out = []
+        for r in rows:
+            p = r.get("path") or {}
+            order = [n["id"] for n in p.get("nodes", [])]
+            rels = {(x["src"], x["dst"]): unwrap(x.get("properties")) for x in p.get("relationships", [])}
+            hops = []
+            for u, v in zip(order, order[1:]):
+                old, new = (u, v) if (u, v) in rels else (v, u)
+                props = rels.get((old, new), {})
+                if old not in self.by_vid or new not in self.by_vid:
+                    break
+                hops.append(dict(frm=self.by_vid[u]["id"], to=self.by_vid[v]["id"], old=self.by_vid[old]["id"],
+                                 new=self.by_vid[new]["id"], trust=round(float(props.get("w", 0)), 2),
+                                 rule=props.get("rule", "?"), state=props.get("state", "?"), by=props.get("by", -1)))
+            if hops:
+                out.append(hops)
+        return out
+
+    def question_texts(self, ids):
+        ids = [i for i in set(ids) if isinstance(i, int) and i >= QUESTION_BASE]
+        if not ids:
+            return {}
+        where = " OR ".join(f"n.id = {i}" for i in ids)
+        return {r["id"]: r["text"] for r in self.db.q(f"MATCH (n:Question) WHERE {where} RETURN n.id AS id, n.text AS text")}
+
+    def same_project(self, rid):
+        p = self.recs[rid]["project"]
+        return [r["id"] for r in self.recs.values() if r["project"] == p and r["id"] != rid]
 
     @staticmethod
-    def effective(link, rules):
-        if link["state"] == "confirmed":
-            return 1.0
-        if link["state"] == "rejected":
-            return 0.0
-        return rules[link["rule"]]["trust"]
+    def _best(paths):
+        def key(h):
+            last = h[-1]["to"]
+            return (len(h), min(x["trust"] for x in h))
+        return max(paths, key=key) if paths else []
 
-    def in_links(self, vid):
-        return self.db.q("MATCH (a:Decision)-[r:REPLACED_BY]->(b:Decision {id: $id}) "
-                         "RETURN a.id AS id, r.rule AS rule, r.state AS state, r.w AS w", id=vid)
+    def walk(self, start, rules=None):
+        """From the decision a question is about, walk trusted 'replaced by' links to the decision
+        that still stands. One algo.MSpaths call evaluates every reachable decision at once."""
+        paths = self.ms_paths([start], self.same_project(start), "outgoing", MAX_HOPS)
+        best = self._best(paths)
+        path = [dict(frm=h["old"], to=h["new"], trust=h["trust"], rule=h["rule"], state=h["state"], by=h["by"]) for h in best]
+        return (path[-1]["to"] if path else start), path
 
-    def history(self, rid, rules, limit=3):
-        """Older decisions this one replaced, following trusted links backwards."""
-        out, cur, seen = [], rid, {rid}
-        for _ in range(limit):
-            best = None
-            for l in self.in_links(self.recs[cur]["vid"]):
-                prev = self.by_vid.get(l["id"])
-                if not prev or prev["id"] in seen:
-                    continue
-                eff = self.effective(l, rules)
-                if eff >= FOLLOW and (best is None or eff > best[1]):
-                    best = (prev["id"], eff, l["rule"], l["state"])
-            if not best:
-                break
-            out.append(dict(frm=best[0], to=cur, trust=round(best[1], 2), rule=best[2], state=best[3]))
-            cur = best[0]
-            seen.add(cur)
-        return list(reversed(out))
+    def history(self, rid, rules=None, limit=3):
+        """Older decisions this one replaced, walking trusted links backwards inside HydraDB."""
+        paths = self.ms_paths([rid], self.same_project(rid), "incoming", limit)
+        best = self._best(paths)
+        hops = [dict(frm=h["old"], to=h["new"], trust=h["trust"], rule=h["rule"], state=h["state"], by=h["by"]) for h in best]
+        return list(reversed(hops))
 
     def answer(self, q, qvec):
         rules = self.rules()
         ranked, terms = self.seeds(q, qvec)
         start = ranked[0][0]
-        final, path = self.walk(start, rules)
-        lineage = self.history(final, rules)
+        final, path = self.walk(start)
+        lineage = self.history(final)
         return dict(answer=final, start=start, path=path, lineage=lineage, terms=terms,
                     seeds=[(rid, round(s, 3)) for rid, s in ranked[:5]],
                     context=self.context(final, lineage))
@@ -244,36 +279,37 @@ class DecisionGraph:
         r = self.db.q("MATCH (n:Rule {id: $id}) RETURN n.a AS a, n.b AS b", id=RULE_VID[rule])[0]
         a, b = (r["a"] + 1, r["b"]) if good else (r["a"], r["b"] + 1)
         self.db.q("MATCH (n:Rule {id: $id}) SET n.a = $a, n.b = $b", id=RULE_VID[rule], a=a, b=b)
+        # the rule's new trust flows to every link it proposed that nobody has judged yet
+        t = a / (a + b)
+        self.db.q("MATCH (x:Decision)-[r:REPLACED_BY]->(y) WHERE r.rule = $rule AND r.state = 'candidate' "
+                  "SET r.w = $w, r.cost = $c", rule=rule, w=t, c=cost_of(t))
 
     def _set_link(self, old, new, state):
-        self.db.q("MATCH (a:Decision {id: $o})-[r:REPLACED_BY]->(b {id: $n}) SET r.state = $s",
-                  o=self.recs[old]["vid"], n=self.recs[new]["vid"], s=state)
+        w = 1.0 if state == "confirmed" else 0.0
+        self.db.q("MATCH (a:Decision {id: $o})-[r:REPLACED_BY]->(b {id: $n}) SET r.state = $s, r.w = $w, r.cost = $c, r.reach = $rc, r.by = $q",
+                  o=self.recs[old]["vid"], n=self.recs[new]["vid"], s=state, w=w, c=cost_of(w),
+                  rc=1.0 if state == "confirmed" else BLOCKED, q=self._qid)
 
-    def _reachable(self, start, goal, rules, any_link=True):
-        """Path start -> goal over REPLACED_BY links (any non-rejected link), BFS."""
-        frontier, prev = [start], {start: None}
-        for _ in range(MAX_HOPS):
-            nxt = []
-            for cur in frontier:
-                for l in self.out_links(self.recs[cur]["vid"]):
-                    rec = self.by_vid.get(l["id"])
-                    if not rec or rec["id"] in prev or l["state"] == "rejected":
-                        continue
-                    prev[rec["id"]] = (cur, l)
-                    if rec["id"] == goal:
-                        out, x = [], goal
-                        while prev[x]:
-                            p, link = prev[x]
-                            out.append((p, x, link))
-                            x = p
-                        return list(reversed(out))
-                    nxt.append(rec["id"])
-            frontier = nxt
-        return None
+    def _reachable(self, start, goal, rules=None):
+        """Path start -> goal over any link not rejected (trusted or not), found by algo.MSpaths
+        with the 'reach' cost. Returns [(old, new, link)] or None."""
+        if start == goal:
+            return None
+        paths = self.ms_paths([start], [goal], "outgoing", MAX_HOPS, cost="reach")
+        if not paths:
+            return None
+        return [(h["old"], h["new"], dict(rule=h["rule"], state=h["state"])) for h in paths[0]]
 
     def feedback(self, q, qvec, result, correct):
-        """Learn from one judged answer. Returns a list of what changed."""
+        """Learn from one judged answer. Returns a list of what changed.
+        The question itself is stored as a (:Question)-[:RESOLVED_TO]->(:Decision) node, and every
+        link this correction confirms or adds records it in r.by, so each lesson is traceable."""
         changes = []
+        self._qid = self.q_next
+        self.q_next += 1
+        self.db.q("UNWIND $rows AS row MERGE (n {id: row.id}) SET n:Question, n.text = row.text, n.was_right = row.ok",
+                  rows=[dict(id=self._qid, text=q[:300], ok=result["answer"] == correct)])
+        self.db.q("MERGE (a {id: $q})-[:RESOLVED_TO]->(b {id: $d})", q=self._qid, d=self.recs[correct]["vid"])
         rules = self.rules()
         got, start, path = result["answer"], result["start"], result["path"]
         if got == correct:
@@ -317,8 +353,8 @@ class DecisionGraph:
                     s, c = self.recs[start], self.recs[correct]
                     if (s["project"] == c["project"] and s["date"] and c["date"] and s["date"] < c["date"]
                             and self.related(start, correct)):
-                        self.db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: 'learned', state: 'confirmed', w: 1.0}]->(b {id: $n})",
-                                  o=s["vid"], n=c["vid"])
+                        self.db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: 'learned', state: 'confirmed', w: 1.0, cost: 1.0, reach: 1.0, by: $q}]->(b {id: $n})",
+                                  o=s["vid"], n=c["vid"], q=self._qid)
                         changes.append(dict(kind="learned", frm=start, to=correct, rule="learned"))
         # hint edges: the question's terms point at the right decision
         hint_terms = [t for t in result["terms"] if self.idf.get(t, 0) > 1.5][:5]

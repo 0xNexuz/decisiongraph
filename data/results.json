@@ -141,7 +141,7 @@
       "first_seen_acc": 0.645,
       "stale_rate": 0.22,
       "tokens": 600.9,
-      "ms": 0.2
+      "ms": 0.4
      }
     },
     "decisiongraph": {
@@ -194,21 +194,21 @@
        "round": 5,
        "n": 10,
        "repeat_n": 7,
-       "repeat_acc": 0.714,
+       "repeat_acc": 0.571,
        "accuracy": 0.7,
        "stale_rate": 0.0,
-       "tokens": 107.9,
+       "tokens": 108.8,
        "first_seen_n": 3,
-       "first_seen_acc": 0.667
+       "first_seen_acc": 1.0
       }
      ],
      "overall": {
       "accuracy": 0.8,
-      "repeat_acc": 0.842,
-      "first_seen_acc": 0.774,
+      "repeat_acc": 0.789,
+      "first_seen_acc": 0.806,
       "stale_rate": 0.1,
-      "tokens": 131.0,
-      "ms": 18.1
+      "tokens": 131.2,
+      "ms": 18.7
      }
     },
     "decisiongraph-frozen": {
@@ -275,7 +275,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 16.3
+      "ms": 18.1
      }
     }
    }
@@ -434,10 +434,10 @@
        "round": 2,
        "n": 10,
        "repeat_n": 2,
-       "repeat_acc": 1.0,
-       "accuracy": 0.9,
+       "repeat_acc": 0.5,
+       "accuracy": 0.8,
        "stale_rate": 0.1,
-       "tokens": 148.0,
+       "tokens": 149.4,
        "first_seen_n": 8,
        "first_seen_acc": 0.875
       },
@@ -447,8 +447,8 @@
        "repeat_n": 6,
        "repeat_acc": 0.833,
        "accuracy": 0.9,
-       "stale_rate": 0.0,
-       "tokens": 124.0,
+       "stale_rate": 0.1,
+       "tokens": 121.7,
        "first_seen_n": 4,
        "first_seen_acc": 1.0
       },
@@ -457,11 +457,11 @@
        "n": 10,
        "repeat_n": 6,
        "repeat_acc": 0.833,
-       "accuracy": 0.8,
+       "accuracy": 0.9,
        "stale_rate": 0.0,
-       "tokens": 108.4,
+       "tokens": 118.1,
        "first_seen_n": 4,
-       "first_seen_acc": 0.75
+       "first_seen_acc": 1.0
       },
       {
        "round": 5,
@@ -477,11 +477,11 @@
      ],
      "overall": {
       "accuracy": 0.82,
-      "repeat_acc": 0.895,
-      "first_seen_acc": 0.774,
-      "stale_rate": 0.1,
-      "tokens": 130.9,
-      "ms": 18.9
+      "repeat_acc": 0.842,
+      "first_seen_acc": 0.806,
+      "stale_rate": 0.12,
+      "tokens": 132.6,
+      "ms": 27.1
      }
     },
     "decisiongraph-frozen": {
@@ -548,7 +548,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 18.1
+      "ms": 27.7
      }
     }
    }
@@ -687,7 +687,7 @@
       "first_seen_acc": 0.645,
       "stale_rate": 0.22,
       "tokens": 600.3,
-      "ms": 0.2
+      "ms": 0.3
      }
     },
     "decisiongraph": {
@@ -740,21 +740,21 @@
        "round": 5,
        "n": 10,
        "repeat_n": 7,
-       "repeat_acc": 0.857,
-       "accuracy": 0.9,
+       "repeat_acc": 0.714,
+       "accuracy": 0.8,
        "stale_rate": 0.1,
-       "tokens": 126.7,
+       "tokens": 128.1,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       }
      ],
      "overall": {
-      "accuracy": 0.84,
-      "repeat_acc": 0.842,
+      "accuracy": 0.82,
+      "repeat_acc": 0.789,
       "first_seen_acc": 0.839,
       "stale_rate": 0.1,
-      "tokens": 132.1,
-      "ms": 17.4
+      "tokens": 132.4,
+      "ms": 46.6
      }
     },
     "decisiongraph-frozen": {
@@ -821,7 +821,7 @@
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 13.2
+      "ms": 40.1
      }
     }
    }
@@ -1027,7 +1027,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.1,
       "tokens": 129.7,
-      "ms": 16.2
+      "ms": 52.1
      }
     },
     "decisiongraph-frozen": {
@@ -1094,7 +1094,7 @@
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 15.7
+      "ms": 46.3
      }
     }
    }
@@ -1300,7 +1300,7 @@
       "first_seen_acc": 0.774,
       "stale_rate": 0.12,
       "tokens": 129.0,
-      "ms": 20.1
+      "ms": 64.6
      }
     },
     "decisiongraph-frozen": {
@@ -1367,7 +1367,7 @@
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
       "tokens": 135.3,
-      "ms": 15.1
+      "ms": 56.2
      }
     }
    }
@@ -1391,7 +1391,8 @@
      "to": "govuk-aws:17",
      "trust": 0.9,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     }
    ],
    "learned": [
@@ -1575,7 +1576,8 @@
      "to": "cloud-platform:19",
      "trust": 0.91,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     }
    ],
    "learned": [
@@ -1826,7 +1828,8 @@
      "to": "govuk-aws:15",
      "trust": 0.93,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     }
    ],
    "learned": [
@@ -1948,14 +1951,16 @@
      "to": "cloud-platform:42",
      "trust": 0.53,
      "rule": "body-ref-replace",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     },
     {
      "frm": "cloud-platform:42",
      "to": "cloud-platform:49",
      "trust": 1.0,
      "rule": "learned",
-     "state": "confirmed"
+     "state": "confirmed",
+     "by": 500003
     }
    ],
    "learned": [
@@ -2016,7 +2021,8 @@
      "to": "modernisation-platform:19",
      "trust": 0.93,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     }
    ],
    "learned": [
@@ -2120,7 +2126,8 @@
      "to": "modernisation-platform:19",
      "trust": 1.0,
      "rule": "status-link",
-     "state": "confirmed"
+     "state": "confirmed",
+     "by": 500025
     }
    ],
    "learned": [
@@ -2254,21 +2261,24 @@
      "to": "cloud-platform:21",
      "trust": 0.94,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     },
     {
      "frm": "cloud-platform:21",
      "to": "cloud-platform:36",
      "trust": 0.94,
      "rule": "status-link",
-     "state": "candidate"
+     "state": "candidate",
+     "by": -1
     },
     {
      "frm": "cloud-platform:36",
      "to": "cloud-platform:48",
      "trust": 1.0,
      "rule": "body-ref",
-     "state": "confirmed"
+     "state": "confirmed",
+     "by": 500023
     }
    ],
    "learned": [
@@ -2482,20 +2492,35 @@
    "qid": "q04",
    "q": "We still have Jenkins jobs on Cloud Platform. What should they move to?",
    "round": 5,
-   "ok": true,
-   "got": "cloud-platform:40",
+   "ok": false,
+   "got": "cloud-platform:45",
    "want": "cloud-platform:40",
    "start": "cloud-platform:3",
    "path": [
     {
      "frm": "cloud-platform:3",
-     "to": "cloud-platform:40",
-     "trust": 1.0,
+     "to": "cloud-platform:7",
+     "trust": 0.51,
      "rule": "replace-term",
-     "state": "confirmed"
+     "state": "candidate",
+     "by": -1
+    },
+    {
+     "frm": "cloud-platform:7",
+     "to": "cloud-platform:45",
+     "trust": 0.51,
+     "rule": "replace-term",
+     "state": "candidate",
+     "by": -1
     }
    ],
    "learned": [
+    {
+     "kind": "rejected",
+     "frm": "cloud-platform:3",
+     "to": "cloud-platform:7",
+     "rule": "replace-term"
+    },
     {
      "kind": "hint",
      "terms": [
@@ -2511,26 +2536,12 @@
    "qid": "q42",
    "q": "Does GOV.UK on AWS run its own Redis instances?",
    "round": 5,
-   "ok": false,
-   "got": "govuk-aws:29",
+   "ok": true,
+   "got": "govuk-aws:25",
    "want": "govuk-aws:25",
    "start": "govuk-aws:25",
-   "path": [
-    {
-     "frm": "govuk-aws:25",
-     "to": "govuk-aws:29",
-     "trust": 0.51,
-     "rule": "replace-term",
-     "state": "candidate"
-    }
-   ],
+   "path": [],
    "learned": [
-    {
-     "kind": "rejected",
-     "frm": "govuk-aws:25",
-     "to": "govuk-aws:29",
-     "rule": "replace-term"
-    },
     {
      "kind": "hint",
      "terms": [
@@ -2649,7 +2660,9 @@
   "Project": 3,
   "CORE_OF": 4008,
   "REPLACED_BY": 49,
-  "HINTS": 0
+  "HINTS": 0,
+  "Question": 0,
+  "trusted_links": 6
  },
  "mean": {
   "vector": {
@@ -2773,7 +2786,7 @@
     "first_seen_acc": 0.626,
     "stale_rate": 0.224,
     "tokens": 600.2,
-    "ms": 0.2
+    "ms": 0.3
    }
   },
   "decisiongraph-frozen": {
@@ -2835,7 +2848,7 @@
     "first_seen_acc": 0.819,
     "stale_rate": 0.18,
     "tokens": 135.3,
-    "ms": 15.7
+    "ms": 37.7
    }
   },
   "decisiongraph": {
@@ -2852,52 +2865,52 @@
     },
     {
      "round": 2,
-     "accuracy": 0.86,
+     "accuracy": 0.84,
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.1,
-     "tokens": 132.8,
+     "tokens": 133.1,
      "first_seen_acc": 0.864,
-     "repeat_acc": 0.75
+     "repeat_acc": 0.65
     },
     {
      "round": 3,
      "accuracy": 0.86,
      "accuracy_min": 0.6,
      "accuracy_max": 1.0,
-     "stale_rate": 0.08,
-     "tokens": 131.9,
+     "stale_rate": 0.1,
+     "tokens": 131.5,
      "first_seen_acc": 0.914,
      "repeat_acc": 0.817
     },
     {
      "round": 4,
-     "accuracy": 0.84,
+     "accuracy": 0.86,
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.02,
-     "tokens": 123.6,
-     "first_seen_acc": 0.818,
+     "tokens": 125.5,
+     "first_seen_acc": 0.868,
      "repeat_acc": 0.938
     },
     {
      "round": 5,
-     "accuracy": 0.9,
+     "accuracy": 0.88,
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.04,
-     "tokens": 123.1,
-     "first_seen_acc": 0.933,
-     "repeat_acc": 0.886
+     "tokens": 123.6,
+     "first_seen_acc": 1.0,
+     "repeat_acc": 0.828
     }
    ],
    "overall": {
-    "accuracy": 0.824,
-    "repeat_acc": 0.874,
-    "first_seen_acc": 0.793,
-    "stale_rate": 0.104,
-    "tokens": 130.5,
-    "ms": 18.1
+    "accuracy": 0.82,
+    "repeat_acc": 0.842,
+    "first_seen_acc": 0.806,
+    "stale_rate": 0.108,
+    "tokens": 131.0,
+    "ms": 41.8
    }
   }
  }
