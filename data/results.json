@@ -153,7 +153,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.7,
        "stale_rate": 0.3,
-       "tokens": 160.2,
+       "tokens": 162.0,
        "first_seen_n": 8,
        "first_seen_acc": 0.625
       },
@@ -164,7 +164,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 121.6,
+       "tokens": 128.3,
        "first_seen_n": 8,
        "first_seen_acc": 1.0
       },
@@ -175,7 +175,7 @@
        "repeat_acc": 0.667,
        "accuracy": 0.6,
        "stale_rate": 0.2,
-       "tokens": 110.2,
+       "tokens": 111.6,
        "first_seen_n": 7,
        "first_seen_acc": 0.571
       },
@@ -186,7 +186,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 134.6,
+       "tokens": 145.3,
        "first_seen_n": 5,
        "first_seen_acc": 1.0
       },
@@ -197,7 +197,7 @@
        "repeat_acc": 0.714,
        "accuracy": 0.7,
        "stale_rate": 0.0,
-       "tokens": 94.0,
+       "tokens": 107.9,
        "first_seen_n": 3,
        "first_seen_acc": 0.667
       }
@@ -207,8 +207,8 @@
       "repeat_acc": 0.842,
       "first_seen_acc": 0.774,
       "stale_rate": 0.1,
-      "tokens": 124.1,
-      "ms": 11.7
+      "tokens": 131.0,
+      "ms": 18.1
      }
     },
     "decisiongraph-frozen": {
@@ -231,7 +231,7 @@
        "repeat_acc": 0.5,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 135.4,
+       "tokens": 138.2,
        "first_seen_n": 8,
        "first_seen_acc": 1.0
       },
@@ -242,7 +242,7 @@
        "repeat_acc": 0.667,
        "accuracy": 0.6,
        "stale_rate": 0.3,
-       "tokens": 118.4,
+       "tokens": 121.8,
        "first_seen_n": 7,
        "first_seen_acc": 0.571
       },
@@ -264,7 +264,7 @@
        "repeat_acc": 0.571,
        "accuracy": 0.7,
        "stale_rate": 0.2,
-       "tokens": 104.7,
+       "tokens": 106.5,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       }
@@ -274,8 +274,8 @@
       "repeat_acc": 0.632,
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
-      "tokens": 133.7,
-      "ms": 12.0
+      "tokens": 135.3,
+      "ms": 16.3
      }
     }
    }
@@ -414,7 +414,7 @@
       "first_seen_acc": 0.613,
       "stale_rate": 0.24,
       "tokens": 600.6,
-      "ms": 0.3
+      "ms": 0.2
      }
     },
     "decisiongraph": {
@@ -426,7 +426,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.5,
        "stale_rate": 0.4,
-       "tokens": 140.1,
+       "tokens": 142.2,
        "first_seen_n": 8,
        "first_seen_acc": 0.375
       },
@@ -437,7 +437,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 144.6,
+       "tokens": 148.0,
        "first_seen_n": 8,
        "first_seen_acc": 0.875
       },
@@ -448,7 +448,7 @@
        "repeat_acc": 0.833,
        "accuracy": 0.9,
        "stale_rate": 0.0,
-       "tokens": 117.6,
+       "tokens": 124.0,
        "first_seen_n": 4,
        "first_seen_acc": 1.0
       },
@@ -459,7 +459,7 @@
        "repeat_acc": 0.833,
        "accuracy": 0.8,
        "stale_rate": 0.0,
-       "tokens": 96.0,
+       "tokens": 108.4,
        "first_seen_n": 4,
        "first_seen_acc": 0.75
       },
@@ -470,7 +470,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 122.9,
+       "tokens": 131.8,
        "first_seen_n": 7,
        "first_seen_acc": 1.0
       }
@@ -480,8 +480,8 @@
       "repeat_acc": 0.895,
       "first_seen_acc": 0.774,
       "stale_rate": 0.1,
-      "tokens": 124.2,
-      "ms": 13.0
+      "tokens": 130.9,
+      "ms": 18.9
      }
     },
     "decisiongraph-frozen": {
@@ -504,7 +504,7 @@
        "repeat_acc": 0.0,
        "accuracy": 0.7,
        "stale_rate": 0.3,
-       "tokens": 154.0,
+       "tokens": 157.4,
        "first_seen_n": 8,
        "first_seen_acc": 0.875
       },
@@ -515,7 +515,7 @@
        "repeat_acc": 0.833,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 117.0,
+       "tokens": 118.8,
        "first_seen_n": 4,
        "first_seen_acc": 1.0
       },
@@ -526,7 +526,7 @@
        "repeat_acc": 0.5,
        "accuracy": 0.7,
        "stale_rate": 0.0,
-       "tokens": 120.9,
+       "tokens": 123.7,
        "first_seen_n": 4,
        "first_seen_acc": 1.0
       },
@@ -547,8 +547,8 @@
       "repeat_acc": 0.632,
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
-      "tokens": 133.7,
-      "ms": 13.3
+      "tokens": 135.3,
+      "ms": 18.1
      }
     }
    }
@@ -699,7 +699,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.7,
        "stale_rate": 0.3,
-       "tokens": 108.8,
+       "tokens": 112.2,
        "first_seen_n": 9,
        "first_seen_acc": 0.667
       },
@@ -721,7 +721,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 147.1,
+       "tokens": 150.6,
        "first_seen_n": 7,
        "first_seen_acc": 1.0
       },
@@ -732,7 +732,7 @@
        "repeat_acc": 0.857,
        "accuracy": 0.9,
        "stale_rate": 0.0,
-       "tokens": 122.1,
+       "tokens": 130.5,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       },
@@ -743,7 +743,7 @@
        "repeat_acc": 0.857,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 123.9,
+       "tokens": 126.7,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       }
@@ -753,8 +753,8 @@
       "repeat_acc": 0.842,
       "first_seen_acc": 0.839,
       "stale_rate": 0.1,
-      "tokens": 128.5,
-      "ms": 13.6
+      "tokens": 132.1,
+      "ms": 17.4
      }
     },
     "decisiongraph-frozen": {
@@ -766,7 +766,7 @@
        "repeat_acc": 0.0,
        "accuracy": 0.6,
        "stale_rate": 0.4,
-       "tokens": 120.4,
+       "tokens": 123.8,
        "first_seen_n": 9,
        "first_seen_acc": 0.667
       },
@@ -788,7 +788,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 148.8,
+       "tokens": 150.6,
        "first_seen_n": 7,
        "first_seen_acc": 1.0
       },
@@ -810,7 +810,7 @@
        "repeat_acc": 0.571,
        "accuracy": 0.7,
        "stale_rate": 0.2,
-       "tokens": 133.3,
+       "tokens": 136.1,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       }
@@ -820,8 +820,8 @@
       "repeat_acc": 0.579,
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
-      "tokens": 133.7,
-      "ms": 11.3
+      "tokens": 135.3,
+      "ms": 13.2
      }
     }
    }
@@ -972,7 +972,7 @@
        "repeat_acc": null,
        "accuracy": 0.8,
        "stale_rate": 0.1,
-       "tokens": 154.4,
+       "tokens": 157.2,
        "first_seen_n": 10,
        "first_seen_acc": 0.8
       },
@@ -983,7 +983,7 @@
        "repeat_acc": 0.75,
        "accuracy": 0.7,
        "stale_rate": 0.3,
-       "tokens": 136.7,
+       "tokens": 138.1,
        "first_seen_n": 6,
        "first_seen_acc": 0.667
       },
@@ -994,7 +994,7 @@
        "repeat_acc": 0.75,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 134.9,
+       "tokens": 136.7,
        "first_seen_n": 6,
        "first_seen_acc": 1.0
       },
@@ -1005,7 +1005,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.8,
        "stale_rate": 0.0,
-       "tokens": 111.5,
+       "tokens": 112.6,
        "first_seen_n": 7,
        "first_seen_acc": 0.714
       },
@@ -1016,7 +1016,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 91.6,
+       "tokens": 103.7,
        "first_seen_n": 2,
        "first_seen_acc": 1.0
       }
@@ -1026,8 +1026,8 @@
       "repeat_acc": 0.895,
       "first_seen_acc": 0.806,
       "stale_rate": 0.1,
-      "tokens": 125.8,
-      "ms": 13.4
+      "tokens": 129.7,
+      "ms": 16.2
      }
     },
     "decisiongraph-frozen": {
@@ -1039,7 +1039,7 @@
        "repeat_acc": null,
        "accuracy": 0.8,
        "stale_rate": 0.1,
-       "tokens": 154.4,
+       "tokens": 157.2,
        "first_seen_n": 10,
        "first_seen_acc": 0.8
       },
@@ -1061,7 +1061,7 @@
        "repeat_acc": 0.75,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 134.9,
+       "tokens": 136.7,
        "first_seen_n": 6,
        "first_seen_acc": 1.0
       },
@@ -1083,7 +1083,7 @@
        "repeat_acc": 0.375,
        "accuracy": 0.5,
        "stale_rate": 0.4,
-       "tokens": 117.9,
+       "tokens": 121.3,
        "first_seen_n": 2,
        "first_seen_acc": 1.0
       }
@@ -1093,8 +1093,8 @@
       "repeat_acc": 0.579,
       "first_seen_acc": 0.839,
       "stale_rate": 0.18,
-      "tokens": 133.7,
-      "ms": 12.4
+      "tokens": 135.3,
+      "ms": 15.7
      }
     }
    }
@@ -1245,7 +1245,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.6,
        "stale_rate": 0.3,
-       "tokens": 128.9,
+       "tokens": 132.3,
        "first_seen_n": 9,
        "first_seen_acc": 0.556
       },
@@ -1256,7 +1256,7 @@
        "repeat_acc": 1.0,
        "accuracy": 1.0,
        "stale_rate": 0.0,
-       "tokens": 101.8,
+       "tokens": 109.2,
        "first_seen_n": 7,
        "first_seen_acc": 1.0
       },
@@ -1267,7 +1267,7 @@
        "repeat_acc": 0.833,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 130.2,
+       "tokens": 136.8,
        "first_seen_n": 4,
        "first_seen_acc": 1.0
       },
@@ -1278,7 +1278,7 @@
        "repeat_acc": 1.0,
        "accuracy": 0.7,
        "stale_rate": 0.1,
-       "tokens": 120.0,
+       "tokens": 121.2,
        "first_seen_n": 8,
        "first_seen_acc": 0.625
       },
@@ -1289,7 +1289,7 @@
        "repeat_acc": 0.857,
        "accuracy": 0.9,
        "stale_rate": 0.1,
-       "tokens": 138.0,
+       "tokens": 145.4,
        "first_seen_n": 3,
        "first_seen_acc": 1.0
       }
@@ -1299,8 +1299,8 @@
       "repeat_acc": 0.895,
       "first_seen_acc": 0.774,
       "stale_rate": 0.12,
-      "tokens": 123.8,
-      "ms": 13.3
+      "tokens": 129.0,
+      "ms": 20.1
      }
     },
     "decisiongraph-frozen": {
@@ -1312,7 +1312,7 @@
        "repeat_acc": 0.0,
        "accuracy": 0.5,
        "stale_rate": 0.4,
-       "tokens": 126.7,
+       "tokens": 130.1,
        "first_seen_n": 9,
        "first_seen_acc": 0.556
       },
@@ -1323,7 +1323,7 @@
        "repeat_acc": 0.667,
        "accuracy": 0.9,
        "stale_rate": 0.0,
-       "tokens": 103.9,
+       "tokens": 108.5,
        "first_seen_n": 7,
        "first_seen_acc": 1.0
       },
@@ -1366,8 +1366,8 @@
       "repeat_acc": 0.632,
       "first_seen_acc": 0.806,
       "stale_rate": 0.18,
-      "tokens": 133.7,
-      "ms": 14.1
+      "tokens": 135.3,
+      "ms": 15.1
      }
     }
    }
@@ -1395,8 +1395,21 @@
     }
    ],
    "learned": [
-    "confirmed link govuk-aws:10 -> govuk-aws:17 (status-link)",
-    "hinted directory, stack, data, environment, terraform -> govuk-aws:17"
+    {
+     "kind": "confirmed",
+     "frm": "govuk-aws:10",
+     "to": "govuk-aws:17",
+     "rule": "status-link"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "directory",
+      "stack",
+      "data"
+     ],
+     "to": "govuk-aws:17"
+    }
    ]
   },
   {
@@ -1409,7 +1422,17 @@
    "start": "cloud-platform:45",
    "path": [],
    "learned": [
-    "hinted endpoint, eks, private, public, api -> cloud-platform:45"
+    {
+     "kind": "hint",
+     "terms": [
+      "endpoint",
+      "eks",
+      "private",
+      "public",
+      "api"
+     ],
+     "to": "cloud-platform:45"
+    }
    ]
   },
   {
@@ -1422,8 +1445,23 @@
    "start": "cloud-platform:1",
    "path": [],
    "learned": [
-    "confirmed link cloud-platform:1 -> cloud-platform:23 (replace-term)",
-    "hinted elk, old, logs, stack, keep -> cloud-platform:23"
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:1",
+     "to": "cloud-platform:23",
+     "rule": "replace-term"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "elk",
+      "old",
+      "logs",
+      "stack",
+      "keep"
+     ],
+     "to": "cloud-platform:23"
+    }
    ]
   },
   {
@@ -1436,8 +1474,23 @@
    "start": "cloud-platform:42",
    "path": [],
    "learned": [
-    "learned new link cloud-platform:42 -> cloud-platform:49",
-    "hinted go, move, clusters, multiple, resources -> cloud-platform:49"
+    {
+     "kind": "learned",
+     "frm": "cloud-platform:42",
+     "to": "cloud-platform:49",
+     "rule": "learned"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "go",
+      "move",
+      "clusters",
+      "multiple",
+      "resources"
+     ],
+     "to": "cloud-platform:49"
+    }
    ]
   },
   {
@@ -1450,8 +1503,21 @@
    "start": "cloud-platform:14",
    "path": [],
    "learned": [
-    "learned new link cloud-platform:14 -> cloud-platform:22",
-    "hinted self-managed, kubernetes, managed, cluster -> cloud-platform:22"
+    {
+     "kind": "learned",
+     "frm": "cloud-platform:14",
+     "to": "cloud-platform:22",
+     "rule": "learned"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "self-managed",
+      "kubernetes",
+      "managed"
+     ],
+     "to": "cloud-platform:22"
+    }
    ]
   },
   {
@@ -1464,7 +1530,15 @@
    "start": "cloud-platform:11",
    "path": [],
    "learned": [
-    "hinted enforce, policies, kubernetes -> cloud-platform:11"
+    {
+     "kind": "hint",
+     "terms": [
+      "enforce",
+      "policies",
+      "kubernetes"
+     ],
+     "to": "cloud-platform:11"
+    }
    ]
   },
   {
@@ -1477,7 +1551,14 @@
    "start": "cloud-platform:23",
    "path": [],
    "learned": [
-    "hinted go, logs, application -> cloud-platform:23"
+    {
+     "kind": "hint",
+     "terms": [
+      "go",
+      "logs"
+     ],
+     "to": "cloud-platform:23"
+    }
    ]
   },
   {
@@ -1498,8 +1579,21 @@
     }
    ],
    "learned": [
-    "confirmed link cloud-platform:18 -> cloud-platform:19 (status-link)",
-    "hinted organised, controllers, ingress -> cloud-platform:19"
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:18",
+     "to": "cloud-platform:19",
+     "rule": "status-link"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "organised",
+      "controllers",
+      "ingress"
+     ],
+     "to": "cloud-platform:19"
+    }
    ]
   },
   {
@@ -1512,7 +1606,16 @@
    "start": "modernisation-platform:3",
    "path": [],
    "learned": [
-    "hinted federated, people, iam, through, accounts -> modernisation-platform:3"
+    {
+     "kind": "hint",
+     "terms": [
+      "federated",
+      "people",
+      "iam",
+      "through"
+     ],
+     "to": "modernisation-platform:3"
+    }
    ]
   },
   {
@@ -1525,7 +1628,16 @@
    "start": "modernisation-platform:3",
    "path": [],
    "learned": [
-    "hinted joiners, movers, leavers, managed, accounts -> modernisation-platform:3"
+    {
+     "kind": "hint",
+     "terms": [
+      "joiners",
+      "movers",
+      "leavers",
+      "managed"
+     ],
+     "to": "modernisation-platform:3"
+    }
    ]
   },
   {
@@ -1538,7 +1650,15 @@
    "start": "govuk-aws:21",
    "path": [],
    "learned": [
-    "hinted ssl, certificates, managed -> govuk-aws:21"
+    {
+     "kind": "hint",
+     "terms": [
+      "ssl",
+      "certificates",
+      "managed"
+     ],
+     "to": "govuk-aws:21"
+    }
    ]
   },
   {
@@ -1551,7 +1671,17 @@
    "start": "modernisation-platform:44",
    "path": [],
    "learned": [
-    "hinted mfa, buckets, delete, log, s3 -> modernisation-platform:44"
+    {
+     "kind": "hint",
+     "terms": [
+      "mfa",
+      "buckets",
+      "delete",
+      "log",
+      "s3"
+     ],
+     "to": "modernisation-platform:44"
+    }
    ]
   },
   {
@@ -1564,7 +1694,14 @@
    "start": "cloud-platform:46",
    "path": [],
    "learned": [
-    "hinted images, hosted, user -> cloud-platform:46"
+    {
+     "kind": "hint",
+     "terms": [
+      "images",
+      "hosted"
+     ],
+     "to": "cloud-platform:46"
+    }
    ]
   },
   {
@@ -1577,7 +1714,16 @@
    "start": "cloud-platform:22",
    "path": [],
    "learned": [
-    "hinted kops, own, kubernetes, build, cluster -> cloud-platform:22"
+    {
+     "kind": "hint",
+     "terms": [
+      "kops",
+      "own",
+      "kubernetes",
+      "build"
+     ],
+     "to": "cloud-platform:22"
+    }
    ]
   },
   {
@@ -1590,7 +1736,14 @@
    "start": "cloud-platform:40",
    "path": [],
    "learned": [
-    "hinted pipelines, deployment -> cloud-platform:40"
+    {
+     "kind": "hint",
+     "terms": [
+      "pipelines",
+      "deployment"
+     ],
+     "to": "cloud-platform:40"
+    }
    ]
   },
   {
@@ -1603,7 +1756,16 @@
    "start": "cloud-platform:39",
    "path": [],
    "learned": [
-    "hinted outbound, firewall, network, traffic -> cloud-platform:39"
+    {
+     "kind": "hint",
+     "terms": [
+      "outbound",
+      "firewall",
+      "network",
+      "traffic"
+     ],
+     "to": "cloud-platform:39"
+    }
    ]
   },
   {
@@ -1616,7 +1778,16 @@
    "start": "modernisation-platform:19",
    "path": [],
    "learned": [
-    "hinted tests, scripts, language, written -> modernisation-platform:19"
+    {
+     "kind": "hint",
+     "terms": [
+      "tests",
+      "scripts",
+      "language",
+      "written"
+     ],
+     "to": "modernisation-platform:19"
+    }
    ]
   },
   {
@@ -1629,7 +1800,16 @@
    "start": "cloud-platform:23",
    "path": [],
    "learned": [
-    "hinted backend, elasticsearch, logging, hosted -> cloud-platform:23"
+    {
+     "kind": "hint",
+     "terms": [
+      "backend",
+      "elasticsearch",
+      "logging",
+      "hosted"
+     ],
+     "to": "cloud-platform:23"
+    }
    ]
   },
   {
@@ -1650,8 +1830,20 @@
     }
    ],
    "learned": [
-    "confirmed link govuk-aws:4 -> govuk-aws:15 (status-link)",
-    "hinted format, internal -> govuk-aws:15"
+    {
+     "kind": "confirmed",
+     "frm": "govuk-aws:4",
+     "to": "govuk-aws:15",
+     "rule": "status-link"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "format",
+      "internal"
+     ],
+     "to": "govuk-aws:15"
+    }
    ]
   },
   {
@@ -1664,7 +1856,14 @@
    "start": "modernisation-platform:9",
    "path": [],
    "learned": [
-    "hinted secrets, store -> modernisation-platform:9"
+    {
+     "kind": "hint",
+     "terms": [
+      "secrets",
+      "store"
+     ],
+     "to": "modernisation-platform:9"
+    }
    ]
   },
   {
@@ -1677,7 +1876,14 @@
    "start": "modernisation-platform:29",
    "path": [],
    "learned": [
-    "hinted instances, production -> modernisation-platform:23"
+    {
+     "kind": "hint",
+     "terms": [
+      "instances",
+      "production"
+     ],
+     "to": "modernisation-platform:23"
+    }
    ]
   },
   {
@@ -1690,8 +1896,22 @@
    "start": "govuk-aws:3",
    "path": [],
    "learned": [
-    "confirmed link govuk-aws:3 -> govuk-aws:33 (body-ref-replace)",
-    "hinted ip, range, vpc, production -> govuk-aws:33"
+    {
+     "kind": "confirmed",
+     "frm": "govuk-aws:3",
+     "to": "govuk-aws:33",
+     "rule": "body-ref-replace"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "ip",
+      "range",
+      "vpc",
+      "production"
+     ],
+     "to": "govuk-aws:33"
+    }
    ]
   },
   {
@@ -1704,7 +1924,14 @@
    "start": "modernisation-platform:18",
    "path": [],
    "learned": [
-    "hinted shield, advanced -> modernisation-platform:18"
+    {
+     "kind": "hint",
+     "terms": [
+      "shield",
+      "advanced"
+     ],
+     "to": "modernisation-platform:18"
+    }
    ]
   },
   {
@@ -1732,9 +1959,28 @@
     }
    ],
    "learned": [
-    "rejected link cloud-platform:36 -> cloud-platform:42 (body-ref-replace)",
-    "confirmed link cloud-platform:36 -> cloud-platform:48 (body-ref)",
-    "hinted multi-cluster, non-production, plan, production -> cloud-platform:48"
+    {
+     "kind": "rejected",
+     "frm": "cloud-platform:36",
+     "to": "cloud-platform:42",
+     "rule": "body-ref-replace"
+    },
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:36",
+     "to": "cloud-platform:48",
+     "rule": "body-ref"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "multi-cluster",
+      "non-production",
+      "plan",
+      "production"
+     ],
+     "to": "cloud-platform:48"
+    }
    ]
   },
   {
@@ -1747,7 +1993,13 @@
    "start": "modernisation-platform:28",
    "path": [],
    "learned": [
-    "hinted hosted -> modernisation-platform:28"
+    {
+     "kind": "hint",
+     "terms": [
+      "hosted"
+     ],
+     "to": "modernisation-platform:28"
+    }
    ]
   },
   {
@@ -1768,8 +2020,22 @@
     }
    ],
    "learned": [
-    "confirmed link modernisation-platform:4 -> modernisation-platform:19 (status-link)",
-    "hinted lambdas, python, write, node -> modernisation-platform:19"
+    {
+     "kind": "confirmed",
+     "frm": "modernisation-platform:4",
+     "to": "modernisation-platform:19",
+     "rule": "status-link"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "lambdas",
+      "python",
+      "write",
+      "node"
+     ],
+     "to": "modernisation-platform:19"
+    }
    ]
   },
   {
@@ -1782,7 +2048,14 @@
    "start": "modernisation-platform:34",
    "path": [],
    "learned": [
-    "hinted discovery, map -> modernisation-platform:34"
+    {
+     "kind": "hint",
+     "terms": [
+      "discovery",
+      "map"
+     ],
+     "to": "modernisation-platform:34"
+    }
    ]
   },
   {
@@ -1795,8 +2068,21 @@
    "start": "cloud-platform:3",
    "path": [],
    "learned": [
-    "confirmed link cloud-platform:3 -> cloud-platform:40 (replace-term)",
-    "hinted concourse, ci, tool -> cloud-platform:40"
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:3",
+     "to": "cloud-platform:40",
+     "rule": "replace-term"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "concourse",
+      "ci",
+      "tool"
+     ],
+     "to": "cloud-platform:40"
+    }
    ]
   },
   {
@@ -1809,7 +2095,15 @@
    "start": "modernisation-platform:31",
    "path": [],
    "learned": [
-    "hinted language, host, large -> modernisation-platform:31"
+    {
+     "kind": "hint",
+     "terms": [
+      "language",
+      "host",
+      "large"
+     ],
+     "to": "modernisation-platform:31"
+    }
    ]
   },
   {
@@ -1830,7 +2124,14 @@
     }
    ],
    "learned": [
-    "hinted languages, core -> modernisation-platform:19"
+    {
+     "kind": "hint",
+     "terms": [
+      "languages",
+      "core"
+     ],
+     "to": "modernisation-platform:19"
+    }
    ]
   },
   {
@@ -1843,7 +2144,13 @@
    "start": "cloud-platform:44",
    "path": [],
    "learned": [
-    "hinted name -> cloud-platform:44"
+    {
+     "kind": "hint",
+     "terms": [
+      "name"
+     ],
+     "to": "cloud-platform:44"
+    }
    ]
   },
   {
@@ -1856,7 +2163,17 @@
    "start": "cloud-platform:19",
    "path": [],
    "learned": [
-    "hinted controller, namespace, ingress, every, dedicated -> cloud-platform:19"
+    {
+     "kind": "hint",
+     "terms": [
+      "controller",
+      "namespace",
+      "ingress",
+      "every",
+      "dedicated"
+     ],
+     "to": "cloud-platform:19"
+    }
    ]
   },
   {
@@ -1869,7 +2186,14 @@
    "start": "cloud-platform:13",
    "path": [],
    "learned": [
-    "hinted framework, tests, cluster -> cloud-platform:13"
+    {
+     "kind": "hint",
+     "terms": [
+      "framework",
+      "tests"
+     ],
+     "to": "cloud-platform:13"
+    }
    ]
   },
   {
@@ -1882,7 +2206,16 @@
    "start": "govuk-aws:38",
    "path": [],
    "learned": [
-    "hinted mongodb, migrating, instead, apps -> govuk-aws:38"
+    {
+     "kind": "hint",
+     "terms": [
+      "mongodb",
+      "migrating",
+      "instead",
+      "apps"
+     ],
+     "to": "govuk-aws:38"
+    }
    ]
   },
   {
@@ -1895,7 +2228,16 @@
    "start": "govuk-aws:38",
    "path": [],
    "learned": [
-    "hinted mongodb, documentdb, workloads, moving -> govuk-aws:38"
+    {
+     "kind": "hint",
+     "terms": [
+      "mongodb",
+      "documentdb",
+      "workloads",
+      "moving"
+     ],
+     "to": "govuk-aws:38"
+    }
    ]
   },
   {
@@ -1930,9 +2272,27 @@
     }
    ],
    "learned": [
-    "confirmed link cloud-platform:12 -> cloud-platform:21 (status-link)",
-    "confirmed link cloud-platform:21 -> cloud-platform:36 (status-link)",
-    "hinted prod, dev, staging, run, cluster -> cloud-platform:48"
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:12",
+     "to": "cloud-platform:21",
+     "rule": "status-link"
+    },
+    {
+     "kind": "confirmed",
+     "frm": "cloud-platform:21",
+     "to": "cloud-platform:36",
+     "rule": "status-link"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "prod",
+      "dev",
+      "staging"
+     ],
+     "to": "cloud-platform:48"
+    }
    ]
   },
   {
@@ -1945,7 +2305,16 @@
    "start": "cloud-platform:40",
    "path": [],
    "learned": [
-    "hinted system, cd, ci, pipelines, run -> cloud-platform:40"
+    {
+     "kind": "hint",
+     "terms": [
+      "system",
+      "cd",
+      "ci",
+      "pipelines"
+     ],
+     "to": "cloud-platform:40"
+    }
    ]
   },
   {
@@ -1958,7 +2327,14 @@
    "start": "cloud-platform:23",
    "path": [],
    "learned": [
-    "hinted search, logs -> cloud-platform:23"
+    {
+     "kind": "hint",
+     "terms": [
+      "search",
+      "logs"
+     ],
+     "to": "cloud-platform:23"
+    }
    ]
   },
   {
@@ -1971,7 +2347,13 @@
    "start": "cloud-platform:37",
    "path": [],
    "learned": [
-    "hinted lambda, run -> cloud-platform:37"
+    {
+     "kind": "hint",
+     "terms": [
+      "lambda"
+     ],
+     "to": "cloud-platform:37"
+    }
    ]
   },
   {
@@ -1984,7 +2366,14 @@
    "start": "modernisation-platform:7",
    "path": [],
    "learned": [
-    "hinted tools, testing, infrastructure -> modernisation-platform:7"
+    {
+     "kind": "hint",
+     "terms": [
+      "tools",
+      "testing"
+     ],
+     "to": "modernisation-platform:7"
+    }
    ]
   },
   {
@@ -1997,7 +2386,14 @@
    "start": "cloud-platform:41",
    "path": [],
    "learned": [
-    "hinted cli, tool -> cloud-platform:41"
+    {
+     "kind": "hint",
+     "terms": [
+      "cli",
+      "tool"
+     ],
+     "to": "cloud-platform:41"
+    }
    ]
   },
   {
@@ -2010,7 +2406,14 @@
    "start": "govuk-aws:33",
    "path": [],
    "learned": [
-    "hinted 10.2.0.0, staging -> govuk-aws:33"
+    {
+     "kind": "hint",
+     "terms": [
+      "10.2.0.0",
+      "staging"
+     ],
+     "to": "govuk-aws:33"
+    }
    ]
   },
   {
@@ -2023,7 +2426,15 @@
    "start": "cloud-platform:48",
    "path": [],
    "learned": [
-    "hinted unit, business, own, cluster -> cloud-platform:48"
+    {
+     "kind": "hint",
+     "terms": [
+      "unit",
+      "business",
+      "own"
+     ],
+     "to": "cloud-platform:48"
+    }
    ]
   },
   {
@@ -2036,7 +2447,14 @@
    "start": "cloud-platform:47",
    "path": [],
    "learned": [
-    "hinted autoscaling, node -> cloud-platform:47"
+    {
+     "kind": "hint",
+     "terms": [
+      "autoscaling",
+      "node"
+     ],
+     "to": "cloud-platform:47"
+    }
    ]
   },
   {
@@ -2049,8 +2467,15 @@
    "start": "cloud-platform:22",
    "path": [],
    "learned": [
-    "confirmed link cloud-platform:22 -> cloud-platform:36 (body-ref-replace)",
-    "hinted split, clusters, kubernetes -> cloud-platform:48"
+    {
+     "kind": "hint",
+     "terms": [
+      "split",
+      "clusters",
+      "kubernetes"
+     ],
+     "to": "cloud-platform:48"
+    }
    ]
   },
   {
@@ -2071,7 +2496,15 @@
     }
    ],
    "learned": [
-    "hinted jenkins, jobs, move -> cloud-platform:40"
+    {
+     "kind": "hint",
+     "terms": [
+      "jenkins",
+      "jobs",
+      "move"
+     ],
+     "to": "cloud-platform:40"
+    }
    ]
   },
   {
@@ -2092,8 +2525,21 @@
     }
    ],
    "learned": [
-    "rejected link govuk-aws:25 -> govuk-aws:29 (replace-term)",
-    "hinted redis, own, instances, run -> govuk-aws:25"
+    {
+     "kind": "rejected",
+     "frm": "govuk-aws:25",
+     "to": "govuk-aws:29",
+     "rule": "replace-term"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "redis",
+      "own",
+      "instances"
+     ],
+     "to": "govuk-aws:25"
+    }
    ]
   },
   {
@@ -2106,7 +2552,16 @@
    "start": "govuk-aws:23",
    "path": [],
    "learned": [
-    "hinted tfvars, kept, encrypted, secrets, terraform -> govuk-aws:23"
+    {
+     "kind": "hint",
+     "terms": [
+      "tfvars",
+      "kept",
+      "encrypted",
+      "secrets"
+     ],
+     "to": "govuk-aws:23"
+    }
    ]
   },
   {
@@ -2119,8 +2574,21 @@
    "start": "cloud-platform:33",
    "path": [],
    "learned": [
-    "learned new link cloud-platform:33 -> cloud-platform:22",
-    "hinted main, runs, control, cluster -> cloud-platform:22"
+    {
+     "kind": "learned",
+     "frm": "cloud-platform:33",
+     "to": "cloud-platform:22",
+     "rule": "learned"
+    },
+    {
+     "kind": "hint",
+     "terms": [
+      "main",
+      "runs",
+      "control"
+     ],
+     "to": "cloud-platform:22"
+    }
    ]
   },
   {
@@ -2133,7 +2601,17 @@
    "start": "govuk-aws:15",
    "path": [],
    "learned": [
-    "hinted records, stacks, zones, dns, set -> govuk-aws:15"
+    {
+     "kind": "hint",
+     "terms": [
+      "records",
+      "stacks",
+      "zones",
+      "dns",
+      "set"
+     ],
+     "to": "govuk-aws:15"
+    }
    ]
   }
  ],
@@ -2306,7 +2784,7 @@
      "accuracy_min": 0.4,
      "accuracy_max": 0.8,
      "stale_rate": 0.34,
-     "tokens": 143.1,
+     "tokens": 145.0,
      "first_seen_acc": 0.605,
      "repeat_acc": 0.375
     },
@@ -2316,7 +2794,7 @@
      "accuracy_min": 0.7,
      "accuracy_max": 0.9,
      "stale_rate": 0.16,
-     "tokens": 134.1,
+     "tokens": 136.3,
      "first_seen_acc": 0.864,
      "repeat_acc": 0.383
     },
@@ -2326,7 +2804,7 @@
      "accuracy_min": 0.6,
      "accuracy_max": 1.0,
      "stale_rate": 0.14,
-     "tokens": 132.2,
+     "tokens": 133.9,
      "first_seen_acc": 0.914,
      "repeat_acc": 0.783
     },
@@ -2336,7 +2814,7 @@
      "accuracy_min": 0.7,
      "accuracy_max": 0.8,
      "stale_rate": 0.06,
-     "tokens": 130.5,
+     "tokens": 131.1,
      "first_seen_acc": 0.921,
      "repeat_acc": 0.668
     },
@@ -2346,7 +2824,7 @@
      "accuracy_min": 0.5,
      "accuracy_max": 1.0,
      "stale_rate": 0.2,
-     "tokens": 128.8,
+     "tokens": 130.4,
      "first_seen_acc": 1.0,
      "repeat_acc": 0.618
     }
@@ -2356,8 +2834,8 @@
     "repeat_acc": 0.611,
     "first_seen_acc": 0.819,
     "stale_rate": 0.18,
-    "tokens": 133.7,
-    "ms": 12.6
+    "tokens": 135.3,
+    "ms": 15.7
    }
   },
   "decisiongraph": {
@@ -2368,7 +2846,7 @@
      "accuracy_min": 0.5,
      "accuracy_max": 0.8,
      "stale_rate": 0.28,
-     "tokens": 138.5,
+     "tokens": 141.2,
      "first_seen_acc": 0.605,
      "repeat_acc": 1.0
     },
@@ -2378,7 +2856,7 @@
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.1,
-     "tokens": 129.0,
+     "tokens": 132.8,
      "first_seen_acc": 0.864,
      "repeat_acc": 0.75
     },
@@ -2388,7 +2866,7 @@
      "accuracy_min": 0.6,
      "accuracy_max": 1.0,
      "stale_rate": 0.08,
-     "tokens": 128.0,
+     "tokens": 131.9,
      "first_seen_acc": 0.914,
      "repeat_acc": 0.817
     },
@@ -2398,7 +2876,7 @@
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.02,
-     "tokens": 116.8,
+     "tokens": 123.6,
      "first_seen_acc": 0.818,
      "repeat_acc": 0.938
     },
@@ -2408,7 +2886,7 @@
      "accuracy_min": 0.7,
      "accuracy_max": 1.0,
      "stale_rate": 0.04,
-     "tokens": 114.1,
+     "tokens": 123.1,
      "first_seen_acc": 0.933,
      "repeat_acc": 0.886
     }
@@ -2418,8 +2896,8 @@
     "repeat_acc": 0.874,
     "first_seen_acc": 0.793,
     "stale_rate": 0.104,
-    "tokens": 125.3,
-    "ms": 13.0
+    "tokens": 130.5,
+    "ms": 18.1
    }
   }
  }

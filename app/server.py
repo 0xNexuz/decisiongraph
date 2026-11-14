@@ -39,9 +39,25 @@ def boot():
     mem = VectorRAGMemory(recs, ch, cvecs)
     graph = DecisionGraph(recs, per, idf, links, vec, db)
     loaded = graph.load()
-    S.update(recs={r["id"]: r for r in recs}, vec=vec, mem=mem, graph=graph, questions=questions,
+    S.update(recs={r["id"]: r for r in recs}, graph=graph, mem=mem, questions=questions,
+             qvecs={q["id"]: qv[i] for i, q in enumerate(questions)})
+    trained = train()
+    S.update(trained=trained, recs={r["id"]: r for r in recs}, vec=vec, mem=mem, graph=graph, questions=questions,
              qvecs={q["id"]: qv[i] for i, q in enumerate(questions)}, loaded=loaded,
              booted=time.time(), boot_s=round(time.time() - t, 1), feedback_count=0)
+
+
+def train(seed=7):
+    """Teach the graph with the 50 evaluation corrections (the same stream as the test),
+    so the live demo shows a graph that has already learned from use."""
+    g, mem = S["graph"], S["mem"]
+    n = 0
+    for item in order(S["questions"], seed):
+        qv = S["qvecs"][item["id"]]
+        g.feedback(item["q"], qv, g.answer(item["q"], qv), item["answer"])
+        mem.feedback(item["q"], qv, None, item["answer"])
+        n += 1
+    return n
 
 
 @app.on_event("startup")
@@ -53,6 +69,18 @@ def card(rid):
     r = S["recs"][rid]
     return dict(id=rid, title=r["title"], project=PROJECT_LABEL[r["project"]], num=r["num"], date=r["date"],
                 status=r["status"], decision=r["decision"][:600], url=r["url"])
+
+
+def describe(changes):
+    out = []
+    for c in changes:
+        c = dict(c)
+        for k in ("frm", "to"):
+            if c.get(k):
+                r = S["recs"][c[k]]
+                c[k + "_title"] = f"ADR {r['num']} {r['title']}"
+        out.append(c)
+    return out
 
 
 class Ask(BaseModel):
@@ -84,6 +112,7 @@ def ask(body: Ask):
         v_ms = (time.time() - t1) * 1000
     return dict(
         graph=dict(answer=card(g["answer"]), start=card(g["start"]), terms=g["terms"],
+                   lineage=[dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"]) for p in g["lineage"]],
                    path=[dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"], state=p["state"]) for p in g["path"]],
                    context=g["context"], tokens=count_tokens(g["context"]), ms=round(g_ms, 1)),
         vector=dict(answer=card(v["answer"]), retrieved=[card(x) for x in v["retrieved"]], context=v["context"],
@@ -102,7 +131,7 @@ def feedback(body: Feedback):
         changes = S["graph"].feedback(q, qv, res, body.correct)
         S["feedback_count"] += 1
         after = S["graph"].answer(q, qv)
-    return dict(changes=changes, now=card(after["answer"]),
+    return dict(changes=describe(changes), now=card(after["answer"]),
                 path=[dict(frm=card(p["frm"]), to=card(p["to"]), trust=p["trust"], rule=p["rule"]) for p in after["path"]])
 
 
@@ -112,11 +141,22 @@ def decisions():
     return [dict(id=r["id"], label=f"{PROJECT_LABEL[r['project']]} · ADR {r['num']} · {r['title']}", status=r["status"]) for r in rs]
 
 
+SAMPLES = [
+    "Are we still on Concourse for Cloud Platform pipelines?",
+    "Is there one Kubernetes cluster for every environment on Cloud Platform?",
+    "Do we run kOps for the Cloud Platform cluster?",
+    "Where do I search my app's logs on Cloud Platform?",
+    "Should Modernisation Platform lambdas be written in Python?",
+    "What hostname format do GOV.UK internal services use?",
+    "Should GOV.UK apps use MongoDB or DocumentDB on AWS?",
+    "Does each Cloud Platform namespace get its own ingress controller?",
+]
+
+
 @app.get("/api/samples")
 def samples():
-    pick = ["q02", "q06", "q09", "q13", "q19", "q22", "q27", "q16"]
-    by = {q["id"]: q for q in S["questions"]}
-    return [dict(id=i, q=by[i]["q"]) for i in pick if i in by]
+    """New wordings that are not in the evaluation set."""
+    return [dict(q=q) for q in SAMPLES]
 
 
 @app.get("/api/results")
@@ -138,7 +178,7 @@ def trace():
 @app.get("/api/graph")
 def graph_info():
     with lock:
-        return dict(stats=S["graph"].stats(), rules=S["graph"].rules(), loaded=S["loaded"],
+        return dict(stats=S["graph"].stats(), rules=S["graph"].rules(), loaded=S["loaded"], trained=S.get("trained", 0),
                     feedback_count=S["feedback_count"])
 
 
@@ -163,7 +203,7 @@ def replay(seed: int = 7):
                     ch = sys.feedback(item["q"], qv, out, item["answer"])
                     row[sys.name] = dict(got=out["answer"], ok=out["answer"] == item["answer"],
                                          stale=out["answer"] in item["stale"],
-                                         learned=ch if sys.name == "decisiongraph" else None)
+                                         learned=describe(ch) if sys.name == "decisiongraph" else None)
                 seen.add(item["topic"])
                 yield f"data: {json.dumps(row)}\n\n"
             S["feedback_count"] = 0
@@ -173,14 +213,16 @@ def replay(seed: int = 7):
 
 
 @app.post("/api/reset")
-def reset(x_admin_token: str = Header(default="")):
+def reset(x_admin_token: str = Header(default=""), x_blank: str = Header(default="")):
     if not ADMIN_TOKEN or x_admin_token != ADMIN_TOKEN:
         raise HTTPException(403, "forbidden")
     with lock:
         S["graph"].load()
         S["mem"].reset()
         S["feedback_count"] = 0
-    return dict(ok=True)
+        blank = x_blank == "1"
+        S["trained"] = 0 if blank else train()
+    return dict(ok=True, trained=S["trained"])
 
 
 @app.get("/")

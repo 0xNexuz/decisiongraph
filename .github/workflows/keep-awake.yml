@@ -1,0 +1,16 @@
+name: Keep awake
+# Render's free tier sleeps after 15 idle minutes. This pings the live app so judges don't wait for a cold start.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping
+        env:
+          APP_URL: ${{ vars.APP_URL }}
+        run: |
+          if [ -z "$APP_URL" ]; then echo "Set the APP_URL repository variable"; exit 0; fi
+          curl -fsS --max-time 90 "$APP_URL/api/health" || true

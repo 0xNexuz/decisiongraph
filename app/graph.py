@@ -197,14 +197,38 @@ class DecisionGraph:
             return 0.0
         return rules[link["rule"]]["trust"]
 
+    def in_links(self, vid):
+        return self.db.q("MATCH (a:Decision)-[r:REPLACED_BY]->(b:Decision {id: $id}) "
+                         "RETURN a.id AS id, r.rule AS rule, r.state AS state, r.w AS w", id=vid)
+
+    def history(self, rid, rules, limit=3):
+        """Older decisions this one replaced, following trusted links backwards."""
+        out, cur, seen = [], rid, {rid}
+        for _ in range(limit):
+            best = None
+            for l in self.in_links(self.recs[cur]["vid"]):
+                prev = self.by_vid.get(l["id"])
+                if not prev or prev["id"] in seen:
+                    continue
+                eff = self.effective(l, rules)
+                if eff >= FOLLOW and (best is None or eff > best[1]):
+                    best = (prev["id"], eff, l["rule"], l["state"])
+            if not best:
+                break
+            out.append(dict(frm=best[0], to=cur, trust=round(best[1], 2), rule=best[2], state=best[3]))
+            cur = best[0]
+            seen.add(cur)
+        return list(reversed(out))
+
     def answer(self, q, qvec):
         rules = self.rules()
         ranked, terms = self.seeds(q, qvec)
         start = ranked[0][0]
         final, path = self.walk(start, rules)
-        return dict(answer=final, start=start, path=path, terms=terms,
+        lineage = self.history(final, rules)
+        return dict(answer=final, start=start, path=path, lineage=lineage, terms=terms,
                     seeds=[(rid, round(s, 3)) for rid, s in ranked[:5]],
-                    context=self.context(final, path))
+                    context=self.context(final, lineage))
 
     def context(self, rid, path):
         r = self.recs[rid]
@@ -257,7 +281,7 @@ class DecisionGraph:
                 if p["state"] != "confirmed":
                     self._set_link(p["frm"], p["to"], "confirmed")
                     self._bump_rule(p["rule"], True)
-                    changes.append(f"confirmed link {p['frm']} -> {p['to']} ({p['rule']})")
+                    changes.append(dict(kind="confirmed", frm=p["frm"], to=p["to"], rule=p["rule"]))
         else:
             # links the walk took that led away from the right answer
             on_path_nodes = [start] + [p["to"] for p in path]
@@ -267,13 +291,13 @@ class DecisionGraph:
                 bad = path[i]
                 self._set_link(bad["frm"], bad["to"], "rejected")
                 self._bump_rule(bad["rule"], False)
-                changes.append(f"rejected link {bad['frm']} -> {bad['to']} ({bad['rule']})")
+                changes.append(dict(kind="rejected", frm=bad["frm"], to=bad["to"], rule=bad["rule"]))
             else:
                 for p in path:
                     if self._reachable(p["to"], correct, rules) is None and p["state"] != "confirmed":
                         self._set_link(p["frm"], p["to"], "rejected")
                         self._bump_rule(p["rule"], False)
-                        changes.append(f"rejected link {p['frm']} -> {p['to']} ({p['rule']})")
+                        changes.append(dict(kind="rejected", frm=p["frm"], to=p["to"], rule=p["rule"]))
                         break
                 # is the right answer reachable from where we were, through links we did not trust?
                 hops = None
@@ -281,27 +305,30 @@ class DecisionGraph:
                     hops = self._reachable(node, correct, rules)
                     if hops:
                         break
+                if hops and not all(self.related(frm, to) or l["rule"] in ("status-link", "replace-term", "learned") for frm, to, l in hops):
+                    hops = None  # a path through unrelated decisions is not evidence
                 if hops:
                     for frm, to, link in hops:
                         if link["state"] != "confirmed":
                             self._set_link(frm, to, "confirmed")
                             self._bump_rule(link["rule"], True)
-                            changes.append(f"confirmed link {frm} -> {to} ({link['rule']})")
+                            changes.append(dict(kind="confirmed", frm=frm, to=to, rule=link["rule"]))
                 else:
                     s, c = self.recs[start], self.recs[correct]
                     if (s["project"] == c["project"] and s["date"] and c["date"] and s["date"] < c["date"]
                             and self.related(start, correct)):
                         self.db.q("MERGE (a {id: $o})-[:REPLACED_BY {rule: 'learned', state: 'confirmed', w: 1.0}]->(b {id: $n})",
                                   o=s["vid"], n=c["vid"])
-                        changes.append(f"learned new link {start} -> {correct}")
+                        changes.append(dict(kind="learned", frm=start, to=correct, rule="learned"))
         # hint edges: the question's terms point at the right decision
-        for t in [t for t in result["terms"] if self.idf.get(t, 0) > 1.5][:5]:
+        hint_terms = [t for t in result["terms"] if self.idf.get(t, 0) > 1.5][:5]
+        for t in hint_terms:
             tv, dv = self.term_vid[t], self.recs[correct]["vid"]
             rows = self.db.q("MATCH (a:Term {id: $t})-[h:HINTS]->(b {id: $d}) RETURN h.w AS w", t=tv, d=dv)
             if rows:
                 self.db.q("MATCH (a:Term {id: $t})-[h:HINTS]->(b {id: $d}) SET h.w = $w", t=tv, d=dv, w=rows[0]["w"] + 1.0)
             else:
                 self.db.q("MERGE (a {id: $t})-[:HINTS {w: 1.0}]->(b {id: $d})", t=tv, d=dv)
-        if result["terms"]:
-            changes.append(f"hinted {', '.join(result['terms'][:5])} -> {correct}")
+        if hint_terms:
+            changes.append(dict(kind="hint", terms=hint_terms, to=correct))
         return changes
