@@ -27,8 +27,8 @@ All numbers come from the same 50-question test, answered before each correction
 | Judging question | Answer | Evidence |
 |---|---|---|
 | **Right metrics:** did you measure what matters? | We measure whether the agent gets the decision that **still stands**, how often it gets an **outdated** one, and how many **tokens** it hands the agent. | 80% right [70%–90%] vs 52% [38%–66%] for vector search. Outdated answers 10% vs 28%. 24 held-out questions from an independent reviewer: 96% vs 42%. Says "no decision on record" for 92% of 12 out-of-scope questions. |
-| **Continual learning over a baseline:** real improvement, not a one-off? | The baseline is the **same graph with learning switched off**, run on the same question orders. | +14 points in rounds 4–5 [+1 to +28]. +23 points when a topic comes back in new words [+7 to +40]. It costs 4 points on brand-new topics [−9 to 0], and over all 50 questions the gain (+6, [−1 to +15]) is too close to call. |
-| **Impact of HydraDB and the graph:** would it fall apart on a plain store? | We built the **strongest plain store we could**: vector search, drop records whose status says superseded, prefer the newest close match, and remember past corrections, with its settings tuned to give it its best score. | Plain store 56% right [43%–69%]; DecisionGraph is +25 points better [+10 to +40]. The plain store rarely returns a replaced record (4%), but often the wrong one: a status line can hide an old record, it can't say which record replaced it. Removing the walk along HydraDB links drops DecisionGraph from 74% to 62%. |
+| **Continual learning over a baseline:** real improvement, not a one-off? | The baseline is the **same graph with learning switched off**, run on the same question orders. | +23 points when a topic comes back in new words [+7 to +40]. Over all 50 questions the gain is +6 [−1 to +15], too close to call, and it costs 4 points on brand-new topics [−9 to 0]. Most of the gain is remembering corrected topics; learned rule trust does not yet change which links are followed. |
+| **Impact of HydraDB and the graph:** would it fall apart on a plain store? | **Not on this corpus.** An outside reviewer built a strong plain store with no graph database: the same seeding, the "superseded by" pointer each record names chased in a Python dict, and a memory of corrections. | Plain store 78% right; DecisionGraph +2 points better [−2 to +8], which is no real difference. On the 24 held-out questions: 96% against 88% (2 questions). With every "superseded by" line hidden, both score 67%. What the graph adds is in the open, not in the score: it keeps the links, their trust, the corrections and the questions as data an agent can query (`/api/learned`), and HydraDB runs the walks and updates. On 128 records that is a convenience, not a necessity. |
 
 ## Results
 
@@ -42,7 +42,7 @@ The test set is 50 hand-written questions about 128 real architecture decision r
 |---|---|---|---|---|---|
 | Vector search (MiniLM, top 3 passages) | 52% | 28% | 40% → 52% | 33% | 64% |
 | Vector search + memory of past corrections | 57% | 22% | 40% → 62% | 47% | 63% |
-| Best plain store: vector + status filter + newest + memory | 56% | 4% | 48% → 62% | 62% | 52% |
+| Strong plain store: same seeding + "superseded by" pointers in a dict + memory | 78% | 13% | 60% → 80% | 74% | 81% |
 | DecisionGraph seeding only, no walk (ablation) | 62% | 32% | 46% → 58% | 45% | 72% |
 | DecisionGraph, learning off | 74% | 18% | 60% → 72% | 61% | **82%** |
 | **DecisionGraph, learning on** | **80%** | **10%** | 60% → **88%** | **84%** | 78% |
@@ -51,8 +51,8 @@ The test set is 50 hand-written questions about 128 real architecture decision r
 
 ### What the numbers do and don't show
 
-**The walk does work a vector store can't.**
-- With identical seeds, following "replaced by" links takes accuracy from 62% to 74%.
+**Following "replaced by" links matters; a graph database is not required for it here.**
+- With identical seeds, following "replaced by" links takes accuracy from 62% to 74%. A plain dict that chases each record's "superseded by" pointer gets the same 74%.
 - It cuts outdated answers from 32% to 18%.
 - The other ten points over plain vector search come from term structure and a project filter in the seeding step. That step is cheap, but it isn't the graph walk.
 
@@ -90,7 +90,7 @@ The file also has 12 out-of-scope questions with no answer in the records, such 
 |---|---|---|---|---|
 | Vector search | 21% | 70% | 42% | 100% |
 | Vector search + memory | 86% | 70% | 79% | 100% |
-| Best plain store | 86% | 50% | 71% | 100% |
+| Strong plain store | 86% | 90% | 88% | 100% |
 | DecisionGraph, learning off | 57% | 100% | 75% | 100% |
 | **DecisionGraph, after learning** | **93%** | **100%** | **96%** | 92% |
 

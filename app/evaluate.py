@@ -24,7 +24,8 @@ import numpy as np
 
 from .corpus import DATA, build, chunks as make_chunks
 from .embed import embed, embed_cached, _load
-from .vector import PlainStore, VectorRAG, VectorRAGMemory
+from .plainstore import PlainStore
+from .vector import VectorRAG, VectorRAGMemory
 
 ROUNDS = 5
 NAMES = ["vector", "vector+memory", "plain-store", "seeds-only", "decisiongraph-frozen", "decisiongraph"]
@@ -183,7 +184,7 @@ def main(seeds=(7, 11, 23, 42, 99)):
     qvecs = {q["id"]: qv[i] for i, q in enumerate(questions)}
     vec = VectorRAG(recs, ch, cvecs)
     mem = VectorRAGMemory(recs, ch, cvecs)
-    plain = PlainStore(recs, ch, cvecs)
+    plain = PlainStore(recs, per, idf, links, ch, cvecs)
     graph = DecisionGraph(recs, per, idf, links, vec)
     H = json.load(open(os.path.join(DATA, "heldout.json")))
     heldout, oos = H["heldout"], H["out_of_scope"]
@@ -252,7 +253,7 @@ def main(seeds=(7, 11, 23, 42, 99)):
     report["ci"] = confidence(per_q)
     print("95% CI:", json.dumps(report["ci"]))
     print("held-out:", json.dumps(ho))
-    out = os.path.join(DATA, "results.json")
+    out = os.path.join(DATA, os.environ.get("RESULTS_FILE", "results.json"))
     json.dump(report, open(out, "w"), indent=1, default=str)
     for name, a in agg.items():
         print(f"{name:14} " + " | ".join(f"R{r['round']} acc {r['accuracy']:.2f} stale {r['stale_rate']:.2f} tok {r['tokens']:.0f}" for r in a["rounds"]))

@@ -200,16 +200,15 @@ function drawChecks(r) {
     <li>24 held-out questions from an independent reviewer: ${p(H.decisiongraph.all_heldout)} against ${p(H.vector.all_heldout)}</li>
     <li>Says “no decision on record” for ${p(H.decisiongraph.out_of_scope)} of out-of-scope questions</li></ul></div>
   <div class="check"><h3>Learning over a baseline</h3><p class="q">Is it better than the same graph with learning switched off?</p>
-    <div class="big">${pts(L.rounds_4_5.points)}<small>points in rounds 4 and 5 ${ptci(L.rounds_4_5.ci)}</small></div>
-    <ul><li>${pts(L.repeat_topic.points)} points when a topic comes back in new words ${ptci(L.repeat_topic.ci)}</li>
-    <li>Round 1 to 5: ${p(lr[0].accuracy)} to ${p(lr[4].accuracy)} learning, ${p(fr[0].accuracy)} to ${p(fr[4].accuracy)} without</li>
-    <li class="cost">Costs ${Math.abs(Math.round(L.first_seen.points * 100))} points on topics never seen before ${ptci(L.first_seen.ci)}</li>
-    <li class="cost">Over all 50 questions: ${pts(L.all.points)} points ${ptci(L.all.ci)}, too close to call</li></ul></div>
+    <div class="big">${pts(L.repeat_topic.points)}<small>points when a topic comes back in new words ${ptci(L.repeat_topic.ci)}</small></div>
+    <ul><li>Round 1 to 5: ${p(lr[0].accuracy)} to ${p(lr[4].accuracy)} learning, ${p(fr[0].accuracy)} to ${p(fr[4].accuracy)} without</li>
+    <li class="cost">Over all 50 questions: ${pts(L.all.points)} points ${ptci(L.all.ci)}, too close to call</li>
+    <li class="cost">Costs ${Math.abs(Math.round(L.first_seen.points * 100))} points on topics never seen before ${ptci(L.first_seen.ci)}</li></ul></div>
   <div class="check"><h3>Graph over a plain store</h3><p class="q">Would this fall apart on a plain store?</p>
-    <div class="big">${pts(D["plain-store"].points)}<small>points over the best plain store ${ptci(D["plain-store"].ci)}</small></div>
-    <ul><li>Best plain store we could build: vector search, drop records marked superseded, prefer the newest, remember corrections. ${p(S["plain-store"].accuracy)} right</li>
-    <li>It rarely returns a replaced record (${p(S["plain-store"].stale_rate)}), but often the wrong one</li>
-    <li>Same starting points with no walk along HydraDB links: ${p(S["seeds-only"].accuracy)}. With the walk: ${p(S["decisiongraph-frozen"].accuracy)}</li></ul></div>`;
+    <div class="big">${pts(D["plain-store"].points)}<small>points over a strong plain store ${ptci(D["plain-store"].ci)}</small></div>
+    <ul><li>Not on this corpus. A store with no graph database, using the same starting points, chasing each record's “superseded by” pointer and remembering corrections, gets ${p(S["plain-store"].accuracy)}</li>
+    <li>Held-out questions: ${p(H.decisiongraph.all_heldout)} against ${p(H["plain-store"].all_heldout)}</li>
+    <li>What the graph adds is visible, not scored: every link, its trust and the question that changed it, queryable by an agent, with walks and updates run in HydraDB</li></ul></div>`;
 }
 
 async function loadResults() {

@@ -157,9 +157,10 @@ def candidate_links(recs, per_terms, idf):
         if key not in links or RULE_PRIOR[rule] > RULE_PRIOR[links[key]["rule"]]:
             links[key] = dict(new=new["id"], old=old["id"], rule=rule, evidence=evidence[:200])
 
+    hide = os.environ.get("HIDE_STATUS_LINKS") == "1"  # experiment: pretend no record names its replacement
     for r in recs:
         # rule 1: the status section of an ADR names its replacement
-        st = r["status_section"]
+        st = "" if hide else r["status_section"]
         if re.search(r"supersed|rejected|amended by|see \[", st, re.I):
             for m in re.finditer(r"\]\((?:[^)\s]*/)?\.?/?0*(\d{1,4})-[^)/]*\.md\)", st):
                 tgt = by_proj_num.get((r["project"], int(m.group(1))))

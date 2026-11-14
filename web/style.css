@@ -281,7 +281,7 @@ figcaption span.dash::before { background: repeating-linear-gradient(90deg, var(
 .check h3 { font-size: 21px; font-stretch: 75%; margin-bottom: 4px; }
 .check .q { color: var(--ink-2); font-size: 14.5px; margin: 0 0 14px; }
 .check .big { font-size: 46px; line-height: 1; font-weight: 850; font-stretch: 72%; color: var(--teal); font-variant-numeric: tabular-nums; }
-.check .big small { font-size: 15px; font-weight: 600; color: var(--ink-2); font-stretch: 100%; margin-left: 6px; }
+.check .big small { display: block; font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--ink-2); font-stretch: 100%; margin-top: 6px; }
 .check ul { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
 .check li { padding-left: 14px; border-left: 3px solid var(--mustard); }
 .check li.cost { border-color: var(--rust); }
