@@ -24,7 +24,7 @@
   <section class="hero">
     <div class="hero-copy">
       <h1>Ask what your team decided. Get the decision that still stands.</h1>
-      <p class="lede">Teams write a decision down, then change their minds and write another. Search finds the old one as easily as the new one, so agents and new joiners act on decisions that were replaced years ago. DecisionGraph links every decision to the ones that replaced it, walks those links to the current answer, and gets sharper every time someone corrects it.</p>
+      <p class="lede">Teams write a decision down, then change their minds and write another. Search finds the old one as easily as the new one, so agents and new joiners act on decisions that were replaced years ago. DecisionGraph links every decision to the ones that replaced it, walks those links to the current answer, and learns from every correction.</p>
     </div>
     <div class="hero-art" id="hero-art" aria-hidden="false"></div>
     <div class="hero-ask">
@@ -68,7 +68,7 @@
 
   <section id="learning" class="learning"><div class="sheet reveal">
     <h2>Does it learn?</h2>
-    <p class="lede narrow">We ask 50 questions in five rounds of ten. Every system answers each question before it is told the right answer, then gets the correction, so every score is on a question it had not been told about. Mean of five question orders. On 24 held-out questions written by an outside reviewer, the trained graph is right 96% of the time, against 42% for vector search.</p>
+    <p class="lede narrow">We ask 50 questions in five rounds of ten. Every system answers each question before it is told the right answer, then gets the correction, so every score is on a question it had not been told about. Mean of five question orders. On 24 held-out questions written by an independent AI reviewer, the trained graph is right 96% of the time, against 42% for vector search.</p>
     <figure class="chart">
       <svg id="chart" viewBox="0 0 720 340" role="img" aria-label="Share of questions answered with the current decision, per round"></svg>
       <figcaption id="legend"></figcaption>
@@ -106,7 +106,7 @@
       <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><rect x="4" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-28 4 40)"/><rect x="16" y="12" width="9" height="28" fill="#f7f7f4" stroke="#1c2638" stroke-width="1.6" transform="rotate(-14 16 40)"/><rect x="31" y="10" width="10" height="30" fill="#2f8f99" stroke="#1c2638" stroke-width="1.6"/></svg><h3>Walk to what replaced it</h3><p>One <code>algo.MSpaths</code> call in HydraDB follows trusted <em>replaced by</em> links, with trust stored as path cost, until it reaches a decision nothing has replaced. The agent gets that decision and its history, about 130 tokens instead of 590. If nothing is close enough, it says there is no decision on record.</p></li>
       <li><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M5 9h12a5 5 0 1 1 10 0h12v12a5 5 0 1 0 0 10v10H5V31a5 5 0 1 1 0-10z" fill="#4a6496" stroke="#1c2638" stroke-width="1.6"/><path d="M14 25l6 6 12-13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Learn from the correction</h3><p>Each correction is stored as a question in the graph. It confirms or rejects the links it walked, proposes a missing link, adjusts rule trust, and points the question's words at the topic. When the topic comes back in new words, the graph is right 84% of the time, against 47% for vector search with memory.</p></li>
     </ol>
-    <p class="why reveal">Why not a vector store? It can't say that one document replaced another, so it has no way to walk from an old decision to the current one. Remembering past answers doesn't fix that either. It only helps when the next question is worded almost the same. In our test, adding that memory raised vector search from 52% to 57%. The graph reached 80%, and 88% by the last round.</p>
+    <p class="why reveal">Why not a vector store? It can't say that one document replaced another, so it has no way to walk from an old decision to the current one. Remembering past answers helps with questions that come back, but it still can't tell old from current on anything new. In our test, adding that memory raised vector search from 52% to 57%. The graph reached 80%, and 88% by the last round.</p>
   </section>
 </main>
 

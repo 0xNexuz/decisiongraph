@@ -98,7 +98,7 @@ function renderResult(res) {
   const hops = g.path.length;
   const walked = hops ? `Started at ADR ${g.start.num} and walked ${hops} trusted ${hops === 1 ? "link" : "links"} with one algo.MSpaths call` : "The question landed on this decision directly, so there was nothing to walk";
   const hist = g.lineage.length ? ` The history comes from walking ${g.lineage.length} trusted ${g.lineage.length === 1 ? "link" : "links"} backwards.` : "";
-  $("#graph-meter").innerHTML = `Hands the agent <b>${g.tokens}</b> tokens. ${walked}.${hist} ${g.ms} ms in HydraDB.${g.replaced ? " Warning: this record is marked replaced, but the graph does not trust any replacement yet." : ""}`;
+  $("#graph-meter").innerHTML = `Hands the agent <b>${g.tokens}</b> tokens. ${walked}.${hist} Answered in ${g.ms} ms.${g.replaced ? " Warning: this record is marked replaced, but the graph does not trust any replacement yet." : ""}`;
 }
 
 async function ask(q) {

@@ -66,7 +66,7 @@ def find_decisions(search: str = "") -> str:
 def correct_decision(question: str, correct_decision_id: str) -> str:
     """Tell DecisionGraph which decision was actually right for a question (an id like
     'cloud-platform:48', from current_decision or find_decisions). The graph learns from it, so
-    the next agent asking in any wording gets it right."""
+    later questions on the same topic, in other words too, are more likely to get it right."""
     r = _call("/api/feedback", {"q": question, "correct": correct_decision_id})
     lines = [f"Learned {len(r['changes'])} change(s)."]
     lines += [f"- {c.get('kind')}: {c.get('frm_title') or c.get('frm', '')} -> {c.get('to_title') or c.get('to', '')}".rstrip(" ->")

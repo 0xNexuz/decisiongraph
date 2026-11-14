@@ -69,7 +69,7 @@ Rule trust moves too. The dashed tick is where each rule started; the solid line
 
 ### Held-out questions (not used for tuning)
 
-`data/heldout.json` holds 24 questions written by a separate reviewer during an outside review of this project:
+`data/heldout.json` holds 24 questions written by an independent AI reviewer that had not seen the build, during an outside review of this project. They were added in the same commit as the fixes from that review, so treat them as a check rather than a sealed test:
 - 14 revisit test topics in new words.
 - 10 are about topics the test never asks.
 
@@ -209,10 +209,13 @@ On startup the app builds the graph and teaches it the 50 test corrections, so t
 
 ## Honest limits
 
-- 50 test questions over 128 ADRs is a small test. The test questions and the graph's constants were written and set by us; the held-out questions were written by a separate reviewer and not used for tuning.
+- 50 test questions over 128 ADRs is a small test. The test questions and the graph's constants were written and set by us; the held-out questions were written by an independent AI reviewer and were not used to set constants, but they arrived with the review fixes.
 - At this size, a plain Python dictionary could hold the same graph. HydraDB runs the traversals, path searches and trust updates here, and is what would let this grow to an organisation's full decision history.
 - Learning slightly lowers accuracy on brand-new topics (82% → 78%), as described above.
 - The demo's corrections are shared by everyone using it. Each new correction only proposes a link, and replays run in a separate cell.
+- Anyone can correct the public demo, so a bad correction can change the answer to that exact question for everyone. A real deployment would only take corrections from team members.
+- It still misses. Some questions get a confident wrong answer instead of "no decision on record" (an outside reviewer asked how secrets are managed and got the EKS record), and a correction carries over to some rewordings but not all.
+- Part of the rise across rounds comes from question order, since learning-off also rises from 60% to 84% by round 3. The learning effect is the gap between the two lines: 0, +4, 0, +12 and +16 points.
 - Restarting the app rebuilds the graph from scratch. Note for HydraDB: a restarted `graph-node` numbers HTTP queries from 1 again, so reusing an old store can collide with stored idempotency keys. `start.sh` starts from an empty store for this reason.
 
 ## Data and licences

@@ -7,7 +7,7 @@ import time
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .corpus import DATA, PROJECT_LABEL, RULE_PRIOR, build, chunks as make_chunks
 from .embed import embed, embed_cached
@@ -90,11 +90,11 @@ def describe(changes):
 
 
 class Ask(BaseModel):
-    q: str
+    q: str = Field(min_length=3, max_length=300)
 
 
 class Feedback(BaseModel):
-    q: str
+    q: str = Field(min_length=3, max_length=300)
     correct: str
 
 
