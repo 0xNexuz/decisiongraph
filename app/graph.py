@@ -257,7 +257,7 @@ class DecisionGraph:
                             to_title=b["title"], project=a["project"], rule=r["rule"], state=r["state"],
                             before=RULE_PRIOR[r["rule"]] if r["rule"] != "learned" else None,
                             question=texts.get(r["by"])))
-        order = {"confirmed": 0, "pending": 1, "rejected": 2}
+        order = {"confirmed": 0, "rejected": 1, "pending": 2}
         out.sort(key=lambda x: (x["rule"] == "status-link", order[x["state"]], x["frm"]))
         return out
 
